@@ -1,9 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Noticia+Text:wght@400;700&family=Raleway:wght@700;900&display=swap");
+
 * {
 	margin: 0;
 	padding: 0;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: "Raleway", sans-serif;
+	color: var(--color-text);
+}
+
 .App {
 	background: linear-gradient(90deg, #070000 0%, #220001 50%, #070000 100%);
-  height: 100vh;
+	height: 100vh;
+	display: grid;
+	grid-template-columns: 30% 70%;
+	grid-template-rows: 90% 10%;
+
+}
+
+footer {
+	grid-column: 1 / span 2;
+}
+
+main,
+aside,
+footer {
+	background: var(--color-dark-gray);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  border: 1px solid var(--color-light-gray);
 }
