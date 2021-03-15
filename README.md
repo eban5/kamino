@@ -1,4 +1,4 @@
-# kamino
+![Kamino Logo](/src/images/kamino-brand.png)
 
 Kamino is a Spotify clone.
 
