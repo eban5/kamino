@@ -4,6 +4,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { LibraryMusic } from "@material-ui/icons";
 // import { useDataLayerValue } from "./DataLayer";
 import { Icon } from "@material-ui/core";
+import kaminoBrand from './images/kamino-brand.png';
 
 const SidebarItem = (props: any) => {
 	const title: string = props.title;
@@ -23,8 +24,8 @@ export const Sidebar = () => {
 		<div className="sidebar">
 			<img
 				className="sidebar__logo"
-				src="https://music-b26f.kxcdn.com/wp-content/uploads/2017/06/635963274692858859903160895_spotify-logo-horizontal-black.jpg"
-				alt="Spotify logo"
+				src={kaminoBrand}
+				alt="Kamino logo"
         height={50}
 			/>
 
