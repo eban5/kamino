@@ -5,7 +5,8 @@ import { Sidebar } from "./Sidebar";
 import Controls from "./Controls";
 import { Container, Grid, Paper } from "@material-ui/core";
 
-export const Home = () => {
+const QuickPlaylists = () => {
+	// TODO remove when real data is in place
 	const dummyPlaylistNames = [
 		"Old School Hip Hop",
 		"70s Classic Rock",
@@ -31,6 +32,56 @@ export const Home = () => {
 	);
 };
 
+const RecentlyPlayed = () => {
+	const dummyAlbums = [
+		{ artist: "Thom Yorke", name: "The Eraser" },
+		{ artist: "Everything Everything", name: "Get To Heaven (Deluxe)" },
+		{ artist: "Toto", name: "Hold The Line" },
+		{ artist: "Pink Floyd", name: "The Wall" },
+		{ artist: "Pink Floyd", name: "Animals" },
+		{ artist: "Phoebe Bridgers", name: "Punisher" },
+	];
+
+	return (
+		<div className="recently-played-container">
+			{dummyAlbums.map((album: any) => {
+				return (
+					<div className="recently-played-item">
+						<div className="recently-played-item__image"></div>
+						<div className="recently-played-item__name">
+							<h3>{album.name}</h3>
+						</div>
+					</div>
+				);
+			})}
+		</div>
+	);
+};
+
+export const Home = () => {
+	return (
+		<Container maxWidth="lg">
+			<Grid container spacing={2}>
+				<Grid item lg={10}>
+					<Greeting />
+					<QuickPlaylists />
+				</Grid>
+			</Grid>
+			<Grid container spacing={3}>
+				<Grid item lg={10}>
+					<h2>Recently played</h2>
+					<RecentlyPlayed />
+				</Grid>
+			</Grid>
+			<Grid container spacing={3}>
+				<Grid item xs={12}>
+					<h2>Your top shows</h2>
+				</Grid>
+			</Grid>
+		</Container>
+	);
+};
+
 export const Greeting = () => {
 	const now = new Date();
 	const currentHour: number = now.getHours();
@@ -42,27 +93,10 @@ function App() {
 	return (
 		<div className="App">
 			<aside>
-				<Sidebar></Sidebar>
+				<Sidebar />
 			</aside>
 			<main>
-				<Container maxWidth="lg">
-					<Grid container spacing={3}>
-						<Grid item xs={12} md={8} lg={9}>
-							<Greeting />
-							<Home />
-						</Grid>
-					</Grid>
-					<Grid container spacing={3}>
-						<Grid item xs={12} md={4} lg={3}>
-							<h2>Recently played</h2>
-						</Grid>
-					</Grid>
-					<Grid container spacing={3}>
-						<Grid item xs={12}>
-							<h2>Your top shows</h2>
-						</Grid>
-					</Grid>
-				</Container>
+				<Home />
 			</main>
 			<footer>
 				<Controls />

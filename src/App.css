@@ -21,7 +21,6 @@ h6 {
 	display: grid;
 	grid-template-columns: 275px auto;
 	grid-template-rows: 90% 10%;
-
 }
 
 footer {
@@ -34,11 +33,18 @@ footer {
 	background: var(--color-dark-gray);
 	display: flex;
 	align-items: center;
-	justify-content:center;
-  border: 1px solid var(--color-light-gray);
+	justify-content: center;
+	border: 1px solid var(--color-light-gray);
 	padding: 20px;
 }
 
-main, aside {
-	justify-content:left;
+main,
+aside {
+	justify-content: left;
+}
+
+main {
+	overflow-y: scroll;
+	align-items: baseline;
+	padding-top: 100px;
 }
