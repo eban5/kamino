@@ -1,45 +1,5 @@
-.quick-playlist-container,
-.recently-played-container {
+.cards__horizontal-container,
+.cards__vertical-container {
 	display: flex;
 	flex-wrap: wrap;
-}
-.quick-playlist-item,
-.recently-played-item {
-	display: flex;
-	margin: 10px;
-	padding: 0;
-	border-radius: 3px;
-	font-size: 15px;
-	width: 240px;
-	height: 80px;
-	background-color: var(--color-light-gray);
-	flex-direction: row;
-}
-
-.recently-played-item {
-	flex-direction: column;
-	width: 200px;
-	height: 300px;
-}
-
-.quick-playlist-item__image,
-.recently-played-item__image {
-	display: inline-flex;
-	border-radius: 3px;
-	background-color: darkcyan;
-	height: 80px;
-	width: 80px;
-}
-
-.recently-played-item__image {
-	height: 200px;
-	width: 200px;
-}
-
-.quick-playlist-item__name,
-.recently-played-item__name {
-	display: inline-flex;
-	text-align: left;
-	align-items: center;
-	padding-left: 10px;
 }
