@@ -34,24 +34,23 @@ footer {
 
 main {
   background: var(--color-medium-gray);
-	overflow-y: scroll;
+  overflow-y: scroll;
   padding: 100px 0 0;
 }
 
 aside {
   background: var(--color-dark-gray);
+  height: 100%;
 }
 
 main,
 aside {
   align-items: baseline;
-	justify-content: left;
+  justify-content: left;
 }
 
 footer {
   background: var(--color-dark-gray);
   grid-column: 1 / span 2;
-	border-top: 0.5px solid var(--color-medium-gray);
+  border-top: 0.5px solid var(--color-medium-gray);
 }
-
-

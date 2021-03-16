@@ -6,6 +6,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { LibraryMusic } from '@material-ui/icons';
 import kaminoBrand from './images/kamino-brand.png';
+import { dummyPlaylistNames } from './utils';
 
 const SidebarItem = (props: any) => {
   const title: string = props.title;
@@ -22,7 +23,7 @@ export const Sidebar = () => {
   return (
     <div className="sidebar">
       <img
-        className="sidebar__logo"
+        className="sidebar-logo"
         src={kaminoBrand}
         alt="Kamino logo"
         height={50}
@@ -31,14 +32,17 @@ export const Sidebar = () => {
       <SidebarItem title="Home" Icon={HomeIcon} />
       <SidebarItem title="Search" Icon={SearchIcon} />
       <SidebarItem title="Your Library" Icon={LibraryMusic} />
-      <br />
-      <h5 className="sidebar__title">PLAYLISTS</h5>
-      <SidebarItem title="Create Playlist" Icon={AddBoxIcon} />
-      <SidebarItem title="Liked Songs" Icon={FavoriteIcon} />
-
-      {/* {playlists?.items?.map((playlist) => (
-				<SidebarItem title={playlist.name} />
-			))} */}
+      <div className="sidebar-playlist__controls">
+        <h5 className="sidebar-title">PLAYLISTS</h5>
+        <SidebarItem title="Create Playlist" Icon={AddBoxIcon} />
+        <SidebarItem title="Liked Songs" Icon={FavoriteIcon} />
+        <br />
+      </div>
+      <div className="sidebar-playlist__list">
+        {dummyPlaylistNames.map((playlistName: string) => (
+          <SidebarItem title={playlistName} />
+        ))}
+      </div>
     </div>
   );
 };

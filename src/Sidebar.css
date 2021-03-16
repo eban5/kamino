@@ -1,13 +1,24 @@
 .sidebar {
+  /* display: block; */
   width: 100%;
+  height: 100%;
 }
 
-.sidebar__logo {
+.sidebar-logo {
   padding-bottom: 20px;
 }
 
-.sidebar__title {
+.sidebar-title {
   color: var(--color-light-gray);
+  margin-top: 10px;
   padding: 10px 0;
+}
+
+.sidebar-playlist__list {
+  /* TODO get scrolling to work on playlist list */
+  overflow: auto;
+}
+
+.sidebar-playlist__controls {
   border-bottom: 0.5px solid var(--color-medium-gray);
 }
