@@ -6,6 +6,7 @@ import Controls from './Controls';
 import { Container, Grid } from '@material-ui/core';
 import Card from './Card';
 import { dummyAlbums, dummyPlaylistNames, dummyPodcasts } from './utils';
+import MenuBar from './MenuBar';
 
 const QuickPlaylists = () => {
   return (
@@ -52,6 +53,7 @@ const TopShows = () => {
 export const Home = () => {
   return (
     <Container maxWidth="xl">
+      <MenuBar />
       <Grid container spacing={5}>
         <Grid item lg={10}>
           <Greeting />
