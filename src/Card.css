@@ -1,47 +1,47 @@
 .card__horizontal-item,
 .card__vertical-item {
-	display: flex;
-	margin: 10px;
-	padding: 0;
-	border-radius: 3px;
-	font-size: 15px;
-	width: 240px;
-	height: 80px;
-	background-color: var(--color-light-gray);
-	flex-direction: row;
+  display: flex;
+  margin: 10px;
+  padding: 0;
+  border-radius: 3px;
+  font-size: 15px;
+  width: 240px;
+  height: 80px;
+  background-color: var(--color-light-gray);
+  flex-direction: row;
 }
 
 .card__vertical-item {
-	flex-direction: column;
-	width: 200px;
-	height: 100%;
+  flex-direction: column;
+  width: 200px;
+  height: 100%;
 }
 
 .card__horizontal-item__image,
 .card__vertical-item__image {
-	display: inline-flex;
-	border-radius: 3px;
-	background-color: darkcyan;
-	height: 80px;
-	width: 80px;
+  display: inline-flex;
+  border-radius: 3px;
+  background-color: darkcyan;
+  height: 80px;
+  width: 80px;
 }
 
 .card__vertical-item__image {
-	height: 200px;
-	width: 200px;
+  height: 200px;
+  width: 200px;
 }
 
 .card__horizontal-item__name,
 .card__vertical-item__name {
-	display: inline-flex;
-	text-align: left;
-	align-items: center;
-	padding-left: 10px;
+  display: inline-flex;
+  text-align: left;
+  align-items: center;
+  padding-left: 10px;
 }
 
 .card__vertical-item__name {
-	display: block;
-	justify-content: center;
-	height: 100px;
-	padding-top: 20px;
+  display: block;
+  justify-content: center;
+  height: 100px;
+  padding-top: 20px;
 }
