@@ -1,9 +1,10 @@
+import './Sidebar.css';
 import './SidebarItem.css';
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
+import AddBoxIcon from '@material-ui/icons/AddBox';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import { LibraryMusic } from '@material-ui/icons';
-// import { useDataLayerValue } from "./DataLayer";
-import { Icon } from '@material-ui/core';
 import kaminoBrand from './images/kamino-brand.png';
 
 const SidebarItem = (props: any) => {
@@ -18,8 +19,6 @@ const SidebarItem = (props: any) => {
 };
 
 export const Sidebar = () => {
-  // const [{ playlists }, dispatch] = {}
-
   return (
     <div className="sidebar">
       <img
@@ -33,8 +32,10 @@ export const Sidebar = () => {
       <SidebarItem title="Search" Icon={SearchIcon} />
       <SidebarItem title="Your Library" Icon={LibraryMusic} />
       <br />
-      <strong className="sidebar__title">PLAYLISTS</strong>
-      <hr />
+      <h5 className="sidebar__title">PLAYLISTS</h5>
+      <SidebarItem title="Create Playlist" Icon={AddBoxIcon} />
+      <SidebarItem title="Liked Songs" Icon={FavoriteIcon} />
+
       {/* {playlists?.items?.map((playlist) => (
 				<SidebarItem title={playlist.name} />
 			))} */}

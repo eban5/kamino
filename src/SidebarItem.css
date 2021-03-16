@@ -5,10 +5,12 @@
   height: 40px;
   cursor: pointer;
   transition: 200ms color ease-in;
+  width: 100%;
 }
 
 .sidebar-item:hover {
   color: white;
+  background-color: var(--color-medium-gray);
 }
 
 .sidebar-item__icon {

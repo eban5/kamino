@@ -3,7 +3,7 @@ import './Home.css';
 
 import { Sidebar } from './Sidebar';
 import Controls from './Controls';
-import { Container, Grid, Paper } from '@material-ui/core';
+import { Container, Grid } from '@material-ui/core';
 import Card from './Card';
 
 const QuickPlaylists = () => {
@@ -73,20 +73,21 @@ const TopShows = () => {
 
 export const Home = () => {
   return (
-    <Container maxWidth="lg">
-      <Grid container spacing={2}>
+
+    <Container maxWidth="xl">
+      <Grid container spacing={5}>
         <Grid item lg={10}>
           <Greeting />
           <QuickPlaylists />
         </Grid>
       </Grid>
-      <Grid container spacing={2}>
+      <Grid container spacing={5}>
         <Grid item lg={10}>
           <h2>Recently played</h2>
           <RecentlyPlayed />
         </Grid>
       </Grid>
-      <Grid container spacing={2}>
+      <Grid container spacing={5}>
         <Grid item lg={10}>
           <h2>Your top shows</h2>
           <TopShows />

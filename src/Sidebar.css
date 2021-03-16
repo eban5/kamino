@@ -1,0 +1,13 @@
+.sidebar {
+  width: 100%;
+}
+
+.sidebar__logo {
+  padding-bottom: 20px;
+}
+
+.sidebar__title {
+  color: var(--color-light-gray);
+  padding: 10px 0;
+  border-bottom: 0.5px solid var(--color-medium-gray);
+}

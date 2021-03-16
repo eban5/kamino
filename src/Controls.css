@@ -8,6 +8,14 @@
   background-color: #282828;
   padding: 20px;
 }
+.controls > div > svg {
+  /* padding: 0 10px; */
+  cursor: pointer;
+
+}
+.footer__center > svg {
+  padding: 0 10px;
+}
 .footer__left {
   flex: 0.3;
   display: flex;
