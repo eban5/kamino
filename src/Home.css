@@ -1,3 +1,31 @@
 .home {
+}
 
+.quick-playlist-container {
+	display: flex;
+	flex-wrap: wrap;
+}
+.quick-playlist-item {
+	display: flex;
+	margin: 10px;
+	padding: 0;
+	font-size: 15px;
+	width: 240px;
+	height: 80px;
+	background-color: var(--color-light-gray);
+	flex-direction: row;
+}
+
+.quick-playlist-item__image {
+	display: inline-flex;
+	background-color: darkcyan;
+	height: 80px;
+	width: 80px;
+}
+
+.quick-playlist-item__name {
+	display: inline-flex;
+	text-align: left;
+	align-items: center;
+	padding-left: 10px;
 }

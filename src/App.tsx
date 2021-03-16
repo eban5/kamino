@@ -6,7 +6,29 @@ import Controls from "./Controls";
 import { Container, Grid, Paper } from "@material-ui/core";
 
 export const Home = () => {
-	return <div className="home"></div>;
+	const dummyPlaylistNames = [
+		"Old School Hip Hop",
+		"70s Classic Rock",
+		"Chill-Hop",
+		"Classical",
+		"Movie Soundtracks",
+		"Extreme Polka",
+	];
+
+	return (
+		<div className="quick-playlist-container">
+			{dummyPlaylistNames.map((name: string) => {
+				return (
+					<div className="quick-playlist-item">
+						<div className="quick-playlist-item__image"></div>
+						<div className="quick-playlist-item__name">
+							<h3>{name}</h3>
+						</div>
+					</div>
+				);
+			})}
+		</div>
+	);
 };
 
 export const Greeting = () => {
@@ -27,7 +49,7 @@ function App() {
 					<Grid container spacing={3}>
 						<Grid item xs={12} md={8} lg={9}>
 							<Greeting />
-							<Paper>{}</Paper>
+							<Home />
 						</Grid>
 					</Grid>
 					<Grid container spacing={3}>
