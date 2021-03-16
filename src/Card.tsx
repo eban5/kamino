@@ -15,7 +15,11 @@ const Card = (props: CardProps) => {
 
   return (
     <div className={`card__${direction}-item`}>
-      <img className={`card__${direction}-item__image`} src={artwork}></img>
+      <img
+        className={`card__${direction}-item__image`}
+        src={artwork}
+        alt={`Album Art`}
+      />
       <div className={`card__${direction}-item__name`}>
         <h3>{title}</h3>
         {subtitle !== '' ? <p>{subtitle}</p> : <></>}

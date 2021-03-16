@@ -39,8 +39,8 @@ export const Sidebar = () => {
         <br />
       </div>
       <div className="sidebar-playlist__list">
-        {dummyPlaylistNames.map((playlistName: string) => (
-          <SidebarItem title={playlistName} />
+        {dummyPlaylistNames.map((playlistName: string, index: number) => (
+          <SidebarItem key={index} title={playlistName} />
         ))}
       </div>
     </div>

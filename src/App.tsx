@@ -10,8 +10,8 @@ import { dummyAlbums, dummyPlaylistNames, dummyPodcasts } from './utils';
 const QuickPlaylists = () => {
   return (
     <div className="cards__horizontal-container">
-      {dummyPlaylistNames.slice(0, 6).map((name: string) => {
-        return <Card direction="horizontal" title={name} />;
+      {dummyPlaylistNames.slice(0, 6).map((name: string, index: number) => {
+        return <Card key={index} direction="horizontal" title={name} />;
       })}
     </div>
   );
@@ -20,8 +20,13 @@ const QuickPlaylists = () => {
 const RecentlyPlayed = () => {
   return (
     <div className="cards__vertical-container">
-      {dummyAlbums.map((album: any) => (
-        <Card direction="vertical" title={album.name} subtitle={album.artist} />
+      {dummyAlbums.map((album: any, index: number) => (
+        <Card
+          key={index}
+          direction="vertical"
+          title={album.name}
+          subtitle={album.artist}
+        />
       ))}
     </div>
   );
@@ -30,9 +35,10 @@ const RecentlyPlayed = () => {
 const TopShows = () => {
   return (
     <div className="cards__vertical-container">
-      {dummyPodcasts.map((podcast: any) => {
+      {dummyPodcasts.map((podcast: any, index: number) => {
         return (
           <Card
+            key={index}
             direction="vertical"
             title={podcast.name}
             subtitle={podcast.producer}

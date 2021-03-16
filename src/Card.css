@@ -9,19 +9,25 @@
   height: 80px;
   background-color: var(--color-light-gray);
   flex-direction: row;
+  cursor: pointer;
 }
 
 .card__vertical-item {
   flex-direction: column;
   width: 200px;
   height: 100%;
+  padding: 10px;
+}
+
+.card__horizontal-item:hover,.card__vertical-item:hover {
+  box-shadow: 30px 30px 30px rgba(0, 0, 0, 0.5);
+  background-color: var(--color-kamino-blue);
 }
 
 .card__horizontal-item__image,
 .card__vertical-item__image {
   display: inline-flex;
   border-radius: 3px;
-  background-color: darkcyan;
   height: 80px;
   width: 80px;
 }
