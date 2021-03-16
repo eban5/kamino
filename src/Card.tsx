@@ -8,10 +8,14 @@ interface CardProps {
 const Card = (props: CardProps) => {
   const { direction, title } = props;
   const subtitle: string = props.subtitle || '';
+  const artwork: string =
+    direction === 'horizontal'
+      ? 'https://picsum.photos/200'
+      : 'https://picsum.photos/80';
 
   return (
     <div className={`card__${direction}-item`}>
-      <div className={`card__${direction}-item__image`}></div>
+      <img className={`card__${direction}-item__image`} src={artwork}></img>
       <div className={`card__${direction}-item__name`}>
         <h3>{title}</h3>
         {subtitle !== '' ? <p>{subtitle}</p> : <></>}
