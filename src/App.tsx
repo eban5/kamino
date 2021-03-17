@@ -1,7 +1,13 @@
+import { useEffect, useState } from 'react';
+
 import './App.css';
 import './Home.css';
 
+import Login from './Login';
+import { getTokenFromUrl } from './spotify';
+
 import { Sidebar } from './Sidebar';
+
 import Controls from './Controls';
 import { Container, Grid } from '@material-ui/core';
 import Card from './Card';
@@ -85,18 +91,37 @@ export const Greeting = () => {
 };
 
 function App() {
+  const [token, setToken] = useState<string>('');
+
+  useEffect(() => {
+    const hash = getTokenFromUrl();
+    // reset the URL so that the access token is not shown
+    window.location.hash = '';
+    const _token = hash.access_token;
+
+    if (_token) {
+      setToken(_token);
+    }
+    console.log('token: ', _token);
+  }, []);
   return (
-    <div className="App">
-      <aside>
-        <Sidebar />
-      </aside>
-      <main>
-        <Home />
-      </main>
-      <footer>
-        <Controls />
-      </footer>
-    </div>
+    <>
+      {token ? (
+        <div className="App">
+          <aside>
+            <Sidebar />
+          </aside>
+          <main>
+            <Home />
+          </main>
+          <footer>
+            <Controls />
+          </footer>
+        </div>
+      ) : (
+        <Login />
+      )}
+    </>
   );
 }
 
