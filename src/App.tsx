@@ -5,14 +5,16 @@ import './Home.css';
 
 import Login from './Login';
 import { getTokenFromUrl } from './spotify';
+import SpotifyWebApi from 'spotify-web-api-js';
 
 import { Sidebar } from './Sidebar';
-
 import Controls from './Controls';
 import { Container, Grid } from '@material-ui/core';
 import Card from './Card';
 import { dummyAlbums, dummyPlaylistNames, dummyPodcasts } from './utils';
 import MenuBar from './MenuBar';
+
+const spotify = new SpotifyWebApi();
 
 const QuickPlaylists = () => {
   return (
@@ -101,8 +103,8 @@ function App() {
 
     if (_token) {
       setToken(_token);
+      spotify.setAccessToken(_token);
     }
-    console.log('token: ', _token);
   }, []);
   return (
     <>
