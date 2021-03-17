@@ -21,7 +21,7 @@ const SidebarItem = (props: any) => {
 
 const Sidebar = () => {
   //@ts-ignore
-  const [{ playlists }, dispatch] = useDataLayerValue();
+  const [{ playlists }] = useDataLayerValue();
 
   return (
     <div className="sidebar">

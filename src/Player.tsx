@@ -45,7 +45,6 @@ const QuickPlaylists = (props: QuickPlaylistsProps) => {
 
 const RecentlyPlayed = (props: RecentlyPlayedProps) => {
   const { items } = props;
-  console.log('items', items);
 
   return (
     <div className="cards__vertical-container">
@@ -113,8 +112,7 @@ const Top = (props: TopProps) => {
 export const Home = ({ spotify }) => {
   //@ts-ignore
   const [
-    { playlists, recently_played, discover_weekly, top_artists, top_tracks },
-    dispatch,
+    { playlists, recently_played, top_artists, top_tracks },
   ] = useDataLayerValue();
 
   return (
