@@ -1,97 +1,14 @@
 import { useEffect, useState } from 'react';
 
 import './App.css';
-import './Home.css';
-
 import Login from './Login';
+import Player from './Player';
 import { getTokenFromUrl } from './spotify';
 import SpotifyWebApi from 'spotify-web-api-js';
-
-import { Sidebar } from './Sidebar';
-import Controls from './Controls';
-import { Container, Grid } from '@material-ui/core';
-import Card from './Card';
-import { dummyAlbums, dummyPlaylistNames, dummyPodcasts } from './utils';
-import MenuBar from './MenuBar';
 import { useDataLayerValue } from './DataLayer';
 
 const spotify = new SpotifyWebApi();
 
-const QuickPlaylists = () => {
-  return (
-    <div className="cards__horizontal-container">
-      {dummyPlaylistNames.slice(0, 6).map((name: string, index: number) => {
-        return <Card key={index} direction="horizontal" title={name} />;
-      })}
-    </div>
-  );
-};
-
-const RecentlyPlayed = () => {
-  return (
-    <div className="cards__vertical-container">
-      {dummyAlbums.map((album: any, index: number) => (
-        <Card
-          key={index}
-          direction="vertical"
-          title={album.name}
-          subtitle={album.artist}
-        />
-      ))}
-    </div>
-  );
-};
-
-const TopShows = () => {
-  return (
-    <div className="cards__vertical-container">
-      {dummyPodcasts.map((podcast: any, index: number) => {
-        return (
-          <Card
-            key={index}
-            direction="vertical"
-            title={podcast.name}
-            subtitle={podcast.producer}
-          />
-        );
-      })}
-    </div>
-  );
-};
-
-export const Home = () => {
-  return (
-    <Container maxWidth="xl">
-      <MenuBar />
-      <Grid container spacing={5}>
-        <Grid item lg={10}>
-          <Greeting />
-          <QuickPlaylists />
-        </Grid>
-      </Grid>
-      <Grid container spacing={5}>
-        <Grid item lg={10}>
-          <h2>Recently played</h2>
-          <RecentlyPlayed />
-        </Grid>
-      </Grid>
-      <Grid container spacing={5}>
-        <Grid item lg={10}>
-          <h2>Your top shows</h2>
-          <TopShows />
-        </Grid>
-      </Grid>
-    </Container>
-  );
-};
-
-export const Greeting = () => {
-  const now = new Date();
-  const currentHour: number = now.getHours();
-  const term: string =
-    currentHour < 12 ? 'morning' : currentHour < 17 ? 'afternoon' : 'evening';
-  return <h1>Good {term}</h1>;
-};
 
 function App() {
   //@ts-ignore
@@ -133,17 +50,7 @@ function App() {
   return (
     <>
       {token ? (
-        <div className="App">
-          <aside>
-            <Sidebar />
-          </aside>
-          <main>
-            <Home />
-          </main>
-          <footer>
-            <Controls />
-          </footer>
-        </div>
+        <Player spotify={spotify} />
       ) : (
         <Login />
       )}

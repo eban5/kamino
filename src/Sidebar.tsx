@@ -19,7 +19,7 @@ const SidebarItem = (props: any) => {
   );
 };
 
-export const Sidebar = () => {
+const Sidebar = () => {
   return (
     <div className="sidebar">
       <img
@@ -46,3 +46,5 @@ export const Sidebar = () => {
     </div>
   );
 };
+
+export default Sidebar;

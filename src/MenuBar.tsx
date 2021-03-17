@@ -1,9 +1,17 @@
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { Avatar } from '@material-ui/core';
+import SpotifyWebApi from 'spotify-web-api-js';
+import { useDataLayerValue } from './DataLayer';
 
-const MenuBar = () => {
-  const testUser: string = 'Jeff Sinclair';
+interface MenuBarProps {
+  spotify: SpotifyWebApi.SpotifyWebApiJs;
+}
+
+const MenuBar = (props: MenuBarProps) => {
+  const { spotify } = props;
+  //@ts-ignore
+  const [{ user }, dispatch] = useDataLayerValue();
 
   return (
     <div className="menubar">
@@ -12,10 +20,8 @@ const MenuBar = () => {
         <ArrowForwardIosIcon className="menubar-arrows__forward" />
       </div>
       <div className="menubar-user">
-        <div className="menubar-user__avatar">
-          <AccountCircleIcon />
-        </div>
-        <div className="menubar-user__username">{testUser}</div>
+        <Avatar src={user?.images[0]?.url} alt={user?.display_name} />
+        <h4>{user?.display_name}</h4>
       </div>
     </div>
   );
