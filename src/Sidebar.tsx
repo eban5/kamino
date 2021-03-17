@@ -6,7 +6,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { LibraryMusic } from '@material-ui/icons';
 import kaminoBrand from './images/kamino-brand.png';
-import { dummyPlaylistNames } from './utils';
+import { useDataLayerValue } from './DataLayer';
 
 const SidebarItem = (props: any) => {
   const title: string = props.title;
@@ -20,6 +20,9 @@ const SidebarItem = (props: any) => {
 };
 
 const Sidebar = () => {
+  //@ts-ignore
+  const [{ playlists }, dispatch] = useDataLayerValue();
+
   return (
     <div className="sidebar">
       <img
@@ -39,8 +42,8 @@ const Sidebar = () => {
         <br />
       </div>
       <div className="sidebar-playlist__list">
-        {dummyPlaylistNames.map((playlistName: string, index: number) => (
-          <SidebarItem key={index} title={playlistName} />
+        {playlists?.items?.map((playlist: any, index: number) => (
+          <SidebarItem key={index} title={playlist.name} />
         ))}
       </div>
     </div>

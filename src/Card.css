@@ -4,7 +4,7 @@
   margin: 10px;
   padding: 0;
   border-radius: 3px;
-  font-size: 15px;
+  font-size: 14px;
   width: 240px;
   height: 80px;
   background-color: var(--color-light-gray);
@@ -19,7 +19,8 @@
   padding: 10px;
 }
 
-.card__horizontal-item:hover,.card__vertical-item:hover {
+.card__horizontal-item:hover,
+.card__vertical-item:hover {
   box-shadow: 30px 30px 30px rgba(0, 0, 0, 0.5);
   background-color: var(--color-kamino-blue);
 }
@@ -48,6 +49,6 @@
 .card__vertical-item__name {
   display: block;
   justify-content: center;
-  height: 100px;
+  height: 50px;
   padding-top: 20px;
 }

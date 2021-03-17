@@ -9,7 +9,6 @@ import { useDataLayerValue } from './DataLayer';
 
 const spotify = new SpotifyWebApi();
 
-
 function App() {
   //@ts-ignore
   const [{ user, token }, dispatch] = useDataLayerValue();
@@ -45,17 +44,33 @@ function App() {
           discover_weekly: playlist,
         });
       });
+      spotify.getMyRecentlyPlayedTracks().then((tracks: any) => {
+        dispatch({
+          type: 'SET_RECENTLY_PLAYED',
+          recently_played: tracks,
+        });
+      });
+      // get user's top artists
+      spotify
+        .getMyTopArtists()
+        .then((top: SpotifyApi.UsersTopArtistsResponse) => {
+          dispatch({
+            type: 'SET_TOP_ARTISTS',
+            top_artists: top,
+          });
+        });
+      // get user's top tracks
+      spotify
+        .getMyTopTracks()
+        .then((top: SpotifyApi.UsersTopTracksResponse) => {
+          dispatch({
+            type: 'SET_TOP_TRACKS',
+            top_tracks: top,
+          });
+        });
     }
   }, []);
-  return (
-    <>
-      {token ? (
-        <Player spotify={spotify} />
-      ) : (
-        <Login />
-      )}
-    </>
-  );
+  return <>{token ? <Player spotify={spotify} /> : <Login />}</>;
 }
 
 export default App;
