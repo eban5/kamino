@@ -4,7 +4,10 @@
 export const authEndpoint = 'https://accounts.spotify.com/authorize';
 
 // The redirectUri is the one which we gave in the Spotify Web API settings, this states where to take back the user if the Spotify login was successful.
-const redirectUri = 'http://localhost:3000/';
+const redirectUri =
+  process.env.NODE_ENV === 'production'
+    ? 'https://kamino.netlify.app/'
+    : 'http://localhost:3000/';
 
 // The clientId is the Client ID provided to you by the Spotify Web API
 const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
