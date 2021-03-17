@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "kamino-logo-192.png",
+      "src": "kamino192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "kamino-logo-512.png",
+      "src": "kamino512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
