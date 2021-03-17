@@ -13,6 +13,7 @@ import { Container, Grid } from '@material-ui/core';
 import Card from './Card';
 import { dummyAlbums, dummyPlaylistNames, dummyPodcasts } from './utils';
 import MenuBar from './MenuBar';
+import { useDataLayerValue } from './DataLayer';
 
 const spotify = new SpotifyWebApi();
 
@@ -93,7 +94,8 @@ export const Greeting = () => {
 };
 
 function App() {
-  const [token, setToken] = useState<string>('');
+  //@ts-ignore
+  const [{ user, token }, dispatch] = useDataLayerValue();
 
   useEffect(() => {
     const hash = getTokenFromUrl();
@@ -102,8 +104,30 @@ function App() {
     const _token = hash.access_token;
 
     if (_token) {
-      setToken(_token);
+      dispatch({
+        type: 'SET_TOKEN',
+        token: _token,
+      });
       spotify.setAccessToken(_token);
+      spotify.getMe().then((user: any) => {
+        dispatch({
+          type: 'SET_USER',
+          user,
+        });
+      });
+      spotify.getUserPlaylists().then((playlists: any) => {
+        dispatch({
+          type: 'SET_PLAYLISTS',
+          playlists,
+        });
+      });
+      // get Discover Weekly by ID
+      spotify.getPlaylist('37i9dQZF1E34Ucml4HHx1w').then((playlist: any) => {
+        dispatch({
+          type: 'SET_DISCOVER_WEEKLY',
+          discover_weekly: playlist,
+        });
+      });
     }
   }, []);
   return (
