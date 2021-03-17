@@ -10,7 +10,7 @@ interface MenuBarProps {
 
 const MenuBar = (props: MenuBarProps) => {
   const { spotify } = props;
-  console.log(spotify)
+  console.log(spotify);
   //@ts-ignore
   const [{ user }] = useDataLayerValue();
 
