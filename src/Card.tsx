@@ -23,8 +23,8 @@ const Card = (props: CardProps) => {
         alt={`Album Art`}
       />
       <div className={`card__${direction}-item__name`}>
-        <h4>{title}</h4>
-        {subtitle !== '' ? <p>{subtitle}</p> : <></>}
+        <h4 className={`card__${direction}-item__title`}>{title}</h4>
+        {subtitle !== '' ? <p className={`card__${direction}-item__subtitle`}>{subtitle}</p> : <></>}
       </div>
     </div>
   );
