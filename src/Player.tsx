@@ -32,9 +32,9 @@ const QuickPlaylists = (props: QuickPlaylistsProps) => {
       {playlists?.items &&
         playlists?.items
           .slice(0, 8)
-          .map((playlist: SpotifyApi.PlaylistBaseObject) => {
+          .map((playlist: SpotifyApi.PlaylistBaseObject, index: number) => {
             return (
-              <Link to={`/playlist/${playlist.id}`}>
+              <Link to={`/playlist/${playlist.id}`} key={index}>
                 <Card
                   key={playlist.id}
                   direction="horizontal"
@@ -51,16 +51,15 @@ const QuickPlaylists = (props: QuickPlaylistsProps) => {
 
 const RecentlyPlayed = (props: RecentlyPlayedProps) => {
   const { items } = props;
-  console.log('album items - recently played', items);
 
   return (
     <div className="cards__vertical-container">
       {items?.items &&
-        items?.items.slice(0, 10).map((item: any) => {
+        items?.items.slice(0, 10).map((item: any, index: number) => {
           const track: SpotifyApi.TrackObjectFull = item.track;
           if (track.type === 'track') {
             return (
-              <Link to={`/track/${item.id}`}>
+              <Link to={`/track/${item.id}`} key={index}>
                 <Card
                   key={track.id}
                   direction="vertical"
@@ -97,7 +96,7 @@ const Top = (props: TopProps) => {
     <div className="cards__vertical-container">
       {items?.items.slice(0, 10).map((item: any, index: number) => {
         return (
-          <Link to={`/artist/${item.id}`}>
+          <Link to={`/artist/${item.id}`} key={index}>
             <Card
               key={index}
               id={item.id}
@@ -164,7 +163,7 @@ const Player = ({ spotify }) => {
         <Sidebar />
       </aside>
       <main>
-        <MenuBar spotify={spotify} />
+        <MenuBar />
         <Switch>
           <Route
             exact

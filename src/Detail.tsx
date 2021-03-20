@@ -1,4 +1,3 @@
-import { RouteProps, RouterProps, withRouter } from 'react-router';
 import { useEffect, useState } from 'react';
 import './Detail.css';
 import Table from '@material-ui/core/Table';
@@ -7,10 +6,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-
-// import { Container, Grid } from '@material-ui/core';
-import { useDataLayerValue } from './DataLayer';
-import SpotifyWebApi from 'spotify-web-api-js';
 
 interface DetailProps {
   type?: 'artist' | 'album' | 'playlist';
@@ -32,7 +27,6 @@ const Detail = (props: DetailProps) => {
   } = props;
   const id: string = params.id;
 
-  const [detailId, setDetailId] = useState<string>('');
   const [playlist, setPlaylist] = useState<any>(null);
   const [tracks, setTracks] = useState<any>([]);
   const [artist, setArtist] = useState<any>(null);
@@ -53,7 +47,7 @@ const Detail = (props: DetailProps) => {
         console.log('trakcs', playlist.tracks);
       });
     }
-  }, [id]);
+  }, [id, type, spotify]);
 
   return (
     <div className="detail-view">

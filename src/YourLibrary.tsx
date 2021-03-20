@@ -32,7 +32,7 @@ const PlaylistGrid = (props: PlaylistGridProps) => {
         playlists.items?.map(
           (playlist: SpotifyApi.PlaylistBaseObject, index: number) => {
             return (
-              <Grid item lg={3}>
+              <Grid item lg={3} key={index}>
                 <Link to={`/playlist/${playlist.id}`}>
                   <Card
                     key={index}
@@ -56,8 +56,8 @@ const ArtistGrid = (props: ArtistGridProps) => {
       {artists &&
         artists.items?.map((artist: any, index: number) => {
           return (
-            <Grid item lg={3}>
-              <Link to={`/artist/${artist.id}`}>
+            <Grid item lg={3} key={index}>
+              <Link to={`/artist/${artist.id}`} key={index}>
                 <Card
                   key={index}
                   title={artist?.name}
@@ -77,15 +77,15 @@ const AlbumGrid = (props: AlbumGridProps) => {
   return (
     <>
       {albums &&
-        albums.items?.map((album: any, index: number) => {
+        albums.items?.map((item: any, index: number) => {
           return (
-            <Grid item lg={3}>
-              <Link to={`/album/${album.id}`}>
+            <Grid item lg={3} key={index}>
+              <Link to={`/album/${item?.album.id}`} key={index}>
                 <Card
                   key={index}
-                  title={album?.name}
+                  title={item?.album?.name}
                   direction="vertical"
-                  image={album?.images[0].url}
+                  image={item?.album?.images[0].url}
                 />
               </Link>
             </Grid>
@@ -97,9 +97,9 @@ const AlbumGrid = (props: AlbumGridProps) => {
 
 const YourLibrary = (props: YourLibraryProps) => {
   const { type } = props;
-  const {
-    match: { params },
-  } = props;
+  // const {
+  //   match: { params },
+  // } = props;
 
   //@ts-ignore
   const [{ playlists, top_artists, albums }] = useDataLayerValue();
