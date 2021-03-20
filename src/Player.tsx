@@ -95,8 +95,9 @@ const Top = (props: TopProps) => {
   return (
     <div className="cards__vertical-container">
       {items?.items.slice(0, 10).map((item: any, index: number) => {
+        const path: string = item.type === 'artist' ? 'artist' : 'track';
         return (
-          <Link to={`/artist/${item.id}`} key={index}>
+          <Link to={`/${path}/${item.id}`} key={index}>
             <Card
               key={index}
               id={item.id}

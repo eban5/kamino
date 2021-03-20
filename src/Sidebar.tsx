@@ -45,7 +45,9 @@ const Sidebar = () => {
       </div>
       <div className="sidebar-playlist__list">
         {playlists?.items?.map((playlist: any, index: number) => (
-          <SidebarItem key={index} title={playlist.name} />
+          <Link to={`/playlist/${playlist.id}`} key={index}>
+            <SidebarItem key={index} title={playlist.name} />
+          </Link>
         ))}
       </div>
     </div>

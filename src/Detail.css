@@ -2,7 +2,8 @@
   background-color: transparent !important;
 }
 
-.MuiTableCell-body, .MuiTableCell-head {
+.MuiTableCell-body,
+.MuiTableCell-head {
   color: white !important;
 }
 
@@ -25,12 +26,15 @@
   grid-template-areas:
     'image'
     'metadata';
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1fr 3fr;
+  margin: 30px;
 }
 
-.detail-view__header-metadata {
+.detail-view__header-info-metadata {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  margin-left: 15px;
 }
 
 .detail-view__header-info-type {
@@ -40,8 +44,15 @@
 }
 
 .detail-view__header-info-title {
-  font-size: 45px;
+  font-size: 75px;
   font-weight: 600;
+}
+.detail-view__header-info-title-long {
+  font-size: 30px;
+  font-weight: 600;
+}
+.detail-view__header-info-artist {
+  font-size: 20px;
 }
 
 .detail-view__header-info-image > img {
@@ -51,8 +62,11 @@
 .detail-view__user-controls {
   grid-area: controls;
   cursor: pointer;
+  margin: 30px;
 }
 .detail-view__user-list {
   grid-area: list;
   color: white;
+  font-size: 20px;
+  margin: 30px;
 }
