@@ -59,6 +59,15 @@ function App() {
             top_artists: top,
           });
         });
+      // get user's saved albums
+      spotify
+        .getMySavedAlbums()
+        .then((albums: SpotifyApi.UsersSavedAlbumsResponse) => {
+          dispatch({
+            type: 'SET_SAVED_ALBUMS',
+            albums,
+          });
+        });
       // get user's top tracks
       spotify
         .getMyTopTracks()

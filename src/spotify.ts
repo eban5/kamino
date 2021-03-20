@@ -16,6 +16,7 @@ const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const scopes = [
   'user-read-currently-playing',
   'user-read-recently-played',
+  'user-library-read',
   'user-read-playback-state',
   'user-top-read',
   'user-modify-playback-state',

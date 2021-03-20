@@ -96,6 +96,17 @@ footer {
   pointer-events: none;
 }
 
+.menubar-links-link {
+  display: inline-flex;
+  margin: 0 15px;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.menubar-links-link:hover {
+  background-color: var(--color-medium-gray);
+}
+
 .menubar-user {
   color: white;
   font-weight: 700;

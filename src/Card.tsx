@@ -5,6 +5,7 @@ interface CardProps {
   title: string;
   subtitle?: string;
   image?: string;
+  id?: string;
 }
 const Card = (props: CardProps) => {
   const { direction, title } = props;
@@ -24,7 +25,11 @@ const Card = (props: CardProps) => {
       />
       <div className={`card__${direction}-item__name`}>
         <h4 className={`card__${direction}-item__title`}>{title}</h4>
-        {subtitle !== '' ? <p className={`card__${direction}-item__subtitle`}>{subtitle}</p> : <></>}
+        {subtitle !== '' ? (
+          <p className={`card__${direction}-item__subtitle`}>{subtitle}</p>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
