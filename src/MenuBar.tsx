@@ -3,7 +3,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { Avatar } from '@material-ui/core';
 import SpotifyWebApi from 'spotify-web-api-js';
 import { useDataLayerValue } from './DataLayer';
-
+import { Link } from 'react-router-dom';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
 import Tabs from '@material-ui/core/Tabs';
@@ -56,33 +56,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const SimpleTabs = () => {
-  const classes = useStyles();
-  const [value, setValue] = useState<number>(0);
-
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
-  };
-
-  return (
-    <div className={classes.root}>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        aria-label="simple tabs example"
-      >
-        <Tab label="Playlists" {...a11yProps(0)} />
-        <Tab label="Artists" {...a11yProps(1)} />
-        <Tab label="Albums" {...a11yProps(2)} />
-      </Tabs>
-
-      <TabPanel value={value} index={0}></TabPanel>
-      <TabPanel value={value} index={1}></TabPanel>
-      <TabPanel value={value} index={2}></TabPanel>
-    </div>
-  );
-};
-
 const MenuBar = (props: MenuBarProps) => {
   // const { spotify } = props;
 
@@ -95,8 +68,16 @@ const MenuBar = (props: MenuBarProps) => {
         <ArrowBackIosIcon className="menubar-arrows__back" />
         <ArrowForwardIosIcon className="menubar-arrows__forward" />
       </div>
-      <div className="menubar-tabs">
-        <SimpleTabs />
+      <div className="menubar-links">
+        <Link to="/collections/playlists">
+          <h3 className="menubar-links-link">Playlists</h3>
+        </Link>
+        <Link to="/collections/artists">
+          <h3 className="menubar-links-link">Artists</h3>
+        </Link>
+        <Link to="/collections/albums">
+          <h3 className="menubar-links-link">Albums</h3>
+        </Link>
       </div>
       <div className="menubar-user">
         <Avatar src={user?.images[0]?.url} alt={user?.display_name} />
