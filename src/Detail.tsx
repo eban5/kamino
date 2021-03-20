@@ -56,7 +56,7 @@ const Detail = (props: DetailProps) => {
       default:
         break;
     }
-  }, [type]);
+  }, [type, id, spotify]);
 
   return (
     <div className="detail-view">
