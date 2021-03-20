@@ -29,25 +29,34 @@ const Detail = (props: DetailProps) => {
 
   const [playlist, setPlaylist] = useState<any>(null);
   const [tracks, setTracks] = useState<any>([]);
-  const [artist, setArtist] = useState<any>(null);
+  const [artist, setArtist] = useState<SpotifyApi.ArtistObjectFull>();
+  const [album, setAlbum] = useState<SpotifyApi.AlbumObjectFull>();
 
   useEffect(() => {
-    if (type === 'artist') {
-      spotify.getArtist(id).then((artist: any) => {
-        setArtist(artist);
-        console.log(artist);
-      });
-    }
+    switch (type) {
+      case 'artist':
+        spotify.getArtist(id).then((artist: any) => {
+          setArtist(artist);
+        });
+        break;
+      case 'playlist':
+        spotify.getPlaylist(id).then((playlist: any) => {
+          setPlaylist(playlist);
+          setTracks(playlist.tracks);
+          console.log(playlist);
+          console.log('trakcs', playlist.tracks);
+        });
+        break;
+      case 'album':
+        spotify.getAlbum(id).then((album: any) => {
+          setAlbum(album);
+        });
+        break;
 
-    if (id) {
-      spotify.getPlaylist(id).then((playlist: any) => {
-        setPlaylist(playlist);
-        setTracks(playlist.tracks);
-        console.log(playlist);
-        console.log('trakcs', playlist.tracks);
-      });
+      default:
+        break;
     }
-  }, [id, type, spotify]);
+  }, [type]);
 
   return (
     <div className="detail-view">
@@ -99,7 +108,7 @@ const Detail = (props: DetailProps) => {
           </Table>
         </TableContainer>
       </div>
-      <h1>{}</h1>
+
     </div>
   );
 };
