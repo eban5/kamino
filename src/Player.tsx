@@ -201,6 +201,13 @@ const Player = ({ spotify }) => {
               <YourLibrary {...props} type="artists" spotify={spotify} />
             )}
           />
+          <Route
+            exact
+            path="/collections/albums"
+            render={(props) => (
+              <YourLibrary {...props} type="albums" spotify={spotify} />
+            )}
+          />
           <Route path="/home">
             <Home spotify={spotify} />
           </Route>
