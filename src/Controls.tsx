@@ -2,10 +2,10 @@ import {
   PlayCircleOutline,
   SkipPrevious,
   SkipNext,
-  PlaylistPlay,
+  // PlaylistPlay,
   Shuffle,
   Repeat,
-  VolumeDown,
+  // VolumeDown,
 } from '@material-ui/icons';
 import './Controls.css';
 
