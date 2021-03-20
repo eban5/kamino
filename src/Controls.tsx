@@ -13,7 +13,7 @@ const Controls = () => {
   return (
     <div className="controls">
       <div className="footer__left">
-        <PlaylistPlay className="footer__icon" />
+        {/* <PlaylistPlay className="footer__icon" /> */}
       </div>
       <div className="footer__center">
         <Shuffle className="footer__green" />
@@ -23,7 +23,7 @@ const Controls = () => {
         <Repeat className="footer__green" />
       </div>
       <div className="footer__right">
-        <VolumeDown className="footer__icon" />
+        {/* <VolumeDown className="footer__icon" /> */}
       </div>
     </div>
   );
