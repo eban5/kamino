@@ -40,6 +40,11 @@ const reducer = (state: any, action: any) => {
         ...state,
         top_artists: action.top_artists,
       };
+    case 'SET_SAVED_ALBUMS':
+      return {
+        ...state,
+        albums: action.albums,
+      };
     case 'SET_TOP_TRACKS':
       return {
         ...state,

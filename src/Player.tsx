@@ -9,7 +9,7 @@ import Controls from './Controls';
 import MenuBar from './MenuBar';
 import Card from './Card';
 import Detail from './Detail';
-import YourLibrary from './YourLibrary'
+import YourLibrary from './YourLibrary';
 import { useDataLayerValue } from './DataLayer';
 
 interface TopProps {
@@ -90,23 +90,6 @@ const RecentlyPlayed = (props: RecentlyPlayedProps) => {
   );
 };
 
-// const TopShows = () => {
-//   return (
-//     <div className="cards__vertical-container">
-//       {dummyPodcasts.map((podcast: any, index: number) => {
-//         return (
-//           <Card
-//             key={index}
-//             direction="vertical"
-//             title={podcast.name}
-//             subtitle={podcast.producer}
-//           />
-//         );
-//       })}
-//     </div>
-//   );
-// };
-
 const Top = (props: TopProps) => {
   const { items } = props;
 
@@ -145,7 +128,6 @@ export const Home = ({ spotify }) => {
 
   return (
     <Container disableGutters={true} maxWidth={false}>
-      <MenuBar spotify={spotify} />
       <Grid container spacing={8}>
         <Grid item xl={12}>
           <Greeting />
@@ -182,6 +164,7 @@ const Player = ({ spotify }) => {
         <Sidebar />
       </aside>
       <main>
+        <MenuBar spotify={spotify} />
         <Switch>
           <Route
             exact
@@ -208,14 +191,22 @@ const Player = ({ spotify }) => {
             exact
             path="/collections/playlists"
             render={(props) => (
-              <Detail {...props} type="playlist" spotify={spotify} />
+              <YourLibrary {...props} type="playlists" spotify={spotify} />
+            )}
+          />
+          <Route
+            exact
+            path="/collections/artists"
+            render={(props) => (
+              <YourLibrary {...props} type="artists" spotify={spotify} />
             )}
           />
           <Route path="/home">
             <Home spotify={spotify} />
           </Route>
           <Route path="/">
-            <YourLibrary spotify={spotify} />
+            <Home spotify={spotify} />
+            {/* <YourLibrary spotify={spotify} /> */}
           </Route>
         </Switch>
       </main>
