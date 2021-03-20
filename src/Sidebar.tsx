@@ -7,6 +7,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import { LibraryMusic } from '@material-ui/icons';
 import kaminoBrand from './images/kamino-brand.png';
 import { useDataLayerValue } from './DataLayer';
+import { Link } from 'react-router-dom';
 
 const SidebarItem = (props: any) => {
   const title: string = props.title;
@@ -34,7 +35,9 @@ const Sidebar = () => {
 
       <SidebarItem title="Home" Icon={HomeIcon} />
       <SidebarItem title="Search" Icon={SearchIcon} />
-      <SidebarItem title="Your Library" Icon={LibraryMusic} />
+      <Link to="/collection/playlists">
+        <SidebarItem title="Your Library" Icon={LibraryMusic} />
+      </Link>
       <div className="sidebar-playlist__controls">
         <h5 className="sidebar-title">PLAYLISTS</h5>
         <SidebarItem title="Create Playlist" Icon={AddBoxIcon} />

@@ -1,0 +1,45 @@
+.detail-view {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-columns: 100%;
+  grid-template-rows: 30% 10% 60%;
+  grid-template-areas:
+    'header'
+    'controls'
+    'list';
+  color: white;
+}
+
+.detail-view__header {
+  grid-area: header;
+  display: grid;
+  grid-template-areas:
+    'image'
+    'metadata';
+  grid-template-columns: 25% 75%;
+}
+
+.detail-view__header-metadata {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-view__header-info--type {
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.detail-view__header-info-title {
+  font-size: 45px;
+  font-weight: 600;
+}
+
+.detail-view__user-controls {
+  grid-area: controls;
+}
+.detail-view__user-list {
+  grid-area: list;
+  color: white;
+}
