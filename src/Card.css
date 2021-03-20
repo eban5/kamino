@@ -7,7 +7,7 @@
   font-size: 14px;
   width: 240px;
   height: 80px;
-  background-color: var(--color-light-gray);
+  background-color: var(--color-medium-gray);
   flex-direction: row;
   cursor: pointer;
 }
@@ -49,6 +49,12 @@
 .card__vertical-item__name {
   display: block;
   justify-content: center;
-  height: 50px;
-  padding-top: 20px;
+  color: white;
+  height: 60px;
+  padding-top: 15px;
+}
+
+.card__vertical-item__title,
+.card__horizontal-item__title {
+  padding-bottom: 5px;
 }

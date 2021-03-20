@@ -4,6 +4,8 @@ html {
 	--color-medium-gray: #283038;
 	--color-light-gray: #789;
 	--color-kamino-blue: #0077c0;
+	--color-background-dark: #000000;
+	--color-background-medium: #181818;
 }
 
 body {
