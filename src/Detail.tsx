@@ -43,13 +43,13 @@ const Detail = (props: DetailProps) => {
         spotify.getPlaylist(id).then((playlist: any) => {
           setPlaylist(playlist);
           setTracks(playlist.tracks);
-          console.log(playlist);
-          console.log('trakcs', playlist.tracks);
         });
         break;
       case 'album':
         spotify.getAlbum(id).then((album: any) => {
           setAlbum(album);
+          // setTracks(album.tracks)
+          // console.log(album)
         });
         break;
 
@@ -66,7 +66,11 @@ const Detail = (props: DetailProps) => {
             src={
               type === 'artist'
                 ? artist?.images[0].url
-                : playlist?.images[0].url
+                : type === 'playlist'
+                ? playlist?.images[0].url
+                : type === 'album'
+                ? album?.images[0].url
+                : ''
             }
             height={150}
             width={150}
@@ -76,7 +80,12 @@ const Detail = (props: DetailProps) => {
         <div className="detail-view__header-info-metadata">
           <span className="detail-view__header-info--type">{type}</span>
           <h1 className="detail-view__header-info-title">
-            {type === 'artist' ? artist?.name : playlist?.name}
+            {/* // TODO - make just one detail item since they share structure */}
+            {type === 'artist'
+              ? artist?.name
+              : type === 'playlist'
+              ? playlist?.name
+              : album?.name}
           </h1>
         </div>
       </div>
@@ -97,7 +106,7 @@ const Detail = (props: DetailProps) => {
                   return (
                     <TableRow>
                       <TableCell>{index + 1}</TableCell>
-                      <TableCell>{item.track.name}</TableCell>
+                      <TableCell>{item?.track?.name}</TableCell>
                       <TableCell>
                         {millisToMinutesAndSeconds(item.track.duration_ms)}
                       </TableCell>
@@ -108,7 +117,6 @@ const Detail = (props: DetailProps) => {
           </Table>
         </TableContainer>
       </div>
-
     </div>
   );
 };
