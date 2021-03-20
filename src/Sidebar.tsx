@@ -26,19 +26,18 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar">
-      <img
-        className="sidebar-logo"
-        src={kaminoBrand}
-        alt="Kamino logo"
-        height={50}
-      />
+      <div className="sidebar-logo">
+        <img src={kaminoBrand} alt="Kamino logo" height={50} />
+      </div>
 
-      <SidebarItem title="Home" Icon={HomeIcon} />
-      <SidebarItem title="Search" Icon={SearchIcon} />
-      <Link to="/collection/playlists">
-        <SidebarItem title="Your Library" Icon={LibraryMusic} />
-      </Link>
       <div className="sidebar-playlist__controls">
+        <Link to="/">
+          <SidebarItem title="Home" Icon={HomeIcon} />
+        </Link>
+        <SidebarItem title="Search" Icon={SearchIcon} />
+        <Link to="/collections/playlists">
+          <SidebarItem title="Your Library" Icon={LibraryMusic} />
+        </Link>
         <h5 className="sidebar-title">PLAYLISTS</h5>
         <SidebarItem title="Create Playlist" Icon={AddBoxIcon} />
         <SidebarItem title="Liked Songs" Icon={FavoriteIcon} />
