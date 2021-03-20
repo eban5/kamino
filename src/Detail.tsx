@@ -6,6 +6,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
+import { PlayCircleOutline } from '@material-ui/icons';
+
+import './Controls.css';
 
 interface DetailProps {
   type?: 'artist' | 'album' | 'playlist';
@@ -32,24 +37,34 @@ const Detail = (props: DetailProps) => {
   const [artist, setArtist] = useState<SpotifyApi.ArtistObjectFull>();
   const [album, setAlbum] = useState<SpotifyApi.AlbumObjectFull>();
 
+  const [image, setImage] = useState<string>('');
+  const [title, setTitle] = useState<string>('');
+
   useEffect(() => {
     switch (type) {
       case 'artist':
         spotify.getArtist(id).then((artist: any) => {
           setArtist(artist);
+          setImage(artist?.images[0].url);
+          setTitle(artist?.name);
+          setTracks(artist?.tracks);
         });
         break;
       case 'playlist':
         spotify.getPlaylist(id).then((playlist: any) => {
           setPlaylist(playlist);
           setTracks(playlist.tracks);
+          setImage(playlist?.images[0].url);
+          setTitle(playlist?.name);
         });
         break;
       case 'album':
         spotify.getAlbum(id).then((album: any) => {
           setAlbum(album);
-          // setTracks(album.tracks)
-          // console.log(album)
+          setImage(album?.images[0].url);
+          setTitle(album?.name);
+          console.log('album', album);
+          setTracks(album?.tracks.items);
         });
         break;
 
@@ -61,37 +76,19 @@ const Detail = (props: DetailProps) => {
   return (
     <div className="detail-view">
       <div className="detail-view__header">
-        <div className="detail-view__header-info--image">
-          <img
-            src={
-              type === 'artist'
-                ? artist?.images[0].url
-                : type === 'playlist'
-                ? playlist?.images[0].url
-                : type === 'album'
-                ? album?.images[0].url
-                : ''
-            }
-            height={150}
-            width={150}
-            alt="albumart"
-          />
+        <div className="detail-view__header-info-image">
+          <img src={image} alt="albumart" />
         </div>
         <div className="detail-view__header-info-metadata">
-          <span className="detail-view__header-info--type">{type}</span>
-          <h1 className="detail-view__header-info-title">
-            {/* // TODO - make just one detail item since they share structure */}
-            {type === 'artist'
-              ? artist?.name
-              : type === 'playlist'
-              ? playlist?.name
-              : album?.name}
-          </h1>
+          <span className="detail-view__header-info-type">{type}</span>
+          <h1 className="detail-view__header-info-title">{title}</h1>
         </div>
       </div>
-      <div className="detail-view__user-controls"></div>
+      <div className="detail-view__user-controls">
+        <PlayCircleOutline fontSize="large" className="footer__icon" />
+      </div>
       <div className="detail-view__user-list">
-        <TableContainer>
+        <TableContainer component={Paper}>
           <Table>
             <TableHead>
               <TableRow>
@@ -102,13 +99,13 @@ const Detail = (props: DetailProps) => {
             </TableHead>
             <TableBody>
               {tracks &&
-                tracks.items?.map((item: any, index: number) => {
+                tracks.map((item: any, index: number) => {
                   return (
-                    <TableRow>
+                    <TableRow key={index}>
                       <TableCell>{index + 1}</TableCell>
-                      <TableCell>{item?.track?.name}</TableCell>
+                      <TableCell>{item?.name}</TableCell>
                       <TableCell>
-                        {millisToMinutesAndSeconds(item.track.duration_ms)}
+                        {millisToMinutesAndSeconds(item.duration_ms)}
                       </TableCell>
                     </TableRow>
                   );
