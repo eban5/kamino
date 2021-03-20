@@ -111,7 +111,7 @@ const Detail = (props: DetailProps) => {
               {tracks &&
                 tracks.map((item: any, index: number) => {
                   return (
-                    <TableRow key={index}>
+                    <TableRow key={index} className="detail-view-tracklist-row">
                       <TableCell>{index + 1}</TableCell>
                       <TableCell>{item?.name}</TableCell>
                       <TableCell>

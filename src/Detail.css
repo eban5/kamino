@@ -70,3 +70,16 @@
   font-size: 20px;
   margin: 30px;
 }
+
+.detail-view-tracklist-row {
+  border: none;
+}
+
+.detail-view-tracklist-row:hover {
+  background-color: var(--color-medium-gray);
+  cursor: pointer;
+}
+
+.MuiTableCell-root {
+  border: none !important;
+}
