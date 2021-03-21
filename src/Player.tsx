@@ -164,58 +164,60 @@ const Player = ({ spotify }) => {
         <Sidebar />
       </aside>
       <main>
-        <MenuBar />
-        <Switch>
-          <Route
-            exact
-            path="/artist/:id"
-            render={(props) => (
-              <Detail {...props} type="artist" spotify={spotify} />
-            )}
-          />
-          <Route
-            exact
-            path="/album/:id"
-            render={(props) => (
-              <Detail {...props} type="album" spotify={spotify} />
-            )}
-          />
-          <Route
-            exact
-            path="/playlist/:id"
-            render={(props) => (
-              <Detail {...props} type="playlist" spotify={spotify} />
-            )}
-          />
-          <Route
-            exact
-            path="/collections/playlists"
-            render={(props) => (
-              <YourLibrary {...props} type="playlists" spotify={spotify} />
-            )}
-          />
-          <Route
-            exact
-            path="/collections/artists"
-            render={(props) => (
-              <YourLibrary {...props} type="artists" spotify={spotify} />
-            )}
-          />
-          <Route
-            exact
-            path="/collections/albums"
-            render={(props) => (
-              <YourLibrary {...props} type="albums" spotify={spotify} />
-            )}
-          />
-          <Route path="/home">
-            <Home spotify={spotify} />
-          </Route>
-          <Route path="/">
-            <Home spotify={spotify} />
-            {/* <YourLibrary spotify={spotify} /> */}
-          </Route>
-        </Switch>
+        <Container>
+          <MenuBar />
+          <Switch>
+            <Route
+              exact
+              path="/artist/:id"
+              render={(props) => (
+                <Detail {...props} type="artist" spotify={spotify} />
+              )}
+            />
+            <Route
+              exact
+              path="/album/:id"
+              render={(props) => (
+                <Detail {...props} type="album" spotify={spotify} />
+              )}
+            />
+            <Route
+              exact
+              path="/playlist/:id"
+              render={(props) => (
+                <Detail {...props} type="playlist" spotify={spotify} />
+              )}
+            />
+            <Route
+              exact
+              path="/collections/playlists"
+              render={(props) => (
+                <YourLibrary {...props} type="playlists" spotify={spotify} />
+              )}
+            />
+            <Route
+              exact
+              path="/collections/artists"
+              render={(props) => (
+                <YourLibrary {...props} type="artists" spotify={spotify} />
+              )}
+            />
+            <Route
+              exact
+              path="/collections/albums"
+              render={(props) => (
+                <YourLibrary {...props} type="albums" spotify={spotify} />
+              )}
+            />
+            <Route path="/home">
+              <Home spotify={spotify} />
+            </Route>
+            <Route path="/">
+              <Home spotify={spotify} />
+              {/* <YourLibrary spotify={spotify} /> */}
+            </Route>
+          </Switch>
+        </Container>
       </main>
       <footer>
         <Controls />

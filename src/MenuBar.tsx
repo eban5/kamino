@@ -29,41 +29,40 @@ const MenuBar = () => {
   };
 
   return (
-    <Grid container>
-      <Grid item xs={12}>
-        <div className="menubar">
-          <div className="menubar-arrows">
-            <ArrowBackIosIcon
-              className="menubar-arrows__back"
-              onClick={() => history.goBack()}
-            />
-            <ArrowForwardIosIcon
-              className="menubar-arrows__forward"
-              onClick={() => history.goForward()}
-            />
-          </div>
-
-          <div className="menubar-user">
-            <Button
-              aria-controls="simple-menu"
-              aria-haspopup="true"
-              onClick={handleClick}
-            >
-              <Avatar src={user?.images[0]?.url} alt={user?.display_name} />
-              <h4>{user?.display_name}</h4>
-            </Button>
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>Account</MenuItem>
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>Log out</MenuItem>
-            </Menu>
-          </div>
+    <Grid container direction="row" justify="space-between" alignItems="center">
+      <Grid item>
+        <div className="menubar-arrows">
+          <ArrowBackIosIcon
+            className="menubar-arrows__back"
+            onClick={() => history.goBack()}
+          />
+          <ArrowForwardIosIcon
+            className="menubar-arrows__forward"
+            onClick={() => history.goForward()}
+          />
+        </div>
+      </Grid>
+      <Grid item>
+        <div className="menubar-user">
+          <Button
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            onClick={handleClick}
+          >
+            <Avatar src={user?.images[0]?.url} alt={user?.display_name} />
+            <h4>{user?.display_name}</h4>
+          </Button>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleClose}>Account</MenuItem>
+            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={handleClose}>Log out</MenuItem>
+          </Menu>
         </div>
       </Grid>
     </Grid>
