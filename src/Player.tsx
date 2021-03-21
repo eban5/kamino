@@ -1,7 +1,7 @@
 import { Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 import './Home.css';
-import { Container, Grid } from '@material-ui/core';
+import { Container, Grid, Typography } from '@material-ui/core';
 
 import Sidebar from './Sidebar';
 import Greeting from './Greeting';
@@ -28,24 +28,26 @@ const QuickPlaylists = (props: QuickPlaylistsProps) => {
   const { playlists } = props;
 
   return (
-    <div className="cards__horizontal-container">
+    <>
       {playlists?.items &&
         playlists?.items
           .slice(0, 8)
           .map((playlist: SpotifyApi.PlaylistBaseObject, index: number) => {
             return (
-              <Link to={`/playlist/${playlist.id}`} key={index}>
-                <Card
-                  key={playlist.id}
-                  direction="horizontal"
-                  title={playlist.name}
-                  image={playlist.images[0]?.url}
-                  id={playlist.id}
-                />
-              </Link>
+              <Grid item>
+                <Link to={`/playlist/${playlist.id}`} key={index}>
+                  <Card
+                    key={playlist.id}
+                    direction="horizontal"
+                    title={playlist.name}
+                    image={playlist.images[0]?.url}
+                    id={playlist.id}
+                  />
+                </Link>
+              </Grid>
             );
           })}
-    </div>
+    </>
   );
 };
 
@@ -53,39 +55,43 @@ const RecentlyPlayed = (props: RecentlyPlayedProps) => {
   const { items } = props;
 
   return (
-    <div className="cards__vertical-container">
+    <>
       {items?.items &&
         items?.items.slice(0, 10).map((item: any, index: number) => {
           const track: SpotifyApi.TrackObjectFull = item.track;
           if (track.type === 'track') {
             return (
-              <Link to={`/track/${item.id}`} key={index}>
-                <Card
-                  key={track.id}
-                  direction="vertical"
-                  title={track.name}
-                  subtitle={track.artists[0].name}
-                  image={track.album.images[1].url}
-                  id={track.id}
-                />
-              </Link>
+              <Grid item>
+                <Link to={`/track/${item.id}`} key={index}>
+                  <Card
+                    key={track.id}
+                    direction="vertical"
+                    title={track.name}
+                    subtitle={track.artists[0].name}
+                    image={track.album.images[1].url}
+                    id={track.id}
+                  />
+                </Link>
+              </Grid>
             );
           } else {
             return (
-              <Link to={`/album/${item.id}`}>
-                <Card
-                  key={track.id}
-                  direction="vertical"
-                  title={track.name}
-                  subtitle={track.artists[0].name}
-                  image={track.album.images[1].url}
-                  id={track.id}
-                />
-              </Link>
+              <Grid item>
+                <Link to={`/album/${item.id}`}>
+                  <Card
+                    key={track.id}
+                    direction="vertical"
+                    title={track.name}
+                    subtitle={track.artists[0].name}
+                    image={track.album.images[1].url}
+                    id={track.id}
+                  />
+                </Link>
+              </Grid>
             );
           }
         })}
-    </div>
+    </>
   );
 };
 
@@ -93,7 +99,7 @@ const Top = (props: TopProps) => {
   const { items } = props;
 
   return (
-    <div className="cards__vertical-container">
+    <>
       {items?.items.slice(0, 10).map((item: any, index: number) => {
         const path: string = item.type === 'artist' ? 'artist' : 'track';
         return (
@@ -115,7 +121,7 @@ const Top = (props: TopProps) => {
           </Link>
         );
       })}
-    </div>
+    </>
   );
 };
 
@@ -127,32 +133,56 @@ export const Home = ({ spotify }) => {
   ] = useDataLayerValue();
 
   return (
-    <Container disableGutters={true} maxWidth={false}>
-      <Grid container spacing={8}>
-        <Grid item xl={12}>
-          <Greeting />
-          <QuickPlaylists playlists={playlists} />
-        </Grid>
+    <>
+      <Typography variant="subtitle1" gutterBottom>
+        <Greeting />
+      </Typography>
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+      >
+        <QuickPlaylists playlists={playlists} />
       </Grid>
-      <Grid container spacing={5}>
-        <Grid item xl={12}>
-          <h2>Recently played</h2>
-          <RecentlyPlayed items={recently_played} />
-        </Grid>
+
+      <Typography variant="h4" gutterBottom>
+        Recently played
+      </Typography>
+
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+      >
+        <RecentlyPlayed items={recently_played} />
       </Grid>
-      <Grid container spacing={5}>
-        <Grid item xl={12}>
-          <h2>Top Artists</h2>
-          <Top items={top_artists} />
-        </Grid>
+
+      <Typography variant="h4" gutterBottom>
+        Top Artists
+      </Typography>
+
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+      >
+        <Top items={top_artists} />
       </Grid>
-      <Grid container spacing={5}>
-        <Grid item xl={12}>
-          <h2>Top Tracks</h2>
-          <Top items={top_tracks} />
-        </Grid>
+      <Typography variant="h4" gutterBottom>
+        Top Tracks
+      </Typography>
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+      >
+        <Top items={top_tracks} />
       </Grid>
-    </Container>
+    </>
   );
 };
 
