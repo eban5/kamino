@@ -50,7 +50,6 @@ const Detail = (props: DetailProps) => {
       switch (type) {
         case 'artist':
           spotify.getArtist(id).then((artist: SpotifyApi.ArtistObjectFull) => {
-            console.log('artist', artist);
             setImage(artist?.images[0].url);
             setTitle(artist?.name);
             setFollowers(artist?.followers.total);
@@ -105,13 +104,7 @@ const Detail = (props: DetailProps) => {
 
   return (
     <div className="detail-view">
-      <div
-        className="detail-view__header"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5),
-                       rgba(0, 0, 0, 0.5)), url(${image})`,
-        }}
-      >
+      <div className="detail-view__header">
         {type === 'artist' ? (
           <></>
         ) : (

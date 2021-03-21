@@ -4,7 +4,7 @@ import './Home.css';
 import { Container, Grid, Typography } from '@material-ui/core';
 
 import Sidebar from './Sidebar';
-import Greeting from './Greeting';
+import { greeting } from './Greeting';
 import Controls from './Controls';
 import MenuBar from './MenuBar';
 import Card from './Card';
@@ -34,7 +34,7 @@ const QuickPlaylists = (props: QuickPlaylistsProps) => {
           .slice(0, 8)
           .map((playlist: SpotifyApi.PlaylistBaseObject, index: number) => {
             return (
-              <Grid item>
+              <Grid item key={index}>
                 <Link to={`/playlist/${playlist.id}`} key={index}>
                   <Card
                     key={playlist.id}
@@ -59,37 +59,22 @@ const RecentlyPlayed = (props: RecentlyPlayedProps) => {
       {items?.items &&
         items?.items.slice(0, 10).map((item: any, index: number) => {
           const track: SpotifyApi.TrackObjectFull = item.track;
-          if (track.type === 'track') {
-            return (
-              <Grid item>
-                <Link to={`/track/${item.id}`} key={index}>
-                  <Card
-                    key={track.id}
-                    direction="vertical"
-                    title={track.name}
-                    subtitle={track.artists[0].name}
-                    image={track.album.images[1].url}
-                    id={track.id}
-                  />
-                </Link>
-              </Grid>
-            );
-          } else {
-            return (
-              <Grid item>
-                <Link to={`/album/${item.id}`}>
-                  <Card
-                    key={track.id}
-                    direction="vertical"
-                    title={track.name}
-                    subtitle={track.artists[0].name}
-                    image={track.album.images[1].url}
-                    id={track.id}
-                  />
-                </Link>
-              </Grid>
-            );
-          }
+          const path: string = track.type === 'track' ? 'track' : 'album';
+
+          return (
+            <Grid item key={index}>
+              <Link to={`/${path}/${track.id}`} key={index}>
+                <Card
+                  key={track.id}
+                  direction="vertical"
+                  title={track.name}
+                  subtitle={track.artists[0].name}
+                  image={track.album.images[1].url}
+                  id={track.id}
+                />
+              </Link>
+            </Grid>
+          );
         })}
     </>
   );
@@ -103,22 +88,24 @@ const Top = (props: TopProps) => {
       {items?.items.slice(0, 10).map((item: any, index: number) => {
         const path: string = item.type === 'artist' ? 'artist' : 'track';
         return (
-          <Link to={`/${path}/${item.id}`} key={index}>
-            <Card
-              key={index}
-              id={item.id}
-              direction="vertical"
-              title={item.name}
-              subtitle={item.type === 'track' ? item.artists[0].name : ''}
-              image={
-                item.type === 'artist'
-                  ? item.images[0].url
-                  : item.type === 'track'
-                  ? item.album.images[0].url
-                  : ''
-              }
-            />
-          </Link>
+          <Grid item key={index}>
+            <Link to={`/${path}/${item.id}`} key={index}>
+              <Card
+                key={index}
+                id={item.id}
+                direction="vertical"
+                title={item.name}
+                subtitle={item.type === 'track' ? item.artists[0].name : ''}
+                image={
+                  item.type === 'artist'
+                    ? item.images[0].url
+                    : item.type === 'track'
+                    ? item.album.images[0].url
+                    : ''
+                }
+              />
+            </Link>
+          </Grid>
         );
       })}
     </>
@@ -134,8 +121,8 @@ export const Home = ({ spotify }) => {
 
   return (
     <>
-      <Typography variant="subtitle1" gutterBottom>
-        <Greeting />
+      <Typography variant="h4" gutterBottom>
+        {greeting()}
       </Typography>
       <Grid
         container
