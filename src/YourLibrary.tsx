@@ -97,15 +97,27 @@ const AlbumGrid = (props: AlbumGridProps) => {
 
 const YourLibrary = (props: YourLibraryProps) => {
   const { type } = props;
-  // const {
-  //   match: { params },
-  // } = props;
 
   //@ts-ignore
   const [{ playlists, top_artists, albums }] = useDataLayerValue();
 
   return (
     <Container className="your-library" disableGutters={true} maxWidth={false}>
+      <Grid container spacing={5}>
+        <Grid item xs>
+          <div className="menubar-links">
+            <Link to="/collections/playlists">
+              <h3 className="menubar-links-link">Playlists</h3>
+            </Link>
+            <Link to="/collections/artists">
+              <h3 className="menubar-links-link">Artists</h3>
+            </Link>
+            <Link to="/collections/albums">
+              <h3 className="menubar-links-link">Albums</h3>
+            </Link>
+          </div>
+        </Grid>
+      </Grid>
       <Grid container spacing={5}>
         <Grid item xs>
           <h3 className="your-library-title">{type}</h3>
