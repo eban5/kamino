@@ -1,0 +1,63 @@
+.menubar {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  position: fixed;
+  align-items: center;
+  height: 60px;
+  top: 0;
+  width: 100%;
+  max-width: 1100px;
+  justify-content: space-between;
+}
+.menubar-arrows__back {
+  padding: 5px 0 5px 8px;
+}
+
+.menubar-arrows__forward {
+  padding: 5px 4px 5px 5px;
+}
+
+.menubar-arrows__back,
+.menubar-arrows__forward {
+  background-color: var(--color-dark-gray);
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 5px;
+  color: white;
+}
+
+.menubar-arrows__back:hover,
+.menubar-arrows__forward:hover {
+  background-color: var(--color-light-gray);
+}
+
+.menubar-spacer {
+  flex-grow: 1;
+  min-width: 0;
+  pointer-events: none;
+}
+
+.menubar-links-link {
+  display: inline-flex;
+  margin: 0 15px;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.menubar-links-link:hover {
+  background-color: var(--color-medium-gray);
+}
+
+.menubar-user {
+  color: white;
+  font-weight: 700;
+}
+
+.menubar-user__avatar {
+  display: inline-flex;
+}
+.menubar-user__username {
+  display: inline-flex;
+  align-items: center;
+}
