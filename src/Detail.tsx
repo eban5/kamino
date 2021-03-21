@@ -6,15 +6,22 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { Grid, Container } from '@material-ui/core';
 import { PlayCircleOutline } from '@material-ui/icons';
 
 import './Detail.css';
 import './Controls.css';
+import SpotifyWebApi from 'spotify-web-api-js';
 
 interface DetailProps {
   type?: 'artist' | 'album' | 'playlist';
   match?: any;
-  spotify?: any;
+  spotify?: SpotifyWebApi.SpotifyWebApiJs;
+}
+
+interface Albums {
+  singles: SpotifyApi.AlbumObjectFull[];
+  albums: SpotifyApi.AlbumObjectFull[];
 }
 
 const millisToMinutesAndSeconds = (millis: number): string => {
@@ -35,52 +42,85 @@ const Detail = (props: DetailProps) => {
   const [image, setImage] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [name, setName] = useState<string>('');
+  const [albums, setAlbums] = useState<Albums>({ singles: [], albums: [] });
+  const [followers, setFollowers] = useState<number>(0);
 
   useEffect(() => {
-    switch (type) {
-      case 'artist':
-        spotify.getArtist(id).then((artist: any) => {
-          setImage(artist?.images[0].url);
-          setTitle(artist?.name);
-          setTracks(artist?.tracks);
-        });
-        break;
-      case 'playlist':
-        spotify.getPlaylist(id).then((playlist: any) => {
-          const playlistTracks: any[] = playlist.tracks.items.map(
-            (item: any) => item.track
-          );
-          setImage(playlist?.images[0].url);
-          setTitle(playlist?.name);
-          setTracks(playlistTracks);
-        });
-        break;
-      case 'album':
-        spotify.getAlbum(id).then((album: any) => {
-          const artistList: string = album?.artists
-            .map((item: any) => item.name)
-            .join(', ');
+    if (spotify) {
+      switch (type) {
+        case 'artist':
+          spotify.getArtist(id).then((artist: SpotifyApi.ArtistObjectFull) => {
+            console.log('artist', artist);
+            setImage(artist?.images[0].url);
+            setTitle(artist?.name);
+            setFollowers(artist?.followers.total);
+          });
+          spotify.getArtistAlbums(id).then((albums: any) => {
+            const singles: SpotifyApi.AlbumObjectFull[] = albums.items.filter(
+              (album: SpotifyApi.AlbumObjectFull) =>
+                album.album_type === 'single'
+            );
+            const fulllength: SpotifyApi.AlbumObjectFull[] = albums.items.filter(
+              (album: SpotifyApi.AlbumObjectFull) =>
+                album.album_type === 'album'
+            );
 
-          setImage(album?.images[0].url);
-          setTitle(album?.name);
-          setName(artistList);
-          setTracks(album?.tracks.items);
-        });
-        break;
+            setAlbums({ singles: singles, albums: fulllength });
+          });
+          spotify
+            .getArtistTopTracks(id, 'US')
+            .then((top: SpotifyApi.ArtistsTopTracksResponse) => {
+              setTracks(top?.tracks);
+            });
 
-      default:
-        break;
+          break;
+        case 'playlist':
+          spotify.getPlaylist(id).then((playlist: any) => {
+            const playlistTracks: any[] = playlist.tracks.items.map(
+              (item: any) => item.track
+            );
+            setImage(playlist?.images[0].url);
+            setTitle(playlist?.name);
+            setTracks(playlistTracks);
+          });
+          break;
+        case 'album':
+          spotify.getAlbum(id).then((album: any) => {
+            const artistList: string = album?.artists
+              .map((item: any) => item.name)
+              .join(', ');
+
+            setImage(album?.images[0].url);
+            setTitle(album?.name);
+            setName(artistList);
+            setTracks(album?.tracks.items);
+          });
+          break;
+
+        default:
+          break;
+      }
     }
   }, [type, id, spotify]);
 
   return (
     <div className="detail-view">
-      <div className="detail-view__header">
+      <div
+        className="detail-view__header"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5),
+                       rgba(0, 0, 0, 0.5)), url(${image})`,
+        }}
+      >
         {type === 'artist' ? (
           <></>
         ) : (
           <div className="detail-view__header-info-image">
-            <img src={image} alt="albumart" />
+            <img
+              className="detail-view__header-info-image_background"
+              src={image}
+              alt="albumart"
+            />
           </div>
         )}
         <div className="detail-view__header-info-metadata">
@@ -91,6 +131,7 @@ const Detail = (props: DetailProps) => {
             <h1 className="detail-view__header-info-title">{title}</h1>
           )}
           <h5 className="detail-view__header-info-artist">{name}</h5>
+          <h6 className="detail-view__header-info-artist">{followers}</h6>
         </div>
       </div>
       <div className="detail-view__user-controls">
@@ -124,6 +165,43 @@ const Detail = (props: DetailProps) => {
           </Table>
         </TableContainer>
       </div>
+      <Container>
+        <Grid container>
+          <Grid item lg>
+            {type === 'artist' ? <h1>Discography</h1> : <></>}
+          </Grid>
+          <Grid item lg>
+            {type === 'artist' ? (
+              <>
+                <h2>Albums</h2>
+                <ul>
+                  {albums.albums.map((i: SpotifyApi.AlbumObjectFull) => (
+                    <li>{i.name}</li>
+                  ))}
+                </ul>
+                <h2>Singles</h2>
+                <ul>
+                  {albums.singles.map((i: SpotifyApi.AlbumObjectFull) => (
+                    <li>{i.name}</li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <p></p>
+            )}
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid item lg>
+            {type === 'artist' ? <h1>Appears On</h1> : <></>}
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid item lg>
+            {type === 'artist' ? <h1>Related Artists</h1> : <></>}
+          </Grid>
+        </Grid>
+      </Container>
     </div>
   );
 };
