@@ -2,17 +2,25 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { Avatar } from '@material-ui/core';
 import { useDataLayerValue } from './DataLayer';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const MenuBar = () => {
+  let history = useHistory();
+
   //@ts-ignore
   const [{ user }] = useDataLayerValue();
 
   return (
     <div className="menubar">
       <div className="menubar-arrows">
-        <ArrowBackIosIcon className="menubar-arrows__back" />
-        <ArrowForwardIosIcon className="menubar-arrows__forward" />
+        <ArrowBackIosIcon
+          className="menubar-arrows__back"
+          onClick={() => history.goBack()}
+        />
+        <ArrowForwardIosIcon
+          className="menubar-arrows__forward"
+          onClick={() => history.goForward()}
+        />
       </div>
       <div className="menubar-links">
         <Link to="/collections/playlists">
