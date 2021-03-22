@@ -55,6 +55,11 @@ const reducer = (state: any, action: any) => {
         ...state,
         devices: action.devices,
       };
+    case 'SET_CATEGORIES':
+      return {
+        ...state,
+        categories: action.categories,
+      };
     default:
       return state;
   }

@@ -10,6 +10,7 @@ import MenuBar from './MenuBar';
 import Card from './Card';
 import Detail from './Detail';
 import ArtistDetail from './ArtistDetail';
+import Browse from './Browse';
 import YourLibrary from './YourLibrary';
 import { useDataLayerValue } from './DataLayer';
 
@@ -188,9 +189,7 @@ const Player = ({ spotify }) => {
             <Route
               exact
               path="/artist/:id"
-              render={(props) => (
-                <ArtistDetail {...props} spotify={spotify} />
-              )}
+              render={(props) => <ArtistDetail {...props} spotify={spotify} />}
             />
             <Route
               exact
@@ -227,6 +226,9 @@ const Player = ({ spotify }) => {
                 <YourLibrary {...props} type="albums" spotify={spotify} />
               )}
             />
+            <Route path="/browse">
+              <Browse spotify={spotify} />
+            </Route>
             <Route path="/home">
               <Home spotify={spotify} />
             </Route>

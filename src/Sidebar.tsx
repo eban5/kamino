@@ -3,6 +3,7 @@ import './SidebarItem.css';
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
 import AddBoxIcon from '@material-ui/icons/AddBox';
+import ViewQuiltIcon from '@material-ui/icons/ViewQuilt';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { LibraryMusic } from '@material-ui/icons';
 import kaminoBrand from './images/kamino-brand.png';
@@ -35,6 +36,9 @@ const Sidebar = () => {
           <SidebarItem title="Home" Icon={HomeIcon} />
         </Link>
         <SidebarItem title="Search" Icon={SearchIcon} />
+        <Link to="/browse">
+          <SidebarItem title="Browse" Icon={ViewQuiltIcon} />
+        </Link>
         <Link to="/collections/playlists">
           <SidebarItem title="Your Library" Icon={LibraryMusic} />
         </Link>
