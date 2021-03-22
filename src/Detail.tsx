@@ -39,8 +39,8 @@ const Detail = (props: DetailProps) => {
   } = props;
   const id: string = params.id;
 
-  const [style, setStyle] = useState<any>({ display: 'none' });
-  const [hide, setHide] = useState<boolean>(false);
+  // const [style, setStyle] = useState<any>({ display: 'none' });
+  // const [hide, setHide] = useState<boolean>(false);
 
   const [tracks, setTracks] = useState<any>([]);
   const [image, setImage] = useState<string>('');
@@ -49,9 +49,9 @@ const Detail = (props: DetailProps) => {
   const [albums, setAlbums] = useState<Albums>({ singles: [], albums: [] });
   const [followers, setFollowers] = useState<number>(0);
 
-  const play = () => {
-    spotify && spotify.play();
-  };
+  // const play = () => {
+  //   spotify && spotify.play();
+  // };
 
   useEffect(() => {
     if (spotify) {
@@ -157,22 +157,7 @@ const Detail = (props: DetailProps) => {
                   const trackNum: number = index + 1;
                   return (
                     <TableRow key={index} className="detail-view-tracklist-row">
-                      <TableCell
-                        onMouseEnter={(e) => {
-                          setStyle({ display: 'block' });
-                        }}
-                        onMouseLeave={(e) => {
-                          setStyle({ display: 'none' });
-                        }}
-                      >
-                        {hide ? (
-                          trackNum
-                        ) : (
-                          <button onClick={play} style={style}>
-                            Play
-                          </button>
-                        )}
-                      </TableCell>
+                      <TableCell>{trackNum}</TableCell>
                       <TableCell>{item?.name}</TableCell>
                       <TableCell>
                         {millisToMinutesAndSeconds(item.duration_ms)}

@@ -38,12 +38,12 @@ const ArtistDetail = (props: DetailProps) => {
   const id: string = params.id;
 
   const [style, setStyle] = useState<any>({ display: 'none' });
-  const [hide, setHide] = useState<boolean>(false);
+  const [hide, setHide] = useState<boolean>(true);
 
   const [tracks, setTracks] = useState<any>([]);
-  const [image, setImage] = useState<string>('');
+  // const [image, setImage] = useState<string>('');
   const [title, setTitle] = useState<string>('');
-  const [name, setName] = useState<string>('');
+
   const [albums, setAlbums] = useState<Albums>({ singles: [], albums: [] });
   const [followers, setFollowers] = useState<number>(0);
 
@@ -54,7 +54,7 @@ const ArtistDetail = (props: DetailProps) => {
   useEffect(() => {
     if (spotify) {
       spotify.getArtist(id).then((artist: SpotifyApi.ArtistObjectFull) => {
-        setImage(artist?.images[0].url);
+        // setImage(artist?.images[0].url);
         setTitle(artist?.name);
         setFollowers(artist?.followers.total);
       });
@@ -85,7 +85,6 @@ const ArtistDetail = (props: DetailProps) => {
 
             <h1 className="detail-view__header-info-title">{title}</h1>
 
-            <h5 className="detail-view__header-info-artist">{name}</h5>
             <p className="detail-view__header-info-artist">
               {numberWithCommas(followers) + ' followers'}
             </p>
@@ -117,9 +116,11 @@ const ArtistDetail = (props: DetailProps) => {
                         <TableCell
                           onMouseEnter={(e) => {
                             setStyle({ display: 'block' });
+                            setHide(true);
                           }}
                           onMouseLeave={(e) => {
                             setStyle({ display: 'none' });
+                            setHide(false);
                           }}
                         >
                           {hide ? (
