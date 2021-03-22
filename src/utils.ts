@@ -48,3 +48,9 @@ export const greeting = () => {
 export const numberWithCommas = (num: number):string => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
+
+export const millisToMinutesAndSeconds = (millis: number): string => {
+  var minutes: number = Math.floor(millis / 60000);
+  var seconds: any = ((millis % 60000) / 1000).toFixed(0);
+  return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+};

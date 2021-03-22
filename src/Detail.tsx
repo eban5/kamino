@@ -12,7 +12,7 @@ import { PlayCircleOutline } from '@material-ui/icons';
 import './Detail.css';
 import './Controls.css';
 import SpotifyWebApi from 'spotify-web-api-js';
-import { numberWithCommas } from './utils';
+import { numberWithCommas, millisToMinutesAndSeconds } from './utils';
 
 interface DetailProps {
   type?: 'artist' | 'album' | 'playlist';
@@ -25,15 +25,8 @@ interface Albums {
   albums: SpotifyApi.AlbumObjectFull[];
 }
 
-const millisToMinutesAndSeconds = (millis: number): string => {
-  var minutes: number = Math.floor(millis / 60000);
-  var seconds: any = ((millis % 60000) / 1000).toFixed(0);
-  return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
-};
-
 const Detail = (props: DetailProps) => {
-  const { type } = props;
-  const { spotify } = props;
+  const { type, spotify } = props;
   const {
     match: { params },
   } = props;

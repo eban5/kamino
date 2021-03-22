@@ -81,12 +81,21 @@ function App() {
 
       // get user's available devices
       spotify.getMyDevices().then((devices: SpotifyApi.UserDevicesResponse) => {
-        console.log('devices', devices);
         dispatch({
           type: 'SET_DEVICES',
           devices: devices,
         });
       });
+
+      // get list of categories to browse through
+      spotify
+        .getCategories()
+        .then((categories: SpotifyApi.MultipleCategoriesResponse) => {
+          dispatch({
+            type: 'SET_CATEGORIES',
+            categories: categories,
+          });
+        });
     }
   }, [dispatch]);
   return <>{token ? <Player spotify={spotify} /> : <Login />}</>;
