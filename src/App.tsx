@@ -20,6 +20,7 @@ function App() {
     const _token = hash.access_token;
 
     if (_token) {
+      localStorage.setItem('kaminoToken', _token);
       dispatch({
         type: 'SET_TOKEN',
         token: _token,
@@ -77,6 +78,15 @@ function App() {
             top_tracks: top,
           });
         });
+
+      // get user's available devices
+      spotify.getMyDevices().then((devices: SpotifyApi.UserDevicesResponse) => {
+        console.log('devices', devices);
+        dispatch({
+          type: 'SET_DEVICES',
+          devices: devices,
+        });
+      });
     }
   }, [dispatch]);
   return <>{token ? <Player spotify={spotify} /> : <Login />}</>;

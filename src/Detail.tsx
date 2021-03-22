@@ -12,6 +12,7 @@ import { PlayCircleOutline } from '@material-ui/icons';
 import './Detail.css';
 import './Controls.css';
 import SpotifyWebApi from 'spotify-web-api-js';
+import { numberWithCommas } from './utils';
 
 interface DetailProps {
   type?: 'artist' | 'album' | 'playlist';
@@ -38,12 +39,19 @@ const Detail = (props: DetailProps) => {
   } = props;
   const id: string = params.id;
 
+  const [style, setStyle] = useState<any>({ display: 'none' });
+  const [hide, setHide] = useState<boolean>(false);
+
   const [tracks, setTracks] = useState<any>([]);
   const [image, setImage] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [albums, setAlbums] = useState<Albums>({ singles: [], albums: [] });
   const [followers, setFollowers] = useState<number>(0);
+
+  const play = () => {
+    spotify && spotify.play();
+  };
 
   useEffect(() => {
     if (spotify) {
@@ -124,7 +132,9 @@ const Detail = (props: DetailProps) => {
             <h1 className="detail-view__header-info-title">{title}</h1>
           )}
           <h5 className="detail-view__header-info-artist">{name}</h5>
-          <h6 className="detail-view__header-info-artist">{followers}</h6>
+          <p className="detail-view__header-info-artist">
+            {numberWithCommas(followers) + ' followers'}
+          </p>
         </div>
       </div>
       <div className="detail-view__user-controls">
@@ -144,9 +154,25 @@ const Detail = (props: DetailProps) => {
             <TableBody>
               {tracks &&
                 tracks.map((item: any, index: number) => {
+                  const trackNum: number = index + 1;
                   return (
                     <TableRow key={index} className="detail-view-tracklist-row">
-                      <TableCell>{index + 1}</TableCell>
+                      <TableCell
+                        onMouseEnter={(e) => {
+                          setStyle({ display: 'block' });
+                        }}
+                        onMouseLeave={(e) => {
+                          setStyle({ display: 'none' });
+                        }}
+                      >
+                        {hide ? (
+                          trackNum
+                        ) : (
+                          <button onClick={play} style={style}>
+                            Play
+                          </button>
+                        )}
+                      </TableCell>
                       <TableCell>{item?.name}</TableCell>
                       <TableCell>
                         {millisToMinutesAndSeconds(item.duration_ms)}

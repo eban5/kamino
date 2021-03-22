@@ -7,7 +7,7 @@
   color: white !important;
 }
 
-.detail-view {
+.detail-view, .artist-detail-view {
   display: grid;
   height: 100%;
   width: 100%;
@@ -21,6 +21,11 @@
   align-items: center;
 }
 
+.artist-detail-view {
+  grid-template-rows: 2fr 1fr 4fr;
+}
+
+
 .detail-view__header {
   grid-area: header;
   display: grid;
@@ -28,8 +33,11 @@
     'image'
     'metadata';
   grid-template-columns: 1fr 3fr;
-  margin: 30px;
   height: 100%;
+}
+
+.artist-detail-view__header {
+  align-items: flex-end;
 }
 
 .detail-view__header-info-metadata {

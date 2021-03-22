@@ -1,3 +1,5 @@
+import { withRouter } from 'react-router-dom';
+
 import { useState } from 'react';
 import './MenuBar.css';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
@@ -16,7 +18,7 @@ const MenuBar = () => {
   let history = useHistory();
 
   //@ts-ignore
-  const [{ user }] = useDataLayerValue();
+  const [{ user }, dispatch] = useDataLayerValue();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -28,8 +30,17 @@ const MenuBar = () => {
     setAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    // history.push('/login');
+    localStorage.removeItem('kaminoToken');
+    dispatch({
+      type: 'SET_TOKEN',
+      token: '',
+    });
+  };
+
   return (
-    <Grid container direction="row" justify="space-between" alignItems="center">
+    <Grid className="menubar" container direction="row" justify="space-between" alignItems="center">
       <Grid item>
         <div className="menubar-arrows">
           <ArrowBackIosIcon
@@ -59,13 +70,28 @@ const MenuBar = () => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Account</MenuItem>
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>Log out</MenuItem>
+            <MenuItem
+              style={{ backgroundColor: 'gray', color: 'white' }}
+              onClick={handleClose}
+            >
+              Account
+            </MenuItem>
+            <MenuItem
+              style={{ backgroundColor: 'gray', color: 'white' }}
+              onClick={handleClose}
+            >
+              Profile
+            </MenuItem>
+            <MenuItem
+              style={{ backgroundColor: 'gray', color: 'white' }}
+              onClick={handleLogout}
+            >
+              Log out
+            </MenuItem>
           </Menu>
         </div>
       </Grid>
     </Grid>
   );
 };
-export default MenuBar;
+export default withRouter(MenuBar);

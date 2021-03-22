@@ -5,7 +5,7 @@ import { loginUrl } from './spotify';
 const Login = () => {
   return (
     <div className="login">
-      <img src={kaminoBrand} alt="Kamino logo" height={80} />
+      <img className="login-brand" src={kaminoBrand} alt="Kamino logo" />
       <a href={loginUrl}>Login With Spotify</a>
     </div>
   );

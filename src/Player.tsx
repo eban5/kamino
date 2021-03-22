@@ -2,13 +2,14 @@ import { Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 import './Home.css';
 import { Container, Grid, Typography } from '@material-ui/core';
-
+import Login from './Login';
 import Sidebar from './Sidebar';
-import { greeting } from './Greeting';
+import { greeting } from './utils';
 import Controls from './Controls';
 import MenuBar from './MenuBar';
 import Card from './Card';
 import Detail from './Detail';
+import ArtistDetail from './ArtistDetail';
 import YourLibrary from './YourLibrary';
 import { useDataLayerValue } from './DataLayer';
 
@@ -181,14 +182,14 @@ const Player = ({ spotify }) => {
         <Sidebar />
       </aside>
       <main>
-        <Container>
+        <Container maxWidth={false}>
           <MenuBar />
           <Switch>
             <Route
               exact
               path="/artist/:id"
               render={(props) => (
-                <Detail {...props} type="artist" spotify={spotify} />
+                <ArtistDetail {...props} spotify={spotify} />
               )}
             />
             <Route
@@ -229,9 +230,11 @@ const Player = ({ spotify }) => {
             <Route path="/home">
               <Home spotify={spotify} />
             </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
             <Route path="/">
               <Home spotify={spotify} />
-              {/* <YourLibrary spotify={spotify} /> */}
             </Route>
           </Switch>
         </Container>

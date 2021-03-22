@@ -50,6 +50,11 @@ const reducer = (state: any, action: any) => {
         ...state,
         top_tracks: action.top_tracks,
       };
+    case 'SET_DEVICES':
+      return {
+        ...state,
+        devices: action.devices,
+      };
     default:
       return state;
   }

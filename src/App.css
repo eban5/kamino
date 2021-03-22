@@ -39,7 +39,7 @@ footer {
 main {
   background: var(--color-background-medium);
   overflow-y: scroll;
-  padding: 100px 0 0;
+  padding: 0;
 }
 
 aside {

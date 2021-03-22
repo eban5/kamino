@@ -7,7 +7,19 @@
 
 .login > img {
   width: auto;
-  height: 200px;
+  height: 50px;
+}
+
+@media (min-width: 300px) {
+  .login > img {
+    height: 100px;
+  }
+}
+
+@media (min-width: 600px) {
+  .login > img {
+    height: 200px;
+  }
 }
 
 .login > a {
