@@ -61,11 +61,9 @@ const RecentlyPlayed = (props: RecentlyPlayedProps) => {
       {items?.items &&
         items?.items.slice(0, 10).map((item: any, index: number) => {
           const track: SpotifyApi.TrackObjectFull = item.track;
-          const path: string = track.type === 'track' ? 'track' : 'album';
-
           return (
             <Grid item key={index}>
-              <Link to={`/${path}/${track.id}`} key={index}>
+              <Link to={`/album/${track.album.id}`} key={index}>
                 <Card
                   key={track.id}
                   direction="vertical"
@@ -88,27 +86,46 @@ const Top = (props: TopProps) => {
   return (
     <>
       {items?.items.slice(0, 10).map((item: any, index: number) => {
-        const path: string = item.type === 'artist' ? 'artist' : 'track';
-        return (
-          <Grid item key={index}>
-            <Link to={`/${path}/${item.id}`} key={index}>
-              <Card
-                key={index}
-                id={item.id}
-                direction="vertical"
-                title={item.name}
-                subtitle={item.type === 'track' ? item.artists[0].name : ''}
-                image={
-                  item.type === 'artist'
-                    ? item.images[0].url
-                    : item.type === 'track'
-                    ? item.album.images[0].url
-                    : ''
-                }
-              />
-            </Link>
-          </Grid>
-        );
+        if (item.album && item.album.type === 'album') {
+          const album: SpotifyApi.AlbumObjectFull = item.album;
+          return (
+            <Grid item key={index}>
+              <Link to={`/album/${album.id}`} key={index}>
+                <Card
+                  key={album.id}
+                  direction="vertical"
+                  title={album.name}
+                  subtitle={album.artists[0].name}
+                  image={album.images[1].url}
+                  id={album.id}
+                />
+              </Link>
+            </Grid>
+          );
+        } else {
+          if (item.type === 'artist') console.log(item);
+          const path: string = item.type === 'artist' ? 'artist' : 'album';
+          return (
+            <Grid item key={index}>
+              <Link to={`/${path}/${item.id}`} key={index}>
+                <Card
+                  key={index}
+                  id={item.id}
+                  direction="vertical"
+                  title={item.name}
+                  subtitle={item.type === 'album' ? item.artists[0].name : ''}
+                  image={
+                    item.type === 'artist'
+                      ? item.images[0].url
+                      : item.type === 'album'
+                      ? item.album.images[0].url
+                      : ''
+                  }
+                />
+              </Link>
+            </Grid>
+          );
+        }
       })}
     </>
   );
@@ -118,7 +135,7 @@ const Top = (props: TopProps) => {
 export const Home = ({ spotify }) => {
   //@ts-ignore
   const [
-    { playlists, recently_played, top_artists, top_tracks },
+    { playlists, recently_played, top_artists, albums },
   ] = useDataLayerValue();
 
   return (
@@ -161,7 +178,7 @@ export const Home = ({ spotify }) => {
         <Top items={top_artists} />
       </Grid>
       <Typography variant="h4" gutterBottom>
-        Top Tracks
+        Saved Albums
       </Typography>
       <Grid
         container
@@ -169,7 +186,7 @@ export const Home = ({ spotify }) => {
         justify="space-between"
         alignItems="center"
       >
-        <Top items={top_tracks} />
+        <Top items={albums} />
       </Grid>
     </>
   );
