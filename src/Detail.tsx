@@ -6,13 +6,19 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Grid, Container } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import { PlayCircleOutline } from '@material-ui/icons';
-
+import Fab from '@material-ui/core/Fab';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import './Detail.css';
 import './Controls.css';
 import SpotifyWebApi from 'spotify-web-api-js';
-import { numberWithCommas, millisToMinutesAndSeconds } from './utils';
+import { millisToMinutesAndSeconds, millisToAlbumDuration } from './utils';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import { Avatar } from '@material-ui/core';
 
 interface DetailProps {
   type?: 'artist' | 'album' | 'playlist';
@@ -20,9 +26,16 @@ interface DetailProps {
   spotify?: SpotifyWebApi.SpotifyWebApiJs;
 }
 
-interface Albums {
-  singles: SpotifyApi.AlbumObjectFull[];
-  albums: SpotifyApi.AlbumObjectFull[];
+interface AlbumDetails {
+  title: string;
+  artistName: string;
+  artistImage: string;
+  tracks: SpotifyApi.AlbumTracksResponse;
+  releaseYear: string;
+  numTracks: number;
+  duration: string;
+  copyrights: SpotifyApi.CopyrightObject[];
+  artwork: string;
 }
 
 const Detail = (props: DetailProps) => {
@@ -32,48 +45,17 @@ const Detail = (props: DetailProps) => {
   } = props;
   const id: string = params.id;
 
-  // const [style, setStyle] = useState<any>({ display: 'none' });
-  // const [hide, setHide] = useState<boolean>(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
+  // album
+  const [albumDetails, setAlbumDetails] = useState<AlbumDetails>();
   const [tracks, setTracks] = useState<any>([]);
   const [image, setImage] = useState<string>('');
   const [title, setTitle] = useState<string>('');
-  const [name, setName] = useState<string>('');
-  const [albums, setAlbums] = useState<Albums>({ singles: [], albums: [] });
-  const [followers, setFollowers] = useState<number>(0);
-
-  // const play = () => {
-  //   spotify && spotify.play();
-  // };
 
   useEffect(() => {
     if (spotify) {
       switch (type) {
-        case 'artist':
-          spotify.getArtist(id).then((artist: SpotifyApi.ArtistObjectFull) => {
-            setImage(artist?.images[0].url);
-            setTitle(artist?.name);
-            setFollowers(artist?.followers.total);
-          });
-          spotify.getArtistAlbums(id).then((albums: any) => {
-            const singles: SpotifyApi.AlbumObjectFull[] = albums.items.filter(
-              (album: SpotifyApi.AlbumObjectFull) =>
-                album.album_type === 'single'
-            );
-            const fulllength: SpotifyApi.AlbumObjectFull[] = albums.items.filter(
-              (album: SpotifyApi.AlbumObjectFull) =>
-                album.album_type === 'album'
-            );
-
-            setAlbums({ singles: singles, albums: fulllength });
-          });
-          spotify
-            .getArtistTopTracks(id, 'US')
-            .then((top: SpotifyApi.ArtistsTopTracksResponse) => {
-              setTracks(top?.tracks);
-            });
-
-          break;
         case 'playlist':
           spotify.getPlaylist(id).then((playlist: any) => {
             const playlistTracks: any[] = playlist.tracks.items.map(
@@ -85,14 +67,40 @@ const Detail = (props: DetailProps) => {
           });
           break;
         case 'album':
-          spotify.getAlbum(id).then((album: any) => {
+          spotify.getAlbum(id).then((album: SpotifyApi.AlbumObjectFull) => {
             const artistList: string = album?.artists
-              .map((item: any) => item.name)
+              .map((item: SpotifyApi.ArtistObjectSimplified) => item.name)
               .join(', ');
 
-            setImage(album?.images[0].url);
-            setTitle(album?.name);
-            setName(artistList);
+            // const totalYears = pilots.reduce((acc, pilot) => acc + pilot.years, 0);
+            const albumDuration: number = album?.tracks.items.reduce(
+              (accumulator: number, track: SpotifyApi.TrackObjectSimplified) =>
+                accumulator + track.duration_ms,
+              0
+            );
+
+            let artistImageUrl: string = '';
+
+            spotify
+              .getArtist(album?.artists[0].id)
+              .then((artist: SpotifyApi.ArtistObjectFull) => {
+                return (artistImageUrl = artist.images[0].url);
+              })
+              .then((i: any) => {
+                artistImageUrl = i;
+              });
+
+            setAlbumDetails({
+              title: album?.name,
+              artistName: artistList,
+              artistImage: artistImageUrl,
+              tracks: album?.tracks,
+              releaseYear: album?.release_date.substr(0, 4),
+              numTracks: album?.tracks.total,
+              duration: millisToAlbumDuration(albumDuration),
+              copyrights: album?.copyrights,
+              artwork: album?.images[0].url,
+            });
             setTracks(album?.tracks.items);
           });
           break;
@@ -103,45 +111,106 @@ const Detail = (props: DetailProps) => {
     }
   }, [type, id, spotify]);
 
+  const handleMore = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const albumTitle: string =
+    type === 'album' ? albumDetails?.title || '' : title || '';
+
+  const albumSubtitle: string =
+    type === 'album'
+      ? `${albumDetails?.releaseYear} • ${albumDetails?.numTracks} songs • ${albumDetails?.duration}` ||
+        ''
+      : '';
+
+  console.log('albumDetails', albumDetails);
+
   return (
     <div className="detail-view">
       <div className="detail-view__header">
-        {type === 'artist' ? (
-          <></>
-        ) : (
-          <div className="detail-view__header-info-image">
-            <img
-              className="detail-view__header-info-image_background"
-              src={image}
-              alt="albumart"
-            />
-          </div>
-        )}
+        <div className="detail-view__header-info-image">
+          <img
+            className="detail-view__header-info-image_background"
+            src={type === 'album' ? albumDetails?.artwork : image}
+            alt="albumart"
+          />
+        </div>
+
         <div className="detail-view__header-info-metadata">
           <div className="detail-view__header-info-type">{type}</div>
-          {type !== 'artist' && title.length > 15 ? (
-            <h1 className="detail-view__header-info-title-long">{title}</h1>
+          {albumTitle.length > 15 ? (
+            <h1 className="detail-view__header-info-title-long">
+              {albumTitle}
+            </h1>
           ) : (
-            <h1 className="detail-view__header-info-title">{title}</h1>
+            <h1 className="detail-view__header-info-title">{albumTitle}</h1>
           )}
-          <h5 className="detail-view__header-info-artist">{name}</h5>
-          <p className="detail-view__header-info-artist">
-            {numberWithCommas(followers) + ' followers'}
-          </p>
+
+          <div className="detail-view__header-info-subtitle">
+            <Avatar src={albumDetails?.artistImage} alt={`Artist image`} />
+            <Typography variant="body2" gutterBottom>
+              <strong>{albumDetails?.artistName}</strong>
+              {' • '}
+              {albumSubtitle}
+            </Typography>
+          </div>
         </div>
       </div>
       <div className="detail-view__user-controls">
-        <PlayCircleOutline fontSize="large" className="footer__icon" />
+        <Fab color="secondary">
+          <PlayCircleOutline fontSize="large" className="" />
+        </Fab>
+        <FavoriteIcon fontSize="large" style={{ marginLeft: '15px' }} />
+        <Button onClick={handleMore}>
+          <MoreHorizIcon fontSize="large" style={{ marginLeft: '15px' }} />
+        </Button>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem
+            style={{ backgroundColor: 'gray', color: 'white' }}
+            onClick={handleClose}
+          >
+            Account
+          </MenuItem>
+          <MenuItem
+            style={{ backgroundColor: 'gray', color: 'white' }}
+            onClick={handleClose}
+          >
+            Profile
+          </MenuItem>
+          <MenuItem
+            style={{ backgroundColor: 'gray', color: 'white' }}
+            onClick={handleClose}
+          >
+            Log out
+          </MenuItem>
+        </Menu>
       </div>
       <div className="detail-view__user-list">
-        {type === 'artist' ? <h1>Popular</h1> : <></>}
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>#</TableCell>
-                <TableCell>Track</TableCell>
-                <TableCell>Duration</TableCell>
+                <TableCell variant="head">#</TableCell>
+                <TableCell variant="head">Title</TableCell>
+                {type === 'playlist' && (
+                  <TableCell variant="head" align="left">
+                    Album
+                  </TableCell>
+                )}
+                <TableCell variant="head" align="right">
+                  <AccessTimeIcon fontSize="small" />
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -150,9 +219,16 @@ const Detail = (props: DetailProps) => {
                   const trackNum: number = index + 1;
                   return (
                     <TableRow key={index} className="detail-view-tracklist-row">
-                      <TableCell>{trackNum}</TableCell>
-                      <TableCell>{item?.name}</TableCell>
-                      <TableCell>
+                      <TableCell variant="body" size={'small'}>
+                        {trackNum}
+                      </TableCell>
+                      <TableCell variant="body">{item?.name}</TableCell>
+                      {type === 'playlist' && (
+                        <TableCell variant="body" align="left">
+                          Album title
+                        </TableCell>
+                      )}
+                      <TableCell variant="body" align="right">
                         {millisToMinutesAndSeconds(item.duration_ms)}
                       </TableCell>
                     </TableRow>
@@ -162,43 +238,20 @@ const Detail = (props: DetailProps) => {
           </Table>
         </TableContainer>
       </div>
-      <Container>
-        <Grid container>
-          <Grid item lg>
-            {type === 'artist' ? <h1>Discography</h1> : <></>}
-          </Grid>
-          <Grid item lg>
-            {type === 'artist' ? (
+      <div>
+        {albumDetails?.copyrights.map(
+          (i: SpotifyApi.CopyrightObject, idx: number) => {
+            return (
               <>
-                <h2>Albums</h2>
-                <ul>
-                  {albums.albums.map((i: SpotifyApi.AlbumObjectFull) => (
-                    <li>{i.name}</li>
-                  ))}
-                </ul>
-                <h2>Singles</h2>
-                <ul>
-                  {albums.singles.map((i: SpotifyApi.AlbumObjectFull) => (
-                    <li>{i.name}</li>
-                  ))}
-                </ul>
+                <Typography variant="subtitle2" gutterBottom>
+                  {i.text}
+                </Typography>
+                <br />
               </>
-            ) : (
-              <p></p>
-            )}
-          </Grid>
-        </Grid>
-        <Grid container>
-          <Grid item lg>
-            {type === 'artist' ? <h1>Appears On</h1> : <></>}
-          </Grid>
-        </Grid>
-        <Grid container>
-          <Grid item lg>
-            {type === 'artist' ? <h1>Related Artists</h1> : <></>}
-          </Grid>
-        </Grid>
-      </Container>
+            );
+          }
+        )}
+      </div>
     </div>
   );
 };

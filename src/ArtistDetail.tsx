@@ -6,7 +6,9 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Grid, Container } from '@material-ui/core';
+import { Grid, Container, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import Card from './Card';
 import { PlayCircleOutline } from '@material-ui/icons';
 
 import './Detail.css';
@@ -93,75 +95,134 @@ const ArtistDetail = (props: DetailProps) => {
         <div className="detail-view__user-controls">
           <PlayCircleOutline fontSize="large" className="footer__icon" />
         </div>
-        <div className="detail-view__user-list">
-          <h1>Popular</h1>
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>#</TableCell>
-                  <TableCell>Track</TableCell>
-                  <TableCell>Duration</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {tracks &&
-                  tracks.map((item: any, index: number) => {
-                    const trackNum: number = index + 1;
-                    return (
-                      <TableRow
-                        key={index}
-                        className="detail-view-tracklist-row"
-                      >
-                        <TableCell
-                          onMouseEnter={(e) => {
-                            setStyle({ display: 'block' });
-                            setHide(true);
-                          }}
-                          onMouseLeave={(e) => {
-                            setStyle({ display: 'none' });
-                            setHide(false);
-                          }}
+        <div className="artist-detail-view__user-list">
+          <div className="artist-detail-view__popular">
+            <Typography variant="h4" gutterBottom>
+              Popular
+            </Typography>
+            <TableContainer component={Paper}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>#</TableCell>
+                    <TableCell>Track</TableCell>
+                    <TableCell>Duration</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {tracks &&
+                    tracks.map((item: any, index: number) => {
+                      const trackNum: number = index + 1;
+                      return (
+                        <TableRow
+                          key={index}
+                          className="detail-view-tracklist-row"
                         >
-                          {hide ? (
-                            trackNum
-                          ) : (
-                            <button onClick={play} style={style}>
-                              Play
-                            </button>
-                          )}
-                        </TableCell>
-                        <TableCell>{item?.name}</TableCell>
-                        <TableCell>
-                          {millisToMinutesAndSeconds(item.duration_ms)}
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                          <TableCell
+                            onMouseEnter={(e) => {
+                              setStyle({ display: 'block' });
+                              setHide(true);
+                            }}
+                            onMouseLeave={(e) => {
+                              setStyle({ display: 'none' });
+                              setHide(false);
+                            }}
+                          >
+                            {hide ? (
+                              trackNum
+                            ) : (
+                              <button onClick={play} style={style}>
+                                Play
+                              </button>
+                            )}
+                          </TableCell>
+                          <TableCell>{item?.name}</TableCell>
+                          <TableCell>
+                            {millisToMinutesAndSeconds(item.duration_ms)}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
+          <div className="artist-detail-view__related">
+            <Typography variant="h4" gutterBottom>
+              Related
+            </Typography>
+
+            <ul>
+              <li>Related 1</li>
+              <li>Related 2</li>
+              <li>Related 3</li>
+              <li>Related 4</li>
+              <li>Related 5</li>
+            </ul>
+          </div>
         </div>
         <Container>
-          <Grid container>
-            <Grid item lg>
-              <h1>Discography</h1>
-            </Grid>
-            <Grid item lg>
-              <h2>Albums</h2>
-              <ul>
-                {albums.albums.map((i: SpotifyApi.AlbumObjectFull) => (
-                  <li>{i.name}</li>
-                ))}
-              </ul>
-              <h2>Singles</h2>
-              <ul>
-                {albums.singles.map((i: SpotifyApi.AlbumObjectFull) => (
-                  <li>{i.name}</li>
-                ))}
-              </ul>
-            </Grid>
+          <Typography variant="h3" gutterBottom>
+            Discography
+          </Typography>
+          <Typography variant="h4" gutterBottom>
+            Albums
+          </Typography>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+          >
+            {albums.albums.map((i: SpotifyApi.AlbumObjectFull, idx: number) => {
+              const album: SpotifyApi.AlbumObjectFull = i;
+
+              return (
+                <Grid item key={idx}>
+                  <Link to={`/album/${album.id}`}>
+                    <Card
+                      key={album.id}
+                      direction="vertical"
+                      title={album.name}
+                      subtitle={album.artists[0].name}
+                      image={album.images[1].url}
+                      id={album.id}
+                    />
+                  </Link>
+                </Grid>
+              );
+            })}
           </Grid>
+          <Typography variant="h4" gutterBottom>
+            Singles
+          </Typography>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+          >
+            {albums.singles.map(
+              (i: SpotifyApi.AlbumObjectFull, idx: number) => {
+                const album: SpotifyApi.AlbumObjectFull = i;
+                return (
+                  <Grid item key={idx}>
+                    <Link to={`/album/${album.id}`}>
+                      <Card
+                        key={album.id}
+                        direction="vertical"
+                        title={album.name}
+                        subtitle={album.artists[0].name}
+                        image={album.images[1].url}
+                        id={album.id}
+                      />
+                    </Link>
+                  </Grid>
+                );
+              }
+            )}
+          </Grid>
+
           <Grid container>
             <Grid item lg>
               <h1>Appears On</h1>

@@ -7,44 +7,58 @@
   color: white !important;
 }
 
-.detail-view, .artist-detail-view {
+.detail-view,
+.artist-detail-view {
   display: grid;
   height: 100%;
   width: 100%;
-  grid-template-columns: 100%;
-  grid-template-rows: 1fr 1fr 4fr;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
   grid-template-areas:
     'header'
     'controls'
     'list';
   color: white;
-  align-items: center;
+  align-items: top;
 }
 
 .artist-detail-view {
   grid-template-rows: 2fr 1fr 4fr;
+  align-items: baseline;
 }
 
-
-.detail-view__header {
+.detail-view__header,
+.artist-detail-view__header {
   grid-area: header;
   display: grid;
-  grid-template-areas:
-    'image'
-    'metadata';
-  grid-template-columns: 1fr 3fr;
+  grid-template-areas: 'image metadata';
+  grid-template-columns: 250px 3fr;
   height: 100%;
+  width: 100%;
+  align-items: center;
 }
 
 .artist-detail-view__header {
-  align-items: flex-end;
+  align-items: self-end;
+  background: linear-gradient(
+    90deg,
+    #1f005c,
+    #48004e,
+    #5d003f,
+    #690032,
+    #6e1829,
+    #6f2c24,
+    #6e3d25,
+    #6b4c2d
+  );
+  padding-bottom: 20px;
 }
 
 .detail-view__header-info-metadata {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 15px;
+  margin-left: 35px;
 }
 
 .detail-view__header-info-type {
@@ -61,26 +75,38 @@
   font-size: 30px;
   font-weight: 600;
 }
-.detail-view__header-info-artist {
-  font-size: 20px;
+.detail-view__header-info-subtitle {
+  /* font-size: 20px; */
+
 }
 
 .detail-view__header-info-image > img {
   width: 100%;
 }
 
-
-
 .detail-view__user-controls {
   grid-area: controls;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   cursor: pointer;
   margin: 30px;
 }
+
 .detail-view__user-list {
   grid-area: list;
   color: white;
   font-size: 20px;
   margin: 30px;
+  display: grid;
+  width: 100%;
+  grid-template-areas: 'table';
+  grid-template-columns: auto;
+}
+
+.artist-detail-view__user-list {
+  grid-template-areas: 'table related';
+  align-items: self-end;
 }
 
 .detail-view-tracklist-row {
