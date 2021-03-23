@@ -45,12 +45,18 @@ export const greeting = () => {
 };
 
 // taken from somewhere on stack overflow
-export const numberWithCommas = (num: number):string => {
+export const numberWithCommas = (num: number): string => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
-export const millisToMinutesAndSeconds = (millis: number): string => {
-  var minutes: number = Math.floor(millis / 60000);
-  var seconds: any = ((millis % 60000) / 1000).toFixed(0);
+export const millisToMinutesAndSeconds = (ms: number): string => {
+  var minutes: number = Math.floor(ms / 60000);
+  var seconds: any = ((ms % 60000) / 1000).toFixed(0);
   return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+};
+
+export const millisToAlbumDuration = (ms: number): string => {
+  var minutes: number = Math.floor(ms / 60000);
+  var seconds: any = ((ms % 60000) / 1000).toFixed(0);
+  return `${minutes} min ${(seconds < 10 ? '0' : '') + seconds} sec`;
 };
