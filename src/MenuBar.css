@@ -52,4 +52,5 @@
 .menubar-user__username {
   display: inline-flex;
   align-items: center;
+  margin-left: 5px;
 }

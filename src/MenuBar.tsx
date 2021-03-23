@@ -40,7 +40,13 @@ const MenuBar = () => {
   };
 
   return (
-    <Grid className="menubar" container direction="row" justify="space-between" alignItems="center">
+    <Grid
+      className="menubar"
+      container
+      direction="row"
+      justify="space-between"
+      alignItems="center"
+    >
       <Grid item>
         <div className="menubar-arrows">
           <ArrowBackIosIcon
@@ -61,7 +67,7 @@ const MenuBar = () => {
             onClick={handleClick}
           >
             <Avatar src={user?.images[0]?.url} alt={user?.display_name} />
-            <h4>{user?.display_name}</h4>
+            <h4 className="menubar-user__username">{user?.display_name}</h4>
           </Button>
           <Menu
             id="simple-menu"
