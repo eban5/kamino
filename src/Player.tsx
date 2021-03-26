@@ -7,6 +7,7 @@ import Sidebar from './Sidebar';
 import { greeting } from './utils';
 import Controls from './Controls';
 import MenuBar from './MenuBar';
+import Search from './Search'
 import Card from './Card';
 import Detail from './Detail';
 import ArtistDetail from './ArtistDetail';
@@ -103,7 +104,7 @@ const Top = (props: TopProps) => {
             </Grid>
           );
         } else {
-          if (item.type === 'artist') console.log(item);
+          // if (item.type === 'artist') console.log(item);
           const path: string = item.type === 'artist' ? 'artist' : 'album';
           return (
             <Grid item key={index}>
@@ -245,6 +246,9 @@ const Player = ({ spotify }) => {
             />
             <Route path="/browse">
               <Browse spotify={spotify} />
+            </Route>
+            <Route path="/search">
+              <Search spotify={spotify} />
             </Route>
             <Route path="/home">
               <Home spotify={spotify} />

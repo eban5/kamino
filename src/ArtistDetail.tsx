@@ -43,7 +43,6 @@ const ArtistDetail = (props: DetailProps) => {
   const [hide, setHide] = useState<boolean>(true);
 
   const [tracks, setTracks] = useState<any>([]);
-  // const [image, setImage] = useState<string>('');
   const [title, setTitle] = useState<string>('');
 
   const [albums, setAlbums] = useState<Albums>({ singles: [], albums: [] });

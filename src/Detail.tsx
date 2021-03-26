@@ -30,12 +30,24 @@ interface AlbumDetails {
   title: string;
   artistName: string;
   artistImage: string;
-  tracks: SpotifyApi.AlbumTracksResponse;
+  tracks: SpotifyApi.TrackObjectSimplified[];
   releaseYear: string;
   numTracks: number;
   duration: string;
   copyrights: SpotifyApi.CopyrightObject[];
   artwork: string;
+}
+
+// interface PlaylistDetails {
+//   title: string;
+//   ownerName: string;
+
+// }
+
+const PlaylistTrackList = () => {
+  return (
+  <></>   
+  )
 }
 
 const Detail = (props: DetailProps) => {
@@ -49,22 +61,52 @@ const Detail = (props: DetailProps) => {
 
   // album
   const [albumDetails, setAlbumDetails] = useState<AlbumDetails>();
-  const [tracks, setTracks] = useState<any>([]);
+  // const [tracks, setTracks] = useState<SpotifyApi.TrackObjectSimplified[]>([]);
+  const [playlistTracks, setPlaylistTracks] = useState<
+    SpotifyApi.TrackObjectFull[]
+  >([]);
+  const [followers, setFollowers] = useState<number>(0);
   const [image, setImage] = useState<string>('');
+  const [duration, setDuration] = useState<string>('');
+  const [owner, setOwner] = useState<string>('');
   const [title, setTitle] = useState<string>('');
 
   useEffect(() => {
     if (spotify) {
       switch (type) {
         case 'playlist':
-          spotify.getPlaylist(id).then((playlist: any) => {
-            const playlistTracks: any[] = playlist.tracks.items.map(
-              (item: any) => item.track
-            );
-            setImage(playlist?.images[0].url);
-            setTitle(playlist?.name);
-            setTracks(playlistTracks);
-          });
+          spotify
+            .getPlaylist(id)
+            .then((playlist: SpotifyApi.PlaylistObjectFull) => {
+              console.log('playlist', playlist);
+
+              const playlistDuration: number = playlist?.tracks.items.reduce(
+                (accumulator: number, track: SpotifyApi.PlaylistTrackObject) =>
+                  accumulator + track.track.duration_ms,
+                0
+              );
+              let playlistTrackList: SpotifyApi.TrackObjectFull[] = [];
+              spotify
+                .getTracks(
+                  playlist?.tracks?.items.map(
+                    (track: SpotifyApi.PlaylistTrackObject) => track.track.id
+                  )
+                )
+                .then(
+                  (
+                    multipleTracksResponse: SpotifyApi.MultipleTracksResponse
+                  ) => {
+                    playlistTrackList = multipleTracksResponse.tracks;
+                  }
+                );
+
+              setImage(playlist?.images[0].url);
+              setTitle(playlist?.name);
+              setPlaylistTracks(playlistTrackList);
+              setFollowers(playlist?.followers.total);
+              setOwner(playlist?.owner.display_name || '');
+              setDuration(millisToAlbumDuration(playlistDuration));
+            });
           break;
         case 'album':
           spotify.getAlbum(id).then((album: SpotifyApi.AlbumObjectFull) => {
@@ -72,36 +114,33 @@ const Detail = (props: DetailProps) => {
               .map((item: SpotifyApi.ArtistObjectSimplified) => item.name)
               .join(', ');
 
-            // const totalYears = pilots.reduce((acc, pilot) => acc + pilot.years, 0);
             const albumDuration: number = album?.tracks.items.reduce(
               (accumulator: number, track: SpotifyApi.TrackObjectSimplified) =>
                 accumulator + track.duration_ms,
               0
             );
 
-            let artistImageUrl: string = '';
+            const albumTracks: SpotifyApi.TrackObjectSimplified[] =
+              album?.tracks.items;
 
+            let artistImageUrl: string = '';
             spotify
               .getArtist(album?.artists[0].id)
               .then((artist: SpotifyApi.ArtistObjectFull) => {
-                return (artistImageUrl = artist.images[0].url);
-              })
-              .then((i: any) => {
-                artistImageUrl = i;
+                artistImageUrl = artist.images[0].url;
               });
 
             setAlbumDetails({
               title: album?.name,
               artistName: artistList,
               artistImage: artistImageUrl,
-              tracks: album?.tracks,
+              tracks: albumTracks,
               releaseYear: album?.release_date.substr(0, 4),
               numTracks: album?.tracks.total,
               duration: millisToAlbumDuration(albumDuration),
               copyrights: album?.copyrights,
               artwork: album?.images[0].url,
             });
-            setTracks(album?.tracks.items);
           });
           break;
 
@@ -127,8 +166,7 @@ const Detail = (props: DetailProps) => {
       ? `${albumDetails?.releaseYear} • ${albumDetails?.numTracks} songs • ${albumDetails?.duration}` ||
         ''
       : '';
-
-  console.log('albumDetails', albumDetails);
+  console.log('TYPE --------', type === 'playlist');
 
   return (
     <div className="detail-view">
@@ -152,11 +190,26 @@ const Detail = (props: DetailProps) => {
           )}
 
           <div className="detail-view__header-info-subtitle">
-            <Avatar src={albumDetails?.artistImage} alt={`Artist image`} />
+            {type === 'album' && (
+              <Avatar
+                style={{ display: 'inline-flex' }}
+                src={albumDetails?.artistImage}
+                alt={`Artist image`}
+              />
+            )}
             <Typography variant="body2" gutterBottom>
-              <strong>{albumDetails?.artistName}</strong>
-              {' • '}
-              {albumSubtitle}
+              {type === 'album' ? (
+                <>
+                  <strong>{albumDetails?.artistName}</strong>
+                  {' • '}
+                  {albumSubtitle}
+                </>
+              ) : (
+                <>
+                  <strong>{owner}</strong>
+                  {` • ${followers} likes • ${playlistTracks?.length} songs • ${duration}`}
+                </>
+              )}
             </Typography>
           </div>
         </div>
@@ -214,26 +267,41 @@ const Detail = (props: DetailProps) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {tracks &&
-                tracks.map((item: any, index: number) => {
-                  const trackNum: number = index + 1;
-                  return (
-                    <TableRow key={index} className="detail-view-tracklist-row">
-                      <TableCell variant="body" size={'small'}>
-                        {trackNum}
-                      </TableCell>
-                      <TableCell variant="body">{item?.name}</TableCell>
-                      {type === 'playlist' && (
-                        <TableCell variant="body" align="left">
-                          Album title
+              {type === 'playlist' &&
+                playlistTracks?.map(
+                  (
+                    playlistTrack: SpotifyApi.TrackObjectFull,
+                    index: number
+                  ) => {
+                    console.log(
+                      `playlist track ${playlistTrack.track_number} ${playlistTrack.name}`
+                    );
+
+                    return (
+                      <TableRow
+                        key={index}
+                        className="detail-view-tracklist-row"
+                      >
+                        <TableCell variant="body" size={'small'}>
+                          {playlistTrack?.track_number}
                         </TableCell>
-                      )}
-                      <TableCell variant="body" align="right">
-                        {millisToMinutesAndSeconds(item.duration_ms)}
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
+                        <TableCell variant="body">
+                          {playlistTrack?.name}
+                        </TableCell>
+                        {type === 'playlist' && (
+                          <TableCell variant="body" align="left">
+                            {playlistTrack?.album.name}
+                          </TableCell>
+                        )}
+                        <TableCell variant="body" align="right">
+                          {millisToMinutesAndSeconds(
+                            playlistTrack?.duration_ms
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  }
+                )}
             </TableBody>
           </Table>
         </TableContainer>
