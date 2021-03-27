@@ -7,7 +7,8 @@ import Sidebar from './Sidebar';
 import { greeting } from './utils';
 import Controls from './Controls';
 import MenuBar from './MenuBar';
-import Search from './Search'
+import Category from './Category';
+import Search from './Search';
 import Card from './Card';
 import Detail from './Detail';
 import ArtistDetail from './ArtistDetail';
@@ -222,6 +223,11 @@ const Player = ({ spotify }) => {
               render={(props) => (
                 <Detail {...props} type="playlist" spotify={spotify} />
               )}
+            />
+            <Route
+              exact
+              path="/category/:id"
+              render={(props) => <Category {...props} spotify={spotify} />}
             />
             <Route
               exact

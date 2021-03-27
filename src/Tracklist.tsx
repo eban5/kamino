@@ -70,6 +70,7 @@ const Tracklist = (props: TracklistProps) => {
                     <img
                       className="detail-view-tracklist-art"
                       src={track?.album.images[0].url}
+                      alt={`Album art ${track?.name}`}
                     />
                     <div>
                       <div className="detail-view-tracklist-track-name">

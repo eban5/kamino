@@ -14,15 +14,19 @@
 
 .card__vertical-item {
   flex-direction: column;
-  width: 200px;
+  width: 180px;
   height: 100%;
   padding: 10px;
+  transition: 0.5s;
 }
 
 .card__horizontal-item:hover,
 .card__vertical-item:hover {
-  box-shadow: 30px 30px 30px rgba(0, 0, 0, 0.5);
-  background-color: var(--color-kamino-blue);
+  background: linear-gradient(
+    var(--color-dark-gray) 0%,
+    var(--color-medium-gray) 50%,
+    var(--color-dark-gray) 100%
+  );
 }
 
 .card__horizontal-item__image,
@@ -34,8 +38,8 @@
 }
 
 .card__vertical-item__image {
-  height: 200px;
-  width: 200px;
+  height: 100%;
+  width: 100%;
 }
 
 .card__horizontal-item__name,
@@ -50,11 +54,21 @@
   display: block;
   justify-content: center;
   color: white;
-  height: 60px;
-  padding-top: 15px;
+  padding: 15px 5px;
 }
 
 .card__vertical-item__title,
 .card__horizontal-item__title {
   padding-bottom: 5px;
+}
+
+.card__vertical-item__title {
+  font-size: 16px;
+}
+.card__vertical-item__subtitle {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--color-text-gray);
 }

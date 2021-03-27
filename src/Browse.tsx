@@ -36,7 +36,7 @@ const Browse = (props: BrowseProps) => {
           (category: SpotifyApi.CategoryObject, index: number) => {
             return (
               <Grid item key={index}>
-                <Link to={`/browse/${category.id}`}>
+                <Link to={`/category/${category.id}`}>
                   <div
                     className="category"
                     key={index}

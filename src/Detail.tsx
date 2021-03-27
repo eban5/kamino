@@ -148,9 +148,6 @@ const Detail = (props: DetailProps) => {
         ''
       : '';
 
-  console.log(`type ${type}`);
-  console.log('tracklist', tracklist);
-
   return (
     <div className="detail-view">
       <div className="detail-view__header">
@@ -235,7 +232,7 @@ const Detail = (props: DetailProps) => {
       <div className="detail-view__user-list">
         <Tracklist type={type} tracks={tracklist} />
       </div>
-      <div>
+      <div className="detail-view__copyrights">
         {albumDetails?.copyrights.map(
           (i: SpotifyApi.CopyrightObject, idx: number) => {
             return (

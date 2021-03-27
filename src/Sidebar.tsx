@@ -36,8 +36,7 @@ const Sidebar = () => {
           <SidebarItem title="Home" Icon={HomeIcon} />
         </Link>
         <Link to="/search">
-
-        <SidebarItem title="Search" Icon={SearchIcon} />
+          <SidebarItem title="Search" Icon={SearchIcon} />
         </Link>
         <Link to="/browse">
           <SidebarItem title="Browse" Icon={ViewQuiltIcon} />
