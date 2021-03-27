@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import SearchBar from './SearchBar';
+// import SearchBar from './SearchBar';
 
-import { Grid } from '@material-ui/core';
+// import { Grid } from '@material-ui/core';
 import SpotifyWebApi from 'spotify-web-api-js';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -21,18 +21,13 @@ function sleep(delay = 0) {
 }
 
 export default function Search(props: SearchProps) {
-  const {spotify} = props;
+  const { spotify } = props;
 
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<SearchResult[]>([]);
   const loading = open && options.length === 0;
 
-  useEffect(() => {
-    spotify.search()
-    return () => {
-      cleanup
-    }
-  }, [input])
+  useEffect(() => {}, [spotify]);
   useEffect(() => {
     let active = true;
 

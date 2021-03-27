@@ -1,27 +1,19 @@
 import { useEffect, useState } from 'react';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { Button, Typography } from '@material-ui/core';
+import { Button, Typography, Menu, MenuItem, Avatar } from '@material-ui/core';
+import SpotifyWebApi from 'spotify-web-api-js';
+
 import { PlayCircleOutline } from '@material-ui/icons';
 import Fab from '@material-ui/core/Fab';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import './Detail.css';
 import './Controls.css';
-import SpotifyWebApi from 'spotify-web-api-js';
-import { millisToMinutesAndSeconds, millisToAlbumDuration } from './utils';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import { Avatar } from '@material-ui/core';
+import Tracklist from './Tracklist';
+
+import { getPlaylistDuration, millisToAlbumDuration } from './utils';
 
 interface DetailProps {
-  type?: 'artist' | 'album' | 'playlist';
+  type?: 'album' | 'playlist';
   match?: any;
   spotify?: SpotifyWebApi.SpotifyWebApiJs;
 }
@@ -30,24 +22,11 @@ interface AlbumDetails {
   title: string;
   artistName: string;
   artistImage: string;
-  tracks: SpotifyApi.TrackObjectSimplified[];
   releaseYear: string;
   numTracks: number;
   duration: string;
   copyrights: SpotifyApi.CopyrightObject[];
   artwork: string;
-}
-
-// interface PlaylistDetails {
-//   title: string;
-//   ownerName: string;
-
-// }
-
-const PlaylistTrackList = () => {
-  return (
-  <></>   
-  )
 }
 
 const Detail = (props: DetailProps) => {
@@ -59,12 +38,10 @@ const Detail = (props: DetailProps) => {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
+  const [tracklist, setTracklist] = useState<SpotifyApi.TrackObjectFull[]>([]);
+
   // album
   const [albumDetails, setAlbumDetails] = useState<AlbumDetails>();
-  // const [tracks, setTracks] = useState<SpotifyApi.TrackObjectSimplified[]>([]);
-  const [playlistTracks, setPlaylistTracks] = useState<
-    SpotifyApi.TrackObjectFull[]
-  >([]);
   const [followers, setFollowers] = useState<number>(0);
   const [image, setImage] = useState<string>('');
   const [duration, setDuration] = useState<string>('');
@@ -78,14 +55,10 @@ const Detail = (props: DetailProps) => {
           spotify
             .getPlaylist(id)
             .then((playlist: SpotifyApi.PlaylistObjectFull) => {
-              console.log('playlist', playlist);
-
-              const playlistDuration: number = playlist?.tracks.items.reduce(
-                (accumulator: number, track: SpotifyApi.PlaylistTrackObject) =>
-                  accumulator + track.track.duration_ms,
-                0
+              const playlistDuration: number = getPlaylistDuration(
+                playlist?.tracks.items
               );
-              let playlistTrackList: SpotifyApi.TrackObjectFull[] = [];
+
               spotify
                 .getTracks(
                   playlist?.tracks?.items.map(
@@ -96,13 +69,13 @@ const Detail = (props: DetailProps) => {
                   (
                     multipleTracksResponse: SpotifyApi.MultipleTracksResponse
                   ) => {
-                    playlistTrackList = multipleTracksResponse.tracks;
+                    setTracklist(multipleTracksResponse.tracks);
                   }
                 );
 
               setImage(playlist?.images[0].url);
               setTitle(playlist?.name);
-              setPlaylistTracks(playlistTrackList);
+
               setFollowers(playlist?.followers.total);
               setOwner(playlist?.owner.display_name || '');
               setDuration(millisToAlbumDuration(playlistDuration));
@@ -120,8 +93,17 @@ const Detail = (props: DetailProps) => {
               0
             );
 
-            const albumTracks: SpotifyApi.TrackObjectSimplified[] =
-              album?.tracks.items;
+            const albumTrackIds: string[] = album?.tracks.items.map(
+              (track: SpotifyApi.TrackObjectSimplified) => track.id
+            );
+
+            spotify
+              .getTracks(albumTrackIds)
+              .then(
+                (multipleTracksResponse: SpotifyApi.MultipleTracksResponse) => {
+                  setTracklist(multipleTracksResponse.tracks);
+                }
+              );
 
             let artistImageUrl: string = '';
             spotify
@@ -134,7 +116,6 @@ const Detail = (props: DetailProps) => {
               title: album?.name,
               artistName: artistList,
               artistImage: artistImageUrl,
-              tracks: albumTracks,
               releaseYear: album?.release_date.substr(0, 4),
               numTracks: album?.tracks.total,
               duration: millisToAlbumDuration(albumDuration),
@@ -166,7 +147,9 @@ const Detail = (props: DetailProps) => {
       ? `${albumDetails?.releaseYear} • ${albumDetails?.numTracks} songs • ${albumDetails?.duration}` ||
         ''
       : '';
-  console.log('TYPE --------', type === 'playlist');
+
+  console.log(`type ${type}`);
+  console.log('tracklist', tracklist);
 
   return (
     <div className="detail-view">
@@ -207,7 +190,7 @@ const Detail = (props: DetailProps) => {
               ) : (
                 <>
                   <strong>{owner}</strong>
-                  {` • ${followers} likes • ${playlistTracks?.length} songs • ${duration}`}
+                  {` • ${followers} likes • ${tracklist?.length} songs • ${duration}`}
                 </>
               )}
             </Typography>
@@ -250,68 +233,14 @@ const Detail = (props: DetailProps) => {
         </Menu>
       </div>
       <div className="detail-view__user-list">
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell variant="head">#</TableCell>
-                <TableCell variant="head">Title</TableCell>
-                {type === 'playlist' && (
-                  <TableCell variant="head" align="left">
-                    Album
-                  </TableCell>
-                )}
-                <TableCell variant="head" align="right">
-                  <AccessTimeIcon fontSize="small" />
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {type === 'playlist' &&
-                playlistTracks?.map(
-                  (
-                    playlistTrack: SpotifyApi.TrackObjectFull,
-                    index: number
-                  ) => {
-                    console.log(
-                      `playlist track ${playlistTrack.track_number} ${playlistTrack.name}`
-                    );
-
-                    return (
-                      <TableRow
-                        key={index}
-                        className="detail-view-tracklist-row"
-                      >
-                        <TableCell variant="body" size={'small'}>
-                          {playlistTrack?.track_number}
-                        </TableCell>
-                        <TableCell variant="body">
-                          {playlistTrack?.name}
-                        </TableCell>
-                        {type === 'playlist' && (
-                          <TableCell variant="body" align="left">
-                            {playlistTrack?.album.name}
-                          </TableCell>
-                        )}
-                        <TableCell variant="body" align="right">
-                          {millisToMinutesAndSeconds(
-                            playlistTrack?.duration_ms
-                          )}
-                        </TableCell>
-                      </TableRow>
-                    );
-                  }
-                )}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <Tracklist type={type} tracks={tracklist} />
       </div>
       <div>
         {albumDetails?.copyrights.map(
           (i: SpotifyApi.CopyrightObject, idx: number) => {
             return (
               <>
-                <Typography variant="subtitle2" gutterBottom>
+                <Typography variant="subtitle2" gutterBottom key={idx}>
                   {i.text}
                 </Typography>
                 <br />

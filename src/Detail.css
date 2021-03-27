@@ -19,7 +19,6 @@
     'controls'
     'list';
   color: white;
-  align-items: center;
 }
 
 .artist-detail-view {
@@ -73,7 +72,7 @@
   font-weight: 700;
 }
 .detail-view__header-info-title-long {
-  font-size: 30px;
+  font-size: 45px;
   font-weight: 700;
 }
 .detail-view__header-info-subtitle {
@@ -116,6 +115,23 @@
 .detail-view-tracklist-row:hover {
   background-color: var(--color-medium-gray);
   cursor: pointer;
+}
+
+.detail-view-tracklist-cell {
+  display: inline-flex !important;
+}
+
+.detail-view-tracklist-art {
+  height: 40px;
+  margin-right: 15px;
+}
+
+.detail-view-tracklist-track-name {
+  
+}
+
+.detail-view-tracklist-track-artist {
+  color: gray;
 }
 
 .MuiTableCell-root {
