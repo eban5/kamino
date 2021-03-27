@@ -17,6 +17,12 @@ h6 {
 
 a {
   text-decoration: none;
+  color: gray;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: white;
 }
 
 .App {
