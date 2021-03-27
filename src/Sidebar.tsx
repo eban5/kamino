@@ -9,6 +9,7 @@ import { LibraryMusic } from '@material-ui/icons';
 import kaminoBrand from './images/kamino-brand.png';
 import { useDataLayerValue } from './DataLayer';
 import { Link } from 'react-router-dom';
+import CurrentlyPlaying from './CurrentlyPlaying';
 
 const SidebarItem = (props: any) => {
   const title: string = props.title;
@@ -55,6 +56,13 @@ const Sidebar = () => {
             <SidebarItem key={index} title={playlist.name} />
           </Link>
         ))}
+      </div>
+      <div className="sidebar-playlist__currently-playing">
+        <CurrentlyPlaying
+          artwork={`https://i.scdn.co/image/9c6e0a8e895e0cbb8c024360c824a00b0b923b87`}
+          trackTitle={'TRACK TITLE'}
+          trackArtist={`Track Artist`}
+        />
       </div>
     </div>
   );

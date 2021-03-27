@@ -3,11 +3,12 @@
   grid-template-areas:
     'logo'
     'shortcuts'
-    'playlists';
+    'playlists'
+    'currentlyPlaying';
   width: 100%;
   height: 100%;
   grid-template-columns: 100%;
-  grid-template-rows: auto;
+  grid-template-rows: auto auto auto 200px;
 }
 
 .sidebar-logo {
@@ -29,4 +30,8 @@
   grid-area: playlists;
   overflow-y: auto;
   position: relative;
+}
+
+.sidebar-playlist__currently-playing {
+  grid-area: currentlyPlaying;
 }
