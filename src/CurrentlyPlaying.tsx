@@ -1,28 +1,29 @@
-import { useState, useEffect } from 'react';
 import { Typography } from '@material-ui/core';
-import "./CurrentlyPlaying.css"
+import './CurrentlyPlaying.css';
 
 interface CurrentlyPlayingProps {
   artwork: string;
   trackTitle: string;
   trackArtist: string;
+  visibility: boolean;
+  logMessage: Function;
 }
 
 const CurrentlyPlaying = (props: CurrentlyPlayingProps) => {
-  const { artwork, trackTitle, trackArtist } = props;
-  const [visible, setVisible] = useState<boolean>(false);
-  const [popoutClass, setPopoutClass] = useState<string>('show');
-
-  useEffect(() => {
-    visible ? setPopoutClass('show') : setPopoutClass('hide');
-  }, [visible]);
-
-  const toggleCurrentlyPlaying = () => {
-    setVisible(!visible);
-  };
+  const { artwork, trackTitle, trackArtist, visibility, logMessage } = props;
 
   return (
-    <div className={`currently-playing__container ${popoutClass}`}>
+    <div
+      className={`currently-playing__container ${visibility ? 'show' : 'hide'}`}
+    >
+      <div
+        onClick={() => {
+          logMessage();
+        }}
+        className="close"
+      >
+        <span>X</span>
+      </div>
       <div className="currently-playing__artwork">
         <img src={artwork} alt={`Currently Playing Artwork`} />
       </div>

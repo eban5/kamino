@@ -51,6 +51,8 @@
 }
 .menubar-user__username {
   display: inline-flex;
-  align-items: center;
+  color: white;
   margin-left: 5px;
+  align-items: center;
+  text-transform: capitalize;
 }

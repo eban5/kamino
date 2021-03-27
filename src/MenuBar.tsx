@@ -1,5 +1,5 @@
 import { withRouter } from 'react-router-dom';
-
+import { Typography } from '@material-ui/core';
 import { useState } from 'react';
 import './MenuBar.css';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
@@ -67,7 +67,7 @@ const MenuBar = () => {
             onClick={handleClick}
           >
             <Avatar src={user?.images[0]?.url} alt={user?.display_name} />
-            <h4 className="menubar-user__username">{user?.display_name}</h4>
+            <span className="menubar-user__username">{user?.display_name}</span>
           </Button>
           <Menu
             id="simple-menu"
