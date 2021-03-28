@@ -25,38 +25,30 @@ const Browse = (props: BrowseProps) => {
   }, [spotify]);
 
   return (
-    <>
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="center"
-      >
-        {browseCategories.map(
-          (category: SpotifyApi.CategoryObject, index: number) => {
-            return (
-              <Grid item key={index}>
-                <Link to={`/category/${category.id}`}>
-                  <div
-                    className="category"
-                    key={index}
-                    style={{
-                      backgroundImage: `url(
+    <div className="browse">
+      {browseCategories.map(
+        (category: SpotifyApi.CategoryObject, index: number) => {
+          return (
+            <Link to={`/category/${category.id}`}>
+              <div
+                className="category"
+                key={index}
+                style={{
+                  backgroundImage: `url(
                     ${category.icons[0].url}
                   )`,
-                    }}
-                  >
-                    <div className="category-title">
-                      <h3>{category.name}</h3>
-                    </div>
-                  </div>
-                </Link>
-              </Grid>
-            );
-          }
-        )}
-      </Grid>
-    </>
+                  backgroundSize: 'contain',
+                }}
+              >
+                <div className="category-title">
+                  <h3>{category.name}</h3>
+                </div>
+              </div>
+            </Link>
+          );
+        }
+      )}
+    </div>
   );
 };
 
