@@ -1,7 +1,7 @@
 import { Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 import './Home.css';
-import { Container, Grid, Typography } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 import Login from './Login';
 import Sidebar from './Sidebar';
 import { greeting } from './utils';

@@ -1,4 +1,3 @@
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Card from './Card';
 import SpotifyWebApi from 'spotify-web-api-js';

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid } from '@material-ui/core';
 import SpotifyWebApi from 'spotify-web-api-js';
 import './Browse.css';
 

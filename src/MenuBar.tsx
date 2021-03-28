@@ -1,5 +1,4 @@
 import { withRouter } from 'react-router-dom';
-import { Typography } from '@material-ui/core';
 import { useState } from 'react';
 import './MenuBar.css';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
