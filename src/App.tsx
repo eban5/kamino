@@ -20,7 +20,6 @@ function App() {
     const _token = hash.access_token;
 
     if (_token) {
-      localStorage.setItem('kaminoToken', _token);
       dispatch({
         type: 'SET_TOKEN',
         token: _token,

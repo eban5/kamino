@@ -1,0 +1,14 @@
+.category-header {
+  font-size: 45px;
+  margin-left: 25px;
+}
+
+.category-header-grid-title {
+  margin: 25px 25px 10px 25px;
+}
+
+.category-grid {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}

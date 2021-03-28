@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
 import { Grid, Typography } from '@material-ui/core';
 import Card from './Card';
+import './Category.css';
 
 const Category = (props: {
   match: any;
@@ -33,18 +34,9 @@ const Category = (props: {
 
   return (
     <>
-      <Typography variant="h2" gutterBottom>
-        {name}
-      </Typography>
-      <Typography variant="h4" gutterBottom>
-        Popular playlists
-      </Typography>
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="center"
-      >
+      <h1 className="category-header">{name}</h1>
+      <h3 className="category-header-grid-title">Popular playlists</h3>
+      <div className="category-grid">
         {playlists &&
           playlists.map(
             (playlist: SpotifyApi.PlaylistObjectSimplified, index: number) => {
@@ -61,16 +53,9 @@ const Category = (props: {
               );
             }
           )}
-      </Grid>
-      <Typography variant="h4" gutterBottom>
-        New releases
-      </Typography>
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="center"
-      >
+      </div>
+      <h3 className="category-header-grid-title">New releases</h3>
+      <div className="category-grid">
         {playlists &&
           playlists.map(
             (playlist: SpotifyApi.PlaylistObjectSimplified, index: number) => {
@@ -87,7 +72,7 @@ const Category = (props: {
               );
             }
           )}
-      </Grid>
+      </div>
     </>
   );
 };

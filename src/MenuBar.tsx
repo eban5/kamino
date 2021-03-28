@@ -30,8 +30,6 @@ const MenuBar = () => {
   };
 
   const handleLogout = () => {
-    // history.push('/login');
-    localStorage.removeItem('kaminoToken');
     dispatch({
       type: 'SET_TOKEN',
       token: '',
@@ -39,13 +37,7 @@ const MenuBar = () => {
   };
 
   return (
-    <Grid
-      className="menubar"
-      container
-      direction="row"
-      justify="space-between"
-      alignItems="center"
-    >
+    <div className="menubar">
       <Grid item>
         <div className="menubar-arrows">
           <ArrowBackIosIcon
@@ -96,7 +88,7 @@ const MenuBar = () => {
           </Menu>
         </div>
       </Grid>
-    </Grid>
+    </div>
   );
 };
 export default withRouter(MenuBar);

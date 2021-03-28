@@ -170,13 +170,6 @@ const Detail = (props: DetailProps) => {
           )}
 
           <div className="detail-view__header-info-subtitle">
-            {type === 'album' && (
-              <Avatar
-                style={{ display: 'inline-flex' }}
-                src={albumDetails?.artistImage}
-                alt={`Artist image`}
-              />
-            )}
             <Typography variant="body2" gutterBottom>
               {type === 'album' ? (
                 <>
