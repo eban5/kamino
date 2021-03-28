@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import Card from './Card';
 import './Category.css';
 

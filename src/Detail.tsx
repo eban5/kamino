@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, Typography, Menu, MenuItem, Avatar } from '@material-ui/core';
+import { Button, Typography, Menu, MenuItem } from '@material-ui/core';
 import SpotifyWebApi from 'spotify-web-api-js';
 
 import { PlayCircleOutline } from '@material-ui/icons';
