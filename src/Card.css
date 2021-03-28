@@ -3,17 +3,26 @@
   display: flex;
   margin: 10px;
   padding: 0;
-  border-radius: 3px;
+  border-radius: 10px;
   font-size: 14px;
-  width: 240px;
-  background-color: var(--color-medium-gray);
+  background-color: var(--color-dark-gray);
   flex-direction: row;
   cursor: pointer;
+}
+
+.card__horizontal-item {
+  background: linear-gradient(
+    var(--color-medium-gray) 0%,
+    var(--color-dark-gray) 50%,
+    var(--color-dark-gray) 100%
+  );
+  width: 300px;
 }
 
 .card__vertical-item {
   flex-direction: column;
   padding: 10px;
+  width: 180px;
   margin: 25px;
   transition: 0.5s;
 }
@@ -21,9 +30,9 @@
 .card__horizontal-item:hover,
 .card__vertical-item:hover {
   background: linear-gradient(
-    var(--color-dark-gray) 0%,
-    var(--color-medium-gray) 50%,
-    var(--color-dark-gray) 100%
+    var(--color-light-gray) 0%,
+    var(--color-light-gray) 50%,
+    var(--color-medium-gray) 100%
   );
 }
 
@@ -33,6 +42,7 @@
   border-radius: 3px;
   height: 80px;
   width: 80px;
+  box-shadow: 10px 10px 10px var(--color-dark-gray);
 }
 
 .card__vertical-item__image {
@@ -48,6 +58,9 @@
   padding-left: 10px;
 }
 
+.card__horizontal-item__name {
+  padding: 0 15px;
+}
 .card__vertical-item__name {
   display: block;
   justify-content: center;

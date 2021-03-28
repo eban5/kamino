@@ -10,7 +10,13 @@ interface CurrentlyPlayingProps {
 }
 
 const CurrentlyPlaying = (props: CurrentlyPlayingProps) => {
-  const { artwork, trackTitle, trackArtist, visibility, setCurrentlyPlayingVisibility } = props;
+  const {
+    artwork,
+    trackTitle,
+    trackArtist,
+    visibility,
+    setCurrentlyPlayingVisibility,
+  } = props;
 
   return (
     <div

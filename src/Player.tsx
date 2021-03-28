@@ -1,7 +1,7 @@
 import { Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 import './Home.css';
-import { Container, Typography } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import Login from './Login';
 import Sidebar from './Sidebar';
 import { greeting } from './utils';
@@ -133,31 +133,23 @@ export const Home = ({ spotify }) => {
 
   return (
     <>
-      <Typography variant="h4" gutterBottom>
-        {greeting()}
-      </Typography>
+      <h1 className="home-header">{greeting()}</h1>
       <div className="card-grid">
         <QuickPlaylists playlists={playlists} />
       </div>
 
-      <Typography variant="h4" gutterBottom>
-        Recently played
-      </Typography>
+      <h2 className="home-header">Recently played</h2>
 
       <div className="card-grid">
         <RecentlyPlayed items={recently_played} />
       </div>
 
-      <Typography variant="h4" gutterBottom>
-        Top Artists
-      </Typography>
+      <h2 className="home-header">Top Artists</h2>
 
       <div className="card-grid">
         <Top items={top_artists} />
       </div>
-      <Typography variant="h4" gutterBottom>
-        Saved Albums
-      </Typography>
+      <h2 className="home-header">Saved Albums</h2>
       <div className="card-grid">
         <Top items={albums} />
       </div>
@@ -173,7 +165,7 @@ const Player = ({ spotify }) => {
         <Sidebar />
       </aside>
       <main>
-        <Container maxWidth={false}>
+        <Container maxWidth={false} disableGutters>
           <MenuBar />
           <Switch>
             <Route
