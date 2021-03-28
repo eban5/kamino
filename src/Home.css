@@ -1,10 +1,5 @@
-/* .cards__horizontal-container,
-.cards__vertical-container {
+.card-grid {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-	margin: 12px 0;
 }
-
-.MuiGrid-spacing-xs-5 > .MuiGrid-item {
-  padding: 15px 5px;
-} */

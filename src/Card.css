@@ -6,7 +6,6 @@
   border-radius: 3px;
   font-size: 14px;
   width: 240px;
-  height: 80px;
   background-color: var(--color-medium-gray);
   flex-direction: row;
   cursor: pointer;
@@ -14,9 +13,8 @@
 
 .card__vertical-item {
   flex-direction: column;
-  width: 180px;
-  height: 100%;
   padding: 10px;
+  margin: 25px;
   transition: 0.5s;
 }
 
