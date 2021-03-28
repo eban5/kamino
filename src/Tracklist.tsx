@@ -6,6 +6,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import { Link } from 'react-router-dom';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import { millisToMinutesAndSeconds } from './utils';
 
@@ -67,23 +68,31 @@ const Tracklist = (props: TracklistProps) => {
                     className="detail-view-tracklist-cell"
                     variant="body"
                   >
-                    <img
-                      className="detail-view-tracklist-art"
-                      src={track?.album.images[0].url}
-                      alt={`Album art ${track?.name}`}
-                    />
+                    <Link to={`/album/${track?.album.id}`}>
+                      <img
+                        className="detail-view-tracklist-art"
+                        src={track?.album.images[0].url}
+                        alt={`Album art ${track?.name}`}
+                      />
+                    </Link>
                     <div>
                       <div className="detail-view-tracklist-track-name">
-                        {track?.name}
+                        <Link to={`/album/${track?.album.id}`}>
+                          {track?.name}
+                        </Link>
                       </div>
                       <div className="detail-view-tracklist-track-artist">
-                        {track?.artists[0].name}
+                        <Link to={`/artist/${track?.artists[0].id}`}>
+                          {track?.artists[0].name}
+                        </Link>
                       </div>
                     </div>
                   </TableCell>
                   {type === 'playlist' && (
                     <TableCell variant="body" align="left">
-                      {track?.album.name}
+                      <Link to={`/album/${track?.album.id}`}>
+                        {track?.album.name}
+                      </Link>
                     </TableCell>
                   )}
                   <TableCell variant="body" align="right">
