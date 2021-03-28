@@ -6,11 +6,11 @@ interface CurrentlyPlayingProps {
   trackTitle: string;
   trackArtist: string;
   visibility: boolean;
-  logMessage: Function;
+  setCurrentlyPlayingVisibility: Function;
 }
 
 const CurrentlyPlaying = (props: CurrentlyPlayingProps) => {
-  const { artwork, trackTitle, trackArtist, visibility, logMessage } = props;
+  const { artwork, trackTitle, trackArtist, visibility, setCurrentlyPlayingVisibility } = props;
 
   return (
     <div
@@ -18,7 +18,7 @@ const CurrentlyPlaying = (props: CurrentlyPlayingProps) => {
     >
       <div
         onClick={() => {
-          logMessage();
+          setCurrentlyPlayingVisibility();
         }}
         className="close"
       >

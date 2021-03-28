@@ -28,7 +28,7 @@ const Sidebar = () => {
   const [{ playlists }] = useDataLayerValue();
   const [visibility, setVisibility] = useState<boolean>(false);
 
-  const logMessage = () => {
+  const setCurrentlyPlayingVisibility = (): void => {
     setVisibility(!visibility);
   };
 
@@ -50,16 +50,6 @@ const Sidebar = () => {
         <Link to="/browse">
           <SidebarItem title="Browse" Icon={ViewQuiltIcon} />
         </Link>
-        <div className="sidebar-item">
-          {' '}
-          <button
-            onClick={() => {
-              setVisibility(!visibility);
-            }}
-          >
-            TOGGLE
-          </button>
-        </div>
         <Link to="/collections/playlists">
           <SidebarItem title="Your Library" Icon={LibraryMusic} />
         </Link>
@@ -78,7 +68,7 @@ const Sidebar = () => {
       <div className="sidebar-playlist__currently-playing">
         <CurrentlyPlaying
           visibility={visibility}
-          logMessage={logMessage}
+          setCurrentlyPlayingVisibility={setCurrentlyPlayingVisibility}
           artwork={`https://i.scdn.co/image/9c6e0a8e895e0cbb8c024360c824a00b0b923b87`}
           trackTitle={'TRACK TITLE'}
           trackArtist={`Track Artist`}
