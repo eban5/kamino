@@ -137,10 +137,6 @@ export const Home = ({ spotify }) => {
       <div className="card-grid">
         <QuickPlaylists playlists={playlists} />
       </div>
-      <h2 className="home-header">Discover Weekly</h2>
-      <div className="card-grid">
-        <QuickPlaylists playlists={playlists} />
-      </div>
 
       <h2 className="home-header">Recently played</h2>
 
