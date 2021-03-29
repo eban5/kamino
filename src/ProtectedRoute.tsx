@@ -2,7 +2,7 @@ import { Redirect } from 'react-router-dom';
 
 const ProtectedRoute = (props: any) => {
   const Component = props.component;
-  const isAuthenticated = localStorage.getItem('token');
+  const isAuthenticated = localStorage.getItem('kaminoToken');
 
   return isAuthenticated ? (
     <>

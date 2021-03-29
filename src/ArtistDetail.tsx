@@ -1,20 +1,21 @@
-import { useEffect, useState } from 'react';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { Grid, Container, Typography } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import Card from './Card';
+import {
+  Container,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@material-ui/core';
 import { PlayCircleOutline } from '@material-ui/icons';
-
-import './Detail.css';
-import './Controls.css';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import SpotifyWebApi from 'spotify-web-api-js';
-import { numberWithCommas, millisToMinutesAndSeconds } from './utils';
+import Card from './Card';
+import './Controls.css';
+import './Detail.css';
+import { millisToMinutesAndSeconds, numberWithCommas } from './utils';
 
 interface DetailProps {
   match?: any;
@@ -41,6 +42,9 @@ const ArtistDetail = (props: DetailProps) => {
 
   const [albums, setAlbums] = useState<Albums>({ singles: [], albums: [] });
   const [followers, setFollowers] = useState<number>(0);
+  const [relatedArtists, setRelatedArtists] = useState<
+    SpotifyApi.ArtistObjectFull[]
+  >([]);
 
   const play = () => {
     spotify && spotify.play();
@@ -67,12 +71,17 @@ const ArtistDetail = (props: DetailProps) => {
         .then((top: SpotifyApi.ArtistsTopTracksResponse) => {
           setTracks(top?.tracks);
         });
+      spotify
+        .getArtistRelatedArtists(id)
+        .then((response: SpotifyApi.ArtistsRelatedArtistsResponse) =>
+          setRelatedArtists(response.artists.slice(0, 5))
+        );
     }
   }, [id, spotify]);
 
   return (
-    <div className="artist-detail-view">
-      <div className="artist-detail-view__header">
+    <div className="artist-detail">
+      <div className="artist-detail__header">
         <div className="detail-view__header-info-metadata">
           <div className="detail-view__header-info-type">Artist</div>
 
@@ -83,14 +92,12 @@ const ArtistDetail = (props: DetailProps) => {
           </p>
         </div>
       </div>
-      <div className="detail-view__user-controls">
+      <Container maxWidth={false} className="artist-detail__controls">
         <PlayCircleOutline fontSize="large" className="footer__icon" />
-      </div>
-      <div className="artist-detail-view__user-list">
-        <div className="artist-detail-view__popular">
-          <Typography variant="h4" gutterBottom>
-            Popular
-          </Typography>
+      </Container>
+      <Container className="artist-detail__user-list">
+        <div className="artist-detail__popular">
+          <h2>Popular</h2>
           <TableContainer component={Paper}>
             <Table>
               <TableHead>
@@ -138,90 +145,75 @@ const ArtistDetail = (props: DetailProps) => {
             </Table>
           </TableContainer>
         </div>
-        <div className="artist-detail-view__related">
-          <Typography variant="h4" gutterBottom>
-            Related
-          </Typography>
-
-          <ul>
-            <li>Related 1</li>
-            <li>Related 2</li>
-            <li>Related 3</li>
-            <li>Related 4</li>
-            <li>Related 5</li>
-          </ul>
+        <div className="artist-detail__related">
+          <h2 className="related-artist-grid-title">Related Artists</h2>
+          <div className="related-artist-grid">
+            {relatedArtists.map(
+              (artist: SpotifyApi.ArtistObjectFull, index: number) => {
+                return (
+                  <Link to={`/artist/${artist.id}`} key={index}>
+                    <div className="related-artist-card" key={index}>
+                      <div className="related-artist-card__image">
+                        <img
+                          src={artist.images[0]?.url}
+                          alt={`Related Artist`}
+                        />
+                      </div>
+                      <div className="related-artist-card__text">
+                        <div className="related-artist-card__artist">
+                          {artist.name}
+                        </div>
+                        <br />
+                        <div className="related-artist-card__subtitle">
+                          Artist
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              }
+            )}
+          </div>
         </div>
-      </div>
-      <Container>
-        <Typography variant="h3" gutterBottom>
-          Discography
-        </Typography>
-        <Typography variant="h4" gutterBottom>
-          Albums
-        </Typography>
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="center"
-        >
+      </Container>
+      <Container maxWidth={false} className="artist-detail-discography">
+        <h2 style={{ marginBottom: '25px' }}>Discography</h2>
+        <h3>Albums</h3>
+        <div className="artist-detail-discography-albums">
           {albums.albums.map((i: SpotifyApi.AlbumObjectFull, idx: number) => {
             const album: SpotifyApi.AlbumObjectFull = i;
-
             return (
-              <Grid item key={idx}>
-                <Link to={`/album/${album.id}`}>
-                  <Card
-                    key={album.id}
-                    direction="vertical"
-                    title={album.name}
-                    subtitle={album.artists[0].name}
-                    image={album.images[1].url}
-                    id={album.id}
-                  />
-                </Link>
-              </Grid>
+              <Link to={`/album/${album.id}`} key={idx}>
+                <Card
+                  key={album.id}
+                  direction="vertical"
+                  title={album.name}
+                  subtitle={album.artists[0].name}
+                  image={album.images[1].url}
+                  id={album.id}
+                />
+              </Link>
             );
           })}
-        </Grid>
-        <Typography variant="h4" gutterBottom>
-          Singles
-        </Typography>
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="center"
-        >
+        </div>
+        <h3>Singles</h3>
+        <div className="artist-detail-discography-singles">
           {albums.singles.map((i: SpotifyApi.AlbumObjectFull, idx: number) => {
             const album: SpotifyApi.AlbumObjectFull = i;
             return (
-              <Grid item key={idx}>
-                <Link to={`/album/${album.id}`}>
-                  <Card
-                    key={album.id}
-                    direction="vertical"
-                    title={album.name}
-                    subtitle={album.artists[0].name}
-                    image={album.images[1].url}
-                    id={album.id}
-                  />
-                </Link>
-              </Grid>
+              <Link to={`/album/${album.id}`} key={idx}>
+                <Card
+                  key={album.id}
+                  direction="vertical"
+                  title={album.name}
+                  subtitle={album.artists[0].name}
+                  image={album.images[1].url}
+                  id={album.id}
+                />
+              </Link>
             );
           })}
-        </Grid>
-
-        <Grid container>
-          <Grid item lg>
-            <h1>Appears On</h1>
-          </Grid>
-        </Grid>
-        <Grid container>
-          <Grid item lg>
-            <h1>Related Artists</h1>
-          </Grid>
-        </Grid>
+        </div>
       </Container>
     </div>
   );

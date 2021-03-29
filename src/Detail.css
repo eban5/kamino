@@ -7,8 +7,7 @@
   color: white !important;
 }
 
-.detail-view,
-.artist-detail-view {
+.detail-view {
   display: grid;
   height: 100%;
   width: 100%;
@@ -22,13 +21,22 @@
   color: white;
 }
 
-.artist-detail-view {
-  grid-template-rows: 2fr 1fr 4fr;
+.artist-detail {
+  color: white;
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-areas:
+    'header'
+    'controls'
+    'main'
+    'discography';
+  grid-template-rows: auto;
   align-items: baseline;
 }
 
 .detail-view__header,
-.artist-detail-view__header {
+.artist-detail__header {
   grid-area: header;
   display: grid;
   grid-template-areas: 'image metadata';
@@ -38,7 +46,7 @@
   align-items: center;
 }
 
-.artist-detail-view__header {
+.artist-detail__header {
   align-items: self-end;
   background: linear-gradient(
     90deg,
@@ -85,7 +93,8 @@
   height: 100%;
 }
 
-.detail-view__user-controls {
+.detail-view__user-controls,
+.artist-detail__controls {
   grid-area: controls;
   display: flex;
   flex-direction: row;
@@ -104,8 +113,11 @@
   grid-template-columns: auto;
 }
 
-.artist-detail-view__user-list {
+.artist-detail__user-list {
+  display: grid;
   grid-template-areas: 'table related';
+  grid-template-columns: 3fr 1fr;
+  width: 100%;
   align-items: self-end;
 }
 
@@ -140,4 +152,69 @@
 
 .MuiTableCell-root {
   border: none !important;
+}
+
+.related-artist-grid-title {
+}
+
+.related-artist-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.related-artist-card {
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+  font-size: 14px;
+  background-color: var(--color-medium-gray);
+  border-radius: 55px;
+  align-items: center;
+  margin: 15px;
+}
+
+.related-artist-card__image > img {
+  width: 80px;
+  height: 80px;
+  margin-right: 10px;
+  border-radius: 55px;
+}
+.related-artist-card__text {
+  align-items: center;
+  height: 100%;
+}
+.related-artist-card__artist {
+  font-weight: 600;
+  font-size: 16px;
+  color: white;
+  margin-top: 10px;
+}
+.related-artist-card__subtitle {
+  margin-top: -10px;
+}
+
+.artist-detail__popular {
+  grid-area: table;
+}
+
+.artist-detail__related {
+  grid-area: related;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.related-artist-card .card__vertical-item .card__vertical-item__image {
+  border-radius: 55px;
+}
+
+.artist-detail-discography {
+  grid-area: discography;
+}
+
+.artist-detail-discography-albums,
+.artist-detail-discography-singles {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
