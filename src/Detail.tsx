@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Container, Button, Typography, Menu, MenuItem } from '@material-ui/core';
+import {
+  Container,
+  Button,
+  Typography,
+  Menu,
+  MenuItem,
+} from '@material-ui/core';
 import SpotifyWebApi from 'spotify-web-api-js';
 
 import { PlayCircleOutline } from '@material-ui/icons';
@@ -223,7 +229,7 @@ const Detail = (props: DetailProps) => {
         </Menu>
       </div>
       <div className="detail-view__user-list">
-        <Container maxWidth={"lg"}>
+        <Container maxWidth={'lg'}>
           <Tracklist type={type} tracks={tracklist} />
         </Container>
       </div>

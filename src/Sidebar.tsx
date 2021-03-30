@@ -18,7 +18,11 @@ const SidebarItem = (props: any) => {
   return (
     <div className="sidebar-item">
       {Icon && <Icon className="sidebar-item__icon" />}
-      {Icon ? <h4 className="sidebar-section-title">{title}</h4> : <p>{title}</p>}
+      {Icon ? (
+        <h4 className="sidebar-section-title">{title}</h4>
+      ) : (
+        <p>{title}</p>
+      )}
     </div>
   );
 };
