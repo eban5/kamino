@@ -113,7 +113,7 @@ const YourLibrary = (props: YourLibraryProps) => {
       </Grid>
       <Grid container spacing={5}>
         <Grid item xs>
-          <h3 className="your-library-title">{type}</h3>
+          <h2 className="your-library-title">{type}</h2>
         </Grid>
       </Grid>
       <div className="your-library-grid">

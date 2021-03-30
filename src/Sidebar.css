@@ -35,6 +35,12 @@
   grid-area: playlists;
   overflow-y: auto;
   position: relative;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.sidebar-playlist__list > a:hover {
+  text-decoration: none;
 }
 
 .sidebar-playlist__currently-playing {
