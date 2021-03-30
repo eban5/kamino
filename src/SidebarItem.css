@@ -1,11 +1,15 @@
-.sidebar-item {
+.sidebar-item  {
   display: flex;
   align-items: center;
   color: var(--color-light-gray);
-  height: 40px;
+  height: 35px;
   cursor: pointer;
   transition: 200ms color ease-in;
   width: 100%;
+}
+
+.sidebar-item-upper {
+  height: 40px;
 }
 
 .sidebar-item:hover {
@@ -14,7 +18,7 @@
 }
 
 .sidebar-item__icon {
-  padding-left: 10px;
+  padding-left: 0px;
   padding-right: 10px;
 }
 
@@ -33,9 +37,10 @@
 }
 
 .sidebar-item > p {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  margin-left: 12px;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 5px;
   font-size: 14px;
   white-space: nowrap;
   overflow: hidden;

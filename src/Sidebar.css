@@ -25,6 +25,7 @@
   grid-area: shortcuts;
   border-bottom: 0.5px solid var(--color-medium-gray);
 }
+
 .sidebar-title {
   color: var(--color-light-gray);
   margin-top: 10px;

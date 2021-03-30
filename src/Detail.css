@@ -7,6 +7,10 @@
   color: white !important;
 }
 
+.MuiTableCell-root {
+  padding: 10px!important;
+}
+
 .detail-view {
   display: grid;
   height: 100%;
@@ -85,7 +89,6 @@
   font-weight: 700;
 }
 .detail-view__header-info-subtitle {
-  /* font-size: 20px; */
 }
 
 .detail-view__header-info-image > img {
@@ -101,16 +104,6 @@
   align-items: center;
   cursor: pointer;
   margin: 30px;
-}
-
-.detail-view__user-list {
-  grid-area: list;
-  color: white;
-  font-size: 20px;
-  display: grid;
-  width: 100%;
-  grid-template-areas: 'table';
-  grid-template-columns: auto;
 }
 
 .artist-detail__user-list {
@@ -132,6 +125,7 @@
 
 .detail-view-tracklist-cell {
   display: inline-flex !important;
+  font-size: 16px !important;
 }
 
 .detail-view-tracklist-art {
@@ -140,6 +134,7 @@
 }
 
 .detail-view-tracklist-track-name {
+  color: white !important;
 }
 
 .detail-view__copyrights {

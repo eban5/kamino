@@ -60,7 +60,7 @@ const Tracklist = (props: TracklistProps) => {
           <TableBody>
             {tracks?.map((track: SpotifyApi.TrackObjectFull, index: number) => {
               return (
-                <TableRow key={index} className="detail-view-tracklist-row">
+                <TableRow key={index} style={{padding: '0'}} className="detail-view-tracklist-row">
                   <TableCell variant="body" size={'small'}>
                     {index + 1}
                   </TableCell>
