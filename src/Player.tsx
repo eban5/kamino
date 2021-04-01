@@ -8,7 +8,6 @@ import { greeting } from './utils';
 import Controls from './Controls';
 import MenuBar from './MenuBar';
 import Category from './Category';
-import Search from './Search';
 import Card from './Card';
 import Detail from './Detail';
 import ArtistDetail from './ArtistDetail';
@@ -216,9 +215,7 @@ const Player = ({ spotify }) => {
             <Route path="/browse">
               <Browse spotify={spotify} />
             </Route>
-            <Route path="/search">
-              <Search spotify={spotify} />
-            </Route>
+            
             <Route path="/home">
               <Home spotify={spotify} />
             </Route>

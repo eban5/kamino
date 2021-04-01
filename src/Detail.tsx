@@ -229,7 +229,7 @@ const Detail = (props: DetailProps) => {
         </Menu>
       </div>
       <div className="detail-view__user-list">
-        <Container maxWidth={'lg'}>
+        <Container maxWidth={'xl'}>
           <Tracklist type={type} tracks={tracklist} />
         </Container>
       </div>

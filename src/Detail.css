@@ -48,6 +48,7 @@
   height: 100%;
   width: 100%;
   align-items: center;
+  padding-left: 30px;
 }
 
 .artist-detail__header {
@@ -126,15 +127,19 @@
 }
 
 .detail-view-tracklist-track-name {
-  color: white !important;
+  font-weight: 500;
+  font-size: 1.1em;
 }
 
+.detail-view-tracklist-track-name > a {
+  color: white;
+}
 .detail-view__copyrights {
   grid-area: copyrights;
 }
 
 .detail-view-tracklist-track-artist {
-  color: gray;
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .MuiTableCell-root {

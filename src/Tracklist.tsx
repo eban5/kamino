@@ -21,9 +21,11 @@ const HeaderRow = (props: { type?: 'album' | 'playlist' }) => {
   if (type === 'album') {
     return (
       <TableHead>
-        <TableRow>
+        <TableRow style={{ color: 'gray' }}>
           <TableCell variant="head">#</TableCell>
-          <TableCell variant="head">Title</TableCell>
+          <TableCell variant="head" style={{ textTransform: 'uppercase' }}>
+            Title
+          </TableCell>
           <TableCell variant="head" align="right">
             <AccessTimeIcon fontSize="small" />
           </TableCell>
@@ -33,15 +35,38 @@ const HeaderRow = (props: { type?: 'album' | 'playlist' }) => {
   } else {
     return (
       <TableHead>
-        <TableRow>
-          <TableCell variant="head">#</TableCell>
-          <TableCell variant="head">Title</TableCell>
-
-          <TableCell variant="head" align="left">
-            Album
+        <TableRow style={{ color: 'gray' }}>
+          <TableCell
+            style={{ fontSize: '0.8em', textTransform: 'uppercase' }}
+            variant="head"
+          >
+            #
+          </TableCell>
+          <TableCell
+            style={{ fontSize: '0.8em', textTransform: 'uppercase' }}
+            variant="head"
+          >
+            Title
           </TableCell>
 
-          <TableCell variant="head" align="right">
+          <TableCell
+            style={{ fontSize: '0.8em', textTransform: 'uppercase' }}
+            variant="head"
+          >
+            Album
+          </TableCell>
+          <TableCell
+            style={{ fontSize: '0.8em', textTransform: 'uppercase' }}
+            variant="head"
+          >
+            Date Added
+          </TableCell>
+
+          <TableCell
+            style={{ fontSize: '0.8em', textTransform: 'uppercase' }}
+            variant="head"
+            align="right"
+          >
             <AccessTimeIcon fontSize="small" />
           </TableCell>
         </TableRow>
@@ -65,10 +90,14 @@ const Tracklist = (props: TracklistProps) => {
                   style={{ padding: '0' }}
                   className="detail-view-tracklist-row"
                 >
-                  <TableCell variant="body" size={'small'}>
+                  <TableCell
+                    variant="body"
+                    style={{ width: '10px', fontSize: '1.1em' }}
+                  >
                     {index + 1}
                   </TableCell>
                   <TableCell
+                  style={{color: "white"}}
                     className="detail-view-tracklist-cell"
                     variant="body"
                   >
@@ -93,11 +122,16 @@ const Tracklist = (props: TracklistProps) => {
                     </div>
                   </TableCell>
                   {type === 'playlist' && (
-                    <TableCell variant="body" align="left">
-                      <Link to={`/album/${track?.album.id}`}>
+                    <>
+                      <TableCell variant="body" align="left">
+                        <Link to={`/album/${track?.album.id}`}>
+                          {track?.album.name}
+                        </Link>
+                      </TableCell>
+                      <TableCell variant="body" align="left">
                         {track?.album.name}
-                      </Link>
-                    </TableCell>
+                      </TableCell>
+                    </>
                   )}
                   <TableCell variant="body" align="right">
                     {millisToMinutesAndSeconds(track?.duration_ms)}

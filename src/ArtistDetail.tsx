@@ -80,9 +80,14 @@ const ArtistDetail = (props: DetailProps) => {
     }
   }, [id, spotify]);
 
+  
+
   return (
     <div className="artist-detail">
-      <div className="artist-detail__header" style={{background: `url(${headerImage})`}}>
+      <div className="artist-detail__header" style={{backgroundImage: `linear-gradient(
+      rgba(0, 0, 0, 0.25), 
+      rgba(0, 0, 0, 0.85)
+    ), url(${headerImage})`}}>
         <div className="detail-view__header-info-metadata">
           <div className="detail-view__header-info-type">Artist</div>
 
