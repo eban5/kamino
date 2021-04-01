@@ -39,9 +39,9 @@ const ArtistDetail = (props: DetailProps) => {
 
   const [tracks, setTracks] = useState<any>([]);
   const [title, setTitle] = useState<string>('');
-
-  const [albums, setAlbums] = useState<Albums>({ singles: [], albums: [] });
   const [followers, setFollowers] = useState<number>(0);
+  const [headerImage, setHeaderImage] = useState<string>("");
+  const [albums, setAlbums] = useState<Albums>({ singles: [], albums: [] });
   const [relatedArtists, setRelatedArtists] = useState<
     SpotifyApi.ArtistObjectFull[]
   >([]);
@@ -55,6 +55,7 @@ const ArtistDetail = (props: DetailProps) => {
       spotify.getArtist(id).then((artist: SpotifyApi.ArtistObjectFull) => {
         setTitle(artist?.name);
         setFollowers(artist?.followers.total);
+        setHeaderImage(artist?.images[0].url)
       });
       spotify.getArtistAlbums(id).then((albums: any) => {
         const singles: SpotifyApi.AlbumObjectFull[] = albums.items.filter(
@@ -81,7 +82,7 @@ const ArtistDetail = (props: DetailProps) => {
 
   return (
     <div className="artist-detail">
-      <div className="artist-detail__header">
+      <div className="artist-detail__header" style={{background: `url(${headerImage})`}}>
         <div className="detail-view__header-info-metadata">
           <div className="detail-view__header-info-type">Artist</div>
 

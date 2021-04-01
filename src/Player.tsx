@@ -59,7 +59,7 @@ const RecentlyPlayed = (props: RecentlyPlayedProps) => {
   return (
     <>
       {items?.items &&
-        items?.items.slice(0, 10).map((item: any, index: number) => {
+        items?.items.slice(0, 6).map((item: any, index: number) => {
           const track: SpotifyApi.TrackObjectFull = item.track;
           return (
             <Link to={`/album/${track.album.id}`} key={index}>
@@ -83,7 +83,7 @@ const Top = (props: TopProps) => {
 
   return (
     <>
-      {items?.items.slice(0, 10).map((item: any, index: number) => {
+      {items?.items.slice(0, 6).map((item: any, index: number) => {
         if (item.album && item.album.type === 'album') {
           const album: SpotifyApi.AlbumObjectFull = item.album;
           return (

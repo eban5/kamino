@@ -35,7 +35,7 @@
     'controls'
     'main'
     'discography';
-  grid-template-rows: auto;
+  grid-template-rows: 300px auto auto auto;
   align-items: baseline;
 }
 
@@ -52,17 +52,9 @@
 
 .artist-detail__header {
   align-items: self-end;
-  background: linear-gradient(
-    90deg,
-    #1f005c,
-    #48004e,
-    #5d003f,
-    #690032,
-    #6e1829,
-    #6f2c24,
-    #6e3d25,
-    #6b4c2d
-  );
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   padding-bottom: 20px;
 }
 

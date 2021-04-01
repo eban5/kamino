@@ -237,12 +237,12 @@ const Detail = (props: DetailProps) => {
         {albumDetails?.copyrights.map(
           (i: SpotifyApi.CopyrightObject, idx: number) => {
             return (
-              <>
+              <div key={idx}>
                 <Typography variant="subtitle2" gutterBottom key={idx}>
                   {i.text}
                 </Typography>
                 <br />
-              </>
+              </div>
             );
           }
         )}
