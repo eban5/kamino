@@ -210,3 +210,12 @@
   flex-wrap: wrap;
   flex-direction: row;
 }
+
+.artist-detail-about {
+  height: 500px;
+  width: 800px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+}

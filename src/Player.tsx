@@ -127,7 +127,7 @@ const Top = (props: TopProps) => {
 export const Home = ({ spotify }) => {
   //@ts-ignore
   const [
-    { playlists, recently_played, top_artists, albums },
+    { playlists, recently_played, top_artists, top_tracks, albums },
   ] = useDataLayerValue();
 
   return (
@@ -137,8 +137,10 @@ export const Home = ({ spotify }) => {
         <QuickPlaylists playlists={playlists} />
       </div>
 
-      <h2 className="home-header">Recently played</h2>
-
+      <div className="home-header-container">
+        <h2 className="home-header">Recently played</h2>
+        <h6 className="home-header-see-all">See All</h6>
+      </div>
       <div className="card-grid">
         <RecentlyPlayed items={recently_played} />
       </div>
@@ -148,6 +150,12 @@ export const Home = ({ spotify }) => {
       <div className="card-grid">
         <Top items={top_artists} />
       </div>
+      <h2 className="home-header">Top Tracks</h2>
+
+      <div className="card-grid">
+        <Top items={top_tracks} />
+      </div>
+
       <h2 className="home-header">Saved Albums</h2>
       <div className="card-grid">
         <Top items={albums} />
@@ -164,7 +172,7 @@ const Player = ({ spotify }) => {
         <Sidebar />
       </aside>
       <main>
-        <Container maxWidth={false} disableGutters>
+        <Container maxWidth={'xl'} disableGutters>
           <MenuBar />
           <Switch>
             <Route
@@ -215,7 +223,7 @@ const Player = ({ spotify }) => {
             <Route path="/browse">
               <Browse spotify={spotify} />
             </Route>
-            
+
             <Route path="/home">
               <Home spotify={spotify} />
             </Route>

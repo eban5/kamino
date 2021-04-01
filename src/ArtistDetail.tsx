@@ -15,7 +15,7 @@ import SpotifyWebApi from 'spotify-web-api-js';
 import Card from './Card';
 import './Controls.css';
 import './Detail.css';
-import { millisToMinutesAndSeconds, numberWithCommas } from './utils';
+import * as utils from './utils';
 
 interface DetailProps {
   match?: any;
@@ -36,11 +36,15 @@ const ArtistDetail = (props: DetailProps) => {
 
   const [style, setStyle] = useState<any>({ display: 'none' });
   const [hide, setHide] = useState<boolean>(true);
+  const [artist, setArtist] = useState<SpotifyApi.ArtistObjectFull | null>(
+    null
+  );
 
   const [tracks, setTracks] = useState<any>([]);
   const [title, setTitle] = useState<string>('');
   const [followers, setFollowers] = useState<number>(0);
-  const [headerImage, setHeaderImage] = useState<string>("");
+  const [headerImage, setHeaderImage] = useState<string>('');
+
   const [albums, setAlbums] = useState<Albums>({ singles: [], albums: [] });
   const [relatedArtists, setRelatedArtists] = useState<
     SpotifyApi.ArtistObjectFull[]
@@ -53,9 +57,10 @@ const ArtistDetail = (props: DetailProps) => {
   useEffect(() => {
     if (spotify) {
       spotify.getArtist(id).then((artist: SpotifyApi.ArtistObjectFull) => {
+        setArtist(artist);
         setTitle(artist?.name);
         setFollowers(artist?.followers.total);
-        setHeaderImage(artist?.images[0].url)
+        setHeaderImage(artist?.images[0].url);
       });
       spotify.getArtistAlbums(id).then((albums: any) => {
         const singles: SpotifyApi.AlbumObjectFull[] = albums.items.filter(
@@ -80,21 +85,26 @@ const ArtistDetail = (props: DetailProps) => {
     }
   }, [id, spotify]);
 
-  
+  console.log('artist', artist);
 
   return (
     <div className="artist-detail">
-      <div className="artist-detail__header" style={{backgroundImage: `linear-gradient(
+      <div
+        className="artist-detail__header"
+        style={{
+          backgroundImage: `linear-gradient(
       rgba(0, 0, 0, 0.25), 
       rgba(0, 0, 0, 0.85)
-    ), url(${headerImage})`}}>
+    ), url(${headerImage})`,
+        }}
+      >
         <div className="detail-view__header-info-metadata">
           <div className="detail-view__header-info-type">Artist</div>
 
           <h1 className="detail-view__header-info-title">{title}</h1>
 
           <p className="detail-view__header-info-artist">
-            {numberWithCommas(followers) + ' followers'}
+            {utils.numberWithCommas(followers) + ' followers'}
           </p>
         </div>
       </div>
@@ -142,7 +152,7 @@ const ArtistDetail = (props: DetailProps) => {
                         </TableCell>
                         <TableCell>{item?.name}</TableCell>
                         <TableCell>
-                          {millisToMinutesAndSeconds(item.duration_ms)}
+                          {utils.millisToMinutesAndSeconds(item.duration_ms)}
                         </TableCell>
                       </TableRow>
                     );
@@ -219,6 +229,26 @@ const ArtistDetail = (props: DetailProps) => {
               </Link>
             );
           })}
+        </div>
+        <h3>About</h3>
+        <div
+          className="artist-detail-about"
+          style={{
+            backgroundImage: `linear-gradient(
+        rgba(0, 0, 0, 0.25), 
+        rgba(0, 0, 0, 0.85)
+      ), url(${headerImage})`,
+          }}
+        >
+          <div className="">{utils.numberWithCommas(followers)} followers.</div>
+          <div className="">
+            {artist?.genres
+              .slice(0, 3)
+              .map(
+                (i: string) => `${i.charAt(0).toUpperCase()}${i.substring(1)}`
+              )
+              .join(', ')}
+          </div>
         </div>
       </Container>
     </div>

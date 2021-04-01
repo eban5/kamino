@@ -97,7 +97,7 @@ const Tracklist = (props: TracklistProps) => {
                     {index + 1}
                   </TableCell>
                   <TableCell
-                  style={{color: "white"}}
+                    style={{ color: 'white' }}
                     className="detail-view-tracklist-cell"
                     variant="body"
                   >
