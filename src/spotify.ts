@@ -14,12 +14,16 @@ const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 
 // scopes are basically permissions which you need to ask Spotify for. More such permissions are available on Spotify API Documentation.
 const scopes = [
+  'streaming',
+  'user-read-email',
+  'user-read-private',
+  'user-library-read',
+  'user-library-modify',
+  'user-read-playback-state',
+  'user-modify-playback-state',
   'user-read-currently-playing',
   'user-read-recently-played',
-  'user-library-read',
-  'user-read-playback-state',
   'user-top-read',
-  'user-modify-playback-state',
 ];
 
 // extract the Access Token from the URL once we get it from Spotify after successful login.
