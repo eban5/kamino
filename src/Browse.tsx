@@ -28,7 +28,7 @@ const Browse = (props: BrowseProps) => {
       {browseCategories.map(
         (category: SpotifyApi.CategoryObject, index: number) => {
           return (
-            <Link to={`/category/${category.id}`}>
+            <Link to={`/category/${category.id}`} key={index}>
               <div
                 className="category"
                 key={index}
