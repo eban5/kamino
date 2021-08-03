@@ -1,0 +1,24 @@
+.card-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow: hidden;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.home-header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.home-header {
+  margin: 25px 25px 10px 25px;
+}
+
+.home-header-see-all {
+  text-transform: uppercase;
+  font-size: 700;
+}

@@ -1,0 +1,49 @@
+.sidebar {
+  display: grid;
+  grid-template-areas:
+    'logo'
+    'shortcuts'
+    'playlists'
+    'currentlyPlaying';
+  width: 100%;
+  height: 100%;
+  grid-template-columns: 100%;
+  grid-template-rows: auto auto auto 300px;
+}
+
+.sidebar.sidebar-three {
+  grid-template-rows: auto auto auto 0;
+  transition: 0.3s;
+}
+
+.sidebar-logo {
+  grid-area: logo;
+  padding: 15px 0;
+}
+
+.sidebar-playlist__controls {
+  grid-area: shortcuts;
+  border-bottom: 0.5px solid var(--color-medium-gray);
+}
+
+.sidebar-title {
+  color: var(--color-light-gray);
+  margin-top: 10px;
+  padding: 10px 0;
+}
+
+.sidebar-playlist__list {
+  grid-area: playlists;
+  overflow-y: auto;
+  position: relative;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.sidebar-playlist__list > a:hover {
+  text-decoration: none;
+}
+
+.sidebar-playlist__currently-playing {
+  grid-area: currentlyPlaying;
+}

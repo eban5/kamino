@@ -1,0 +1,50 @@
+.currently-playing__container {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-dark-gray);
+  transition: transform 0.3s;
+  transform: translate3d(0, 200%, 0);
+  overflow: scroll;
+  z-index: 1000;
+  color: white;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 30px;
+  width: 30px;
+  color: var(--color-medium-gray);
+  background-color: black;
+  border-radius: 35px;
+  text-align: center;
+  font-weight: 800;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.close:hover {
+  background-color: var(--color-medium-gray);
+  color: white;
+}
+
+.hide {
+  transform: translate3d(0, calc(100% - 3rem));
+}
+
+.show {
+  transform: translate3d(0vw, 0vh, 0);
+  overflow: hidden;
+}
+.currently-playing__artwork > img {
+  width: 100%;
+}
+
+.currently-playing__track-title {
+  font-weight: 700;
+}
+.currently-playing__track-artist {
+}
