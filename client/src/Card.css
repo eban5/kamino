@@ -21,7 +21,7 @@
 
 .card__vertical-item {
   flex-direction: column;
-  padding: 10px;
+  padding: 5px;
   width: 150px;
   margin: 20px;
   transition: 0.5s;
