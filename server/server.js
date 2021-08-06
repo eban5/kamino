@@ -5,7 +5,7 @@ const cors = require('cors');
 const SpotifyWebApi = require('spotify-web-api-node');
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.post('/login', (req, res) => {
   const code = req.body.code;

@@ -14,6 +14,7 @@ import ArtistDetail from './ArtistDetail';
 import Browse from './Browse';
 import YourLibrary from './YourLibrary';
 import { useDataLayerValue } from './DataLayer';
+const getColors = require('get-image-colors');
 
 interface TopProps {
   items: SpotifyApi.UsersTopTracksResponse | SpotifyApi.UsersTopArtistsResponse;
@@ -166,75 +167,123 @@ export const Home = ({ spotify }) => {
 
 //@ts-ignore
 const Player = ({ spotify }) => {
+  //@ts-ignore
+  const [{ top_tracks }] = useDataLayerValue();
+  const defaultBackground = `linear-gradient(0deg, #000000 0%, #000000 70%, #23597d 100%)`;
+
+  const buildGradient = (color: string) => {
+    return `linear-gradient(0deg, #000000 0%, #000000 70%, ${color} 100%)`;
+  };
+
+  const getRandomColor = (top_tracks: SpotifyApi.UsersTopTracksResponse) => {
+    if (top_tracks) {
+      // get all of the top_track's artwork
+      const top_track_artwork = top_tracks.items
+        .slice(0, 6)
+        .map((i: SpotifyApi.TrackObjectFull) => i.album.images[1].url);
+
+      // get color palette of all
+      let top_track_colors: string[] = [];
+      top_track_artwork.map((i: string) => {
+        getColors(i).then((colors: any) => {
+          const top = colors[0];
+
+          // `colors` is an array of color objects
+          top_track_colors.push(
+            `rgba(${top._rgb[0]}, ${top._rgb[1]}, ${top._rgb[2]}, ${top._rgb[3]})`
+          );
+        });
+      });
+
+      // pick random from this set for background gradient primary
+      return top_track_colors[
+        Math.floor(Math.random() * top_track_colors.length)
+      ];
+    } else {
+      return `#23597d`;
+    }
+  };
+  const randomColor: string = getRandomColor(top_tracks);
+  console.log('randomColor', randomColor);
+
+  const backgroundColor: string =
+    buildGradient(randomColor) || defaultBackground;
+
+  console.log('backgroundColor', backgroundColor);
+
   return (
     <div className="App">
       <aside>
         <Sidebar />
       </aside>
       <main>
-        <Container maxWidth={'xl'} disableGutters>
-          <MenuBar />
-          <Switch>
-            <Route
-              exact
-              path="/artist/:id"
-              render={(props) => <ArtistDetail {...props} spotify={spotify} />}
-            />
-            <Route
-              exact
-              path="/album/:id"
-              render={(props) => (
-                <Detail {...props} type="album" spotify={spotify} />
-              )}
-            />
-            <Route
-              exact
-              path="/playlist/:id"
-              render={(props) => (
-                <Detail {...props} type="playlist" spotify={spotify} />
-              )}
-            />
-            <Route
-              exact
-              path="/category/:id"
-              render={(props) => <Category {...props} spotify={spotify} />}
-            />
-            <Route
-              exact
-              path="/collections/playlists"
-              render={(props) => (
-                <YourLibrary {...props} type="playlists" spotify={spotify} />
-              )}
-            />
-            <Route
-              exact
-              path="/collections/artists"
-              render={(props) => (
-                <YourLibrary {...props} type="artists" spotify={spotify} />
-              )}
-            />
-            <Route
-              exact
-              path="/collections/albums"
-              render={(props) => (
-                <YourLibrary {...props} type="albums" spotify={spotify} />
-              )}
-            />
-            <Route path="/browse">
-              <Browse spotify={spotify} />
-            </Route>
+        <div style={{ background: backgroundColor }}>
+          <Container maxWidth={'xl'} disableGutters>
+            <MenuBar />
+            <Switch>
+              <Route
+                exact
+                path="/artist/:id"
+                render={(props) => (
+                  <ArtistDetail {...props} spotify={spotify} />
+                )}
+              />
+              <Route
+                exact
+                path="/album/:id"
+                render={(props) => (
+                  <Detail {...props} type="album" spotify={spotify} />
+                )}
+              />
+              <Route
+                exact
+                path="/playlist/:id"
+                render={(props) => (
+                  <Detail {...props} type="playlist" spotify={spotify} />
+                )}
+              />
+              <Route
+                exact
+                path="/category/:id"
+                render={(props) => <Category {...props} spotify={spotify} />}
+              />
+              <Route
+                exact
+                path="/collections/playlists"
+                render={(props) => (
+                  <YourLibrary {...props} type="playlists" spotify={spotify} />
+                )}
+              />
+              <Route
+                exact
+                path="/collections/artists"
+                render={(props) => (
+                  <YourLibrary {...props} type="artists" spotify={spotify} />
+                )}
+              />
+              <Route
+                exact
+                path="/collections/albums"
+                render={(props) => (
+                  <YourLibrary {...props} type="albums" spotify={spotify} />
+                )}
+              />
+              <Route path="/browse">
+                <Browse spotify={spotify} />
+              </Route>
 
-            <Route path="/home">
-              <Home spotify={spotify} />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/">
-              <Home spotify={spotify} />
-            </Route>
-          </Switch>
-        </Container>
+              <Route path="/home">
+                <Home spotify={spotify} />
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route path="/">
+                <Home spotify={spotify} />
+              </Route>
+            </Switch>
+          </Container>
+        </div>
       </main>
       <footer>
         <Controls />
