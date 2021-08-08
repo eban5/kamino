@@ -27,7 +27,7 @@
 
 .menubar-arrows__back:hover,
 .menubar-arrows__forward:hover {
-  background-color: var(--color-light-gray);
+  background-color: var(--color-medium-gray);
 }
 
 .menubar-spacer {

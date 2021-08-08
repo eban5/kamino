@@ -31,7 +31,7 @@
 .card__vertical-item:hover {
   background: linear-gradient(
     var(--color-light-gray) 0%,
-    var(--color-light-gray) 50%,
+    var(--color-medium-gray) 50%,
     var(--color-medium-gray) 100%
   );
 }
