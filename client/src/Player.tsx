@@ -167,7 +167,7 @@ export const Home = ({ spotify }) => {
 //@ts-ignore
 const Player = ({ spotify }) => {
   //@ts-ignore
-  const [{ bg_color }, dispatch] = useDataLayerValue();
+  const [{ bg_color }] = useDataLayerValue();
 
   return (
     <div className="App">

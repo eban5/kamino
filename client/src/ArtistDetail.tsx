@@ -85,8 +85,6 @@ const ArtistDetail = (props: DetailProps) => {
     }
   }, [id, spotify]);
 
-  console.log('artist', artist);
-
   return (
     <div className="artist-detail">
       <div

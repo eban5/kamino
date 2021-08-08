@@ -18,7 +18,6 @@ export const getRandomColor = (
     .sort(() => Math.random() - 0.5);
 
   const artworkUrl: string = top_track_artwork[0];
-  console.log('artworkUrl', artworkUrl);
   return prominent(artworkUrl, { amount: 1 }).then(
     (color) => `rgb(${color[0]}, ${color[1]}, ${color[2]})`
   );
