@@ -16,7 +16,7 @@ import './Detail.css';
 import './Controls.css';
 import Tracklist from './Tracklist';
 
-import { getPlaylistDuration, millisToAlbumDuration } from './utils';
+import { getPlaylistDuration, millisToAlbumDuration } from './utils/utils';
 
 interface DetailProps {
   type?: 'album' | 'playlist';

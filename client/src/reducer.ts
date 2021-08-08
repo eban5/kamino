@@ -20,6 +20,11 @@ const reducer = (state: any, action: any) => {
         ...state,
         token: action.token,
       };
+    case 'SET_BG_COLOR':
+      return {
+        ...state,
+        bg_color: action.bg_color,
+      };
     case 'SET_PLAYLISTS':
       return {
         ...state,

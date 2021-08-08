@@ -15,7 +15,7 @@ import SpotifyWebApi from 'spotify-web-api-js';
 import Card from './Card';
 import './Controls.css';
 import './Detail.css';
-import * as utils from './utils';
+import * as utils from './utils/utils';
 
 interface DetailProps {
   match?: any;

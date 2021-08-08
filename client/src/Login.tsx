@@ -1,6 +1,6 @@
 import './Login.css';
 import kaminoBrand from './images/kamino-brand.png';
-import { loginUrl } from './spotify';
+import { loginUrl } from './utils/spotify';
 
 const Login = () => {
   return (

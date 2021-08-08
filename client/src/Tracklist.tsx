@@ -8,7 +8,7 @@ import Paper from '@material-ui/core/Paper';
 
 import { Link } from 'react-router-dom';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import { millisToMinutesAndSeconds } from './utils';
+import { millisToMinutesAndSeconds } from './utils/utils';
 
 interface TracklistProps {
   tracks?: SpotifyApi.TrackObjectFull[];

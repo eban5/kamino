@@ -3,9 +3,10 @@ import { useEffect } from 'react';
 import './App.css';
 import Login from './Login';
 import Player from './Player';
-import { getTokenFromUrl } from './spotify';
+import { getTokenFromUrl } from './utils/spotify';
 import SpotifyWebApi from 'spotify-web-api-js';
 import { useDataLayerValue } from './DataLayer';
+import { getRandomColor, buildGradient } from './utils/background_color';
 
 const spotify = new SpotifyWebApi();
 
@@ -77,6 +78,17 @@ function App() {
             type: 'SET_TOP_TRACKS',
             top_tracks: top,
           });
+
+          // set the Player background based on the primary colors extracted from top tracks
+          let randomColor: Promise<string> = getRandomColor(top);
+          randomColor
+            .then((result: string) => buildGradient(result))
+            .then((bgColor: string) => {
+              dispatch({
+                type: 'SET_BG_COLOR',
+                bg_color: bgColor,
+              });
+            });
         });
 
       // get user's available devices
