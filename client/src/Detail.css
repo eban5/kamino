@@ -162,26 +162,33 @@
   width: 300px;
   font-size: 14px;
   background-color: var(--color-medium-gray);
+  background-position: center;
+  background-size: cover;
   border-radius: 55px;
   align-items: center;
   margin: 15px;
 }
 
-.related-artist-card__image > img {
-  width: 80px;
-  height: 80px;
-  margin-right: 10px;
-  border-radius: 55px;
+.related-artist-card::after {
+  background: `linear-gradient(0deg, #000000 0%, #000000 70%, #23597d 100%) `;
 }
+
+.related-artist-card > img {
+  object-fit: contain;
+  width: 100%;
+}
+
 .related-artist-card__text {
   align-items: center;
   height: 100%;
+  width: 100%;
+  padding-left: 10px;
 }
 .related-artist-card__artist {
   font-weight: 600;
   font-size: 16px;
   color: white;
-  margin-top: 10px;
+  margin: 10px 0;
 }
 .related-artist-card__subtitle {
   margin-top: -10px;

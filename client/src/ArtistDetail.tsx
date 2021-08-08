@@ -166,21 +166,18 @@ const ArtistDetail = (props: DetailProps) => {
               (artist: SpotifyApi.ArtistObjectFull, index: number) => {
                 return (
                   <Link to={`/artist/${artist.id}`} key={index}>
-                    <div className="related-artist-card" key={index}>
-                      <div className="related-artist-card__image">
-                        <img
-                          src={artist.images[0]?.url}
-                          alt={`Related Artist`}
-                        />
-                      </div>
+                    <div
+                      className="related-artist-card"
+                      key={index}
+                      style={{
+                        backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('${artist.images[0]?.url}')`,
+                      }}
+                    >
                       <div className="related-artist-card__text">
                         <div className="related-artist-card__artist">
                           {artist.name}
                         </div>
                         <br />
-                        <div className="related-artist-card__subtitle">
-                          Artist
-                        </div>
                       </div>
                     </div>
                   </Link>
