@@ -36,6 +36,7 @@
     'main'
     'discography';
   grid-template-rows: 300px auto auto auto;
+  row-gap: 3em;
   align-items: baseline;
 }
 
