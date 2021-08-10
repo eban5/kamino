@@ -19,7 +19,6 @@ function App() {
     // reset the URL so that the access token is not shown
     window.location.hash = '';
     const _token = hash.access_token;
-    localStorage.setItem('kaminoToken', _token);
 
     if (_token) {
       dispatch({
