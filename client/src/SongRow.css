@@ -1,6 +1,6 @@
 .song-row {
   margin-left: 20px;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   align-items: center;
   color: white;
@@ -21,10 +21,15 @@
 }
 .song-row-info > p {
   font-size: 14px;
-  margin-top: 3px;
-  color: gray;
+  margin-top: 2px;
+  color: var(--color-text-gray);
 }
 .song-row-info > img {
   width: 40px;
   height: 40px;
+}
+
+.song-row-index {
+  margin-right: 20px;
+  color: var(--color-text-gray);
 }

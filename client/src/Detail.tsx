@@ -201,7 +201,7 @@ const Detail = (props: DetailProps) => {
         <Container maxWidth={'xl'}>
           {tracklist?.map(
             (track: SpotifyApi.TrackObjectFull, index: number) => (
-              <SongRow key={index} track={track} />
+              <SongRow key={index} trackNumber={index + 1} track={track} />
             )
           )}
         </Container>
