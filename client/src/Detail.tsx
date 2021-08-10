@@ -1,11 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  Container,
-  Button,
-  Typography,
-  Menu,
-  MenuItem,
-} from '@material-ui/core';
+import { Container, Button, Typography } from '@material-ui/core';
 import SpotifyWebApi from 'spotify-web-api-js';
 
 import { PlayCircleOutline } from '@material-ui/icons';
@@ -14,7 +8,6 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import './Detail.css';
 import './Controls.css';
-import Tracklist from './Tracklist';
 
 import { getPlaylistDuration, millisToAlbumDuration } from './utils/utils';
 import SongRow from './SongRow';
@@ -42,7 +35,7 @@ const Detail = (props: DetailProps) => {
     match: { params },
   } = props;
   const id: string = params.id;
-
+  // eslint-disable-next-line
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const [tracklist, setTracklist] = useState<SpotifyApi.TrackObjectFull[]>([]);
