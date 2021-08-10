@@ -9,20 +9,28 @@ import {
 } from '@material-ui/icons';
 import { Grid, Slider } from '@material-ui/core';
 import './Controls.css';
+import { useDataLayerValue } from './DataLayer';
 
 const Controls = () => {
+  //@ts-ignore
+  const [{ currently_playing }] = useDataLayerValue();
+
   return (
     <div className="footer">
       <div className="footer__left">
-        <img
-          className="footer__albumLogo"
-          src="https://scene360.com/wp-content/uploads/2013/10/album-covers-05.jpg"
-          alt=""
-        />
-        <div className="footer__song-info">
-          <h4>Song Title</h4>
-          <p>Artist</p>
-        </div>
+        {currently_playing && (
+          <>
+            <img
+              className="footer__albumLogo"
+              src={`${currently_playing.albumArt}`}
+              alt=""
+            />
+            <div className="footer__song-info">
+              <h4>{currently_playing.track}</h4>
+              <p>{currently_playing.artist}</p>
+            </div>
+          </>
+        )}
       </div>
       <div className="footer__center">
         <Shuffle className="footer__green" />

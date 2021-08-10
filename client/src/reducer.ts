@@ -6,6 +6,7 @@ export const initialState = {
   playlists: [],
   playing: false,
   item: null,
+  currently_playing: null,
 };
 
 const reducer = (state: any, action: any) => {
@@ -24,6 +25,11 @@ const reducer = (state: any, action: any) => {
       return {
         ...state,
         bg_color: action.bg_color,
+      };
+    case 'SET_CURRENTLY_PLAYING':
+      return {
+        ...state,
+        currently_playing: action.currently_playing,
       };
     case 'SET_PLAYLISTS':
       return {
