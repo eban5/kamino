@@ -7,12 +7,9 @@ function SongRow({ track, trackNumber }) {
   //@ts-ignore
   const [{}, dispatch] = useDataLayerValue(); //eslint-disable-line
 
-  const onSingleClick = (currently_playing: any) => {
-    console.log('onclick event', currently_playing);
-  };
+  // const onSingleClick = (currently_playing: any) => {};
 
   const onDoubleClick = (currently_playing: any) => {
-    console.log('double event', currently_playing);
     dispatch({
       type: 'SET_CURRENTLY_PLAYING',
       currently_playing: {
@@ -28,7 +25,7 @@ function SongRow({ track, trackNumber }) {
   const onClickHandler = (event: any, currently_playing: any) => {
     clearTimeout(timer);
     if (event.detail === 1) {
-      timer = setTimeout(() => onSingleClick(currently_playing), 200);
+      // timer = setTimeout(() => onSingleClick(currently_playing), 200);
     } else if (event.detail === 2) {
       onDoubleClick(currently_playing);
     }
