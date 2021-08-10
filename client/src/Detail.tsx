@@ -17,6 +17,7 @@ import './Controls.css';
 import Tracklist from './Tracklist';
 
 import { getPlaylistDuration, millisToAlbumDuration } from './utils/utils';
+import SongRow from './SongRow';
 
 interface DetailProps {
   type?: 'album' | 'playlist';
@@ -201,36 +202,14 @@ const Detail = (props: DetailProps) => {
         <Button onClick={handleMore}>
           <MoreHorizIcon fontSize="large" style={{ marginLeft: '15px' }} />
         </Button>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          <MenuItem
-            style={{ backgroundColor: 'gray', color: 'white' }}
-            onClick={handleClose}
-          >
-            Account
-          </MenuItem>
-          <MenuItem
-            style={{ backgroundColor: 'gray', color: 'white' }}
-            onClick={handleClose}
-          >
-            Profile
-          </MenuItem>
-          <MenuItem
-            style={{ backgroundColor: 'gray', color: 'white' }}
-            onClick={handleClose}
-          >
-            Log out
-          </MenuItem>
-        </Menu>
       </div>
       <div className="detail-view__user-list">
         <Container maxWidth={'xl'}>
-          <Tracklist type={type} tracks={tracklist} />
+          {tracklist?.map(
+            (track: SpotifyApi.TrackObjectFull, index: number) => (
+              <SongRow track={track} />
+            )
+          )}
         </Container>
       </div>
       <div className="detail-view__copyrights">
