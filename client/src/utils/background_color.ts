@@ -1,14 +1,16 @@
 import { prominent } from 'color.js';
 
+/**
+ * Build a linear gradient black 0% | black 70% | color 100%
+ */
 export const buildGradient = (color: string) => {
-  return `linear-gradient(0deg, #000000 0%, #000000 70%, ${color} 100%)`;
+  return `linear-gradient(0deg, var(--color-dark-gray) 0%, var(--color-dark-gray) 70%, ${color} 100%)`;
 };
 
-export const defaultKaminoBrandColor = '#23597d';
-
-export const defaultBackground = `linear-gradient(0deg, #000000 0%, #000000 70%, #23597d 100%)`;
-
-export const getRandomColor = (
+/**
+ * Extract the primary color from a randomly selected user's top track image.
+ */
+export const getRandomColor = async (
   top_tracks: SpotifyApi.UsersTopTracksResponse
 ): Promise<string> => {
   // get all of the top_track's artwork
@@ -18,7 +20,9 @@ export const getRandomColor = (
     .sort(() => Math.random() - 0.5);
 
   const artworkUrl: string = top_track_artwork[0];
-  return prominent(artworkUrl, { amount: 1 }).then(
-    (color) => `rgb(${color[0]}, ${color[1]}, ${color[2]})`
-  );
+  const color = await prominent(artworkUrl, { amount: 1 });
+  return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
 };
+
+export const defaultKaminoBrandColor = '#23597d';
+export const defaultBackground = buildGradient(defaultKaminoBrandColor);
