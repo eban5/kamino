@@ -225,24 +225,49 @@ const ArtistDetail = (props: DetailProps) => {
             );
           })}
         </div>
-        <h3>About</h3>
-        <div
-          className="artist-detail-about"
-          style={{
-            backgroundImage: `linear-gradient(
-        rgba(0, 0, 0, 0.25), 
-        rgba(0, 0, 0, 0.85)
-      ), url(${headerImage})`,
-          }}
-        >
-          <div className="">{utils.numberWithCommas(followers)} followers.</div>
-          <div className="">
-            {artist?.genres
-              .slice(0, 3)
-              .map(
-                (i: string) => `${i.charAt(0).toUpperCase()}${i.substring(1)}`
-              )
-              .join(', ')}
+        <div style={{ display: 'flex' }}>
+          <div className="about">
+            <h4>About</h4>
+
+            <div
+              className="artist-detail-about"
+              style={{
+                backgroundImage: `linear-gradient(
+              rgba(0, 0, 0, 0.25), 
+              rgba(0, 0, 0, 0.85)
+              ), url(${headerImage})`,
+              }}
+            >
+              <p>
+                body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Quos blanditiis tenetur unde suscipit, quam beatae rerum
+                inventore consectetur, neque doloribus, cupiditate numquam
+                dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
+              </p>
+              <p>
+                <div className="">
+                  {utils.numberWithCommas(followers)} followers.
+                </div>
+                <div className="">
+                  {artist?.genres
+                    .slice(0, 3)
+                    .map(
+                      (i: string) =>
+                        `${i.charAt(0).toUpperCase()}${i.substring(1)}`
+                    )
+                    .join(', ')}
+                </div>
+              </p>
+            </div>
+          </div>
+          <div className="on-tour">
+            <h4>On Tour </h4>
+            <p>
+              body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore
+              consectetur, neque doloribus, cupiditate numquam dignissimos
+              laborum fugiat deleniti? Eum quasi quidem quibusdam.
+            </p>
           </div>
         </div>
       </Container>

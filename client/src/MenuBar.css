@@ -1,11 +1,25 @@
 .menubar {
-  padding: 10px 0 0 0;
-  margin-left: 25px;
-  margin-right: 25px;
   display: flex;
   justify-content: space-between;
-  flex-wrap: nowrap;
-  flex-direction: row;
+  margin-bottom: 30px;
+  /* padding: 10px 0 50px 0; */
+  /* position: fixed; */
+}
+
+.menubar__left {
+  display: flex;
+  flex: 0.5;
+  align-items: center;
+  padding: 10px;
+}
+
+.menubar__right {
+  display: flex;
+  align-items: center;
+}
+
+.menubar__right > h4 {
+  margin-left: 10px;
 }
 
 .menubar-arrows__back {
@@ -19,9 +33,9 @@
 .menubar-arrows__back,
 .menubar-arrows__forward {
   background-color: var(--color-dark-gray);
-  border-radius: 10px;
+  border-radius: 25px;
   cursor: pointer;
-  margin: 5px;
+  margin: 0 5px;
   color: white;
 }
 
@@ -48,7 +62,7 @@
   background-color: var(--color-medium-gray);
 }
 
-.menubar-user {
+/* .menubar-user {
   color: white;
   font-weight: 700;
   background-color: rgba(40, 48, 56, 0.5);
@@ -64,4 +78,4 @@
   margin-left: 5px;
   align-items: center;
   text-transform: capitalize;
-}
+} */

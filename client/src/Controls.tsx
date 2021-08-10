@@ -2,18 +2,27 @@ import {
   PlayCircleOutline,
   SkipPrevious,
   SkipNext,
-  // PlaylistPlay,
+  PlaylistPlay,
   Shuffle,
   Repeat,
-  // VolumeDown,
+  VolumeDown,
 } from '@material-ui/icons';
+import { Grid, Slider } from '@material-ui/core';
 import './Controls.css';
 
 const Controls = () => {
   return (
-    <div className="controls">
+    <div className="footer">
       <div className="footer__left">
-        {/* <PlaylistPlay className="footer__icon" /> */}
+        <img
+          className="footer__albumLogo"
+          src="https://scene360.com/wp-content/uploads/2013/10/album-covers-05.jpg"
+          alt=""
+        />
+        <div className="footer__song-info">
+          <h4>Song Title</h4>
+          <p>Artist</p>
+        </div>
       </div>
       <div className="footer__center">
         <Shuffle className="footer__green" />
@@ -23,7 +32,17 @@ const Controls = () => {
         <Repeat className="footer__green" />
       </div>
       <div className="footer__right">
-        {/* <VolumeDown className="footer__icon" /> */}
+        <Grid container spacing={2}>
+          <Grid item>
+            <PlaylistPlay className="footer__icon" />
+          </Grid>
+          <Grid item>
+            <VolumeDown className="footer__icon" />
+          </Grid>
+          <Grid item xs>
+            <Slider />
+          </Grid>
+        </Grid>
       </div>
     </div>
   );
