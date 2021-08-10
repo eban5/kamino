@@ -135,6 +135,7 @@ const Detail = (props: DetailProps) => {
     setAnchorEl(event.currentTarget);
   };
 
+  //eslint-disable-next-line
   const handleClose = () => {
     setAnchorEl(null);
   };
