@@ -1,7 +1,7 @@
 .sidebar-item {
   display: flex;
   align-items: center;
-  color: var(--color-light-gray);
+  color: var(--color-text-gray);
   height: 35px;
   cursor: pointer;
   transition: 200ms color ease-in;
@@ -26,7 +26,7 @@
   font-weight: 600;
   font-size: 14px;
   transition: 100ms color ease-in;
-  color: var(--color-light-gray);
+  color: var(--color-text-gray);
 }
 
 .sidebar-section-title:hover {
