@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useDataLayerValue } from './DataLayer';
+import { CurrentlyPlaying } from './reducer';
 import './SongRow.css';
 
 //@ts-ignore
@@ -9,20 +10,26 @@ function SongRow({ track, trackNumber }) {
 
   // const onSingleClick = (currently_playing: any) => {};
 
-  const onDoubleClick = (currently_playing: any) => {
+  const onDoubleClick = (currently_playing: CurrentlyPlaying) => {
     dispatch({
       type: 'SET_CURRENTLY_PLAYING',
       currently_playing: {
         artist: currently_playing.artist,
         track: currently_playing.track,
         albumArt: currently_playing.albumArt,
+        duration: currently_playing.duration,
       },
+    });
+
+    dispatch({
+      type: 'SET_PLAYBACK',
+      playback: 'PLAYING',
     });
   };
 
   //  distinguish between single and double clicks
   let timer: any;
-  const onClickHandler = (event: any, currently_playing: any) => {
+  const onClickHandler = (event: any, currently_playing: CurrentlyPlaying) => {
     clearTimeout(timer);
     if (event.detail === 1) {
       // timer = setTimeout(() => onSingleClick(currently_playing), 200);
@@ -44,6 +51,7 @@ function SongRow({ track, trackNumber }) {
           artist: artists,
           track: track.name,
           albumArt: albumArt,
+          duration: track.duration,
         })
       }
       className="song-row"

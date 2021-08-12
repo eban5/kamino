@@ -24,6 +24,8 @@ const scopes = [
   'user-read-currently-playing',
   'user-read-recently-played',
   'user-top-read',
+  'playlist-read-private',
+  'playlist-read-collaborative',
 ];
 
 // extract the Access Token from the URL once we get it from Spotify after successful login.

@@ -1,11 +1,25 @@
 // taken from https://medium.com/cleverprogrammer/spotify-clone-using-reactjs-the-ultimate-guide-2a47977a1e4f
 
-export const initialState = {
+export interface CurrentlyPlaying {
+  artist: string;
+  track: string;
+  albumArt: string;
+  duration: string;
+}
+
+export interface KaminoState {
+  user: any;
+  token: string | null;
+  playlists: any[];
+  playback: 'READY' | 'PLAYING' | 'PAUSED' | 'COMPLETE';
+  currently_playing: CurrentlyPlaying | null;
+}
+
+export const initialState: KaminoState = {
   user: null,
   token: null,
   playlists: [],
-  playing: false,
-  item: null,
+  playback: 'READY',
   currently_playing: null,
 };
 
@@ -71,6 +85,13 @@ const reducer = (state: any, action: any) => {
         ...state,
         categories: action.categories,
       };
+
+    case 'SET_PLAYBACK':
+      return {
+        ...state,
+        playback: action.playback,
+      };
+
     default:
       return state;
   }
