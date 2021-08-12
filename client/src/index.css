@@ -1,10 +1,11 @@
-html {
+:root {
   --color-text: #fff;
   --color-dark-gray: #14181c;
   --color-medium-gray: #283038;
   --color-light-gray: #789;
   --color-text-gray: #999;
   --color-kamino-blue: #0077c0;
+  --color-spotify-green: #1ed15e;
   --color-background-dark: #000000;
   --color-background-medium: #181818;
 }

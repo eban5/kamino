@@ -46,7 +46,7 @@
   object-fit: contain;
 }
 .footer__green {
-  color: #1ed15e;
+  color: var(--color-spotify-green);
 }
 .footer__songInfo > h4 {
   margin-bottom: 5px;
@@ -60,5 +60,5 @@
   transform: scale(1.2) !important;
 }
 .footer__right * .MuiSlider-root {
-  color: #1ed15e;
+  color: var(--color-spotify-green);
 }

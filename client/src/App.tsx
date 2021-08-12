@@ -26,18 +26,26 @@ function App() {
         token: _token,
       });
       spotify.setAccessToken(_token);
-      spotify.getMe().then((user: any) => {
-        dispatch({
-          type: 'SET_USER',
-          user,
+      spotify
+        .getMe()
+        .then((user: SpotifyApi.UserProfileResponse) => {
+          dispatch({
+            type: 'SET_USER',
+            user,
+          });
+          return user;
+        })
+        .then((user: SpotifyApi.UserProfileResponse) => {
+          spotify
+            .getUserPlaylists(user.id, { limit: 50 })
+            .then((playlists: any) => {
+              dispatch({
+                type: 'SET_PLAYLISTS',
+                playlists,
+              });
+            });
         });
-      });
-      spotify.getUserPlaylists().then((playlists: any) => {
-        dispatch({
-          type: 'SET_PLAYLISTS',
-          playlists,
-        });
-      });
+
       // get Discover Weekly by ID
       spotify.getPlaylist('37i9dQZF1E34Ucml4HHx1w').then((playlist: any) => {
         dispatch({
