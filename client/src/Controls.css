@@ -1,7 +1,7 @@
 .footer {
   position: fixed;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   bottom: 0;
   height: 65px;
   width: 100%;
@@ -17,14 +17,15 @@
   padding: 0 10px;
 }
 .footer__left {
-  flex: 0.3;
+  flex: 0.2;
   display: flex;
   align-items: center;
   max-width: 300px;
   color: white;
 }
 .footer__center {
-  flex: 0.4;
+  flex: 0.6;
+  flex-direction: column;
   padding: 0 100px;
   color: white;
   display: flex;
@@ -33,7 +34,7 @@
   max-width: 300px;
 }
 .footer__right {
-  flex: 0.3;
+  flex: 0.2;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -61,4 +62,18 @@
 }
 .footer__right * .MuiSlider-root {
   color: var(--color-spotify-green);
+}
+
+.footer__progress {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.footer__progress-position,
+.footer__progress-duration {
+  display: inline-flex;
+  width: 50px;
+  margin: 0 5px;
 }

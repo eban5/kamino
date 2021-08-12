@@ -2,12 +2,13 @@ import { Link } from 'react-router-dom';
 import { useDataLayerValue } from './DataLayer';
 import { CurrentlyPlaying } from './reducer';
 import './SongRow.css';
+import { millisToMinutesAndSeconds } from './utils/utils';
 
 //@ts-ignore
 function SongRow({ track, trackNumber }) {
   //@ts-ignore
   const [{}, dispatch] = useDataLayerValue(); //eslint-disable-line
-
+  const _track: SpotifyApi.TrackObjectFull = track;
   // const onSingleClick = (currently_playing: any) => {};
 
   const onDoubleClick = (currently_playing: CurrentlyPlaying) => {
@@ -38,37 +39,37 @@ function SongRow({ track, trackNumber }) {
     }
   };
 
-  const artists = track?.artists
-    .map((artist: SpotifyApi.ArtistObjectFull) => artist.name)
+  const artists = _track?.artists
+    .map((artist: SpotifyApi.ArtistObjectSimplified) => artist.name)
     .join(', ');
 
-  const albumArt: string = track?.album.images[0].url;
+  const albumArt: string = _track?.album.images[0].url;
 
   return (
     <div
       onClick={(e) =>
         onClickHandler(e, {
           artist: artists,
-          track: track.name,
+          track: _track.name,
           albumArt: albumArt,
-          duration: track.duration,
+          duration: millisToMinutesAndSeconds(_track.duration_ms).toString(),
         })
       }
       className="song-row"
     >
       <div className="song-row-index">{trackNumber}</div>
-      <Link to={`/album/${track?.album.id}`}>
+      <Link to={`/album/${_track?.album.id}`}>
         <img
           className="detail-view-tracklist-art"
           src={`${albumArt}`}
-          alt={`Album art ${track?.name}`}
+          alt={`Album art ${_track?.name}`}
         />
       </Link>
       <div className="song-row-info">
-        <h1>{track.name}</h1>
+        <h1>{_track.name}</h1>
         <p>
           {artists}
-          {track.album_name}
+          {_track.album.name}
         </p>
       </div>
     </div>

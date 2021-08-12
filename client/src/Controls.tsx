@@ -14,6 +14,7 @@ import { Grid, Slider } from '@material-ui/core';
 import './Controls.css';
 import { useDataLayerValue } from './DataLayer';
 import { makeStyles } from '@material-ui/core/styles';
+import { millisToMinutesAndSeconds } from './utils/utils';
 
 const useStyles = makeStyles({
   root: {
@@ -27,17 +28,17 @@ const Controls = () => {
 
   const classes = useStyles();
   const [progress, setProgress] = useState<number>(0);
-
+  console.log(currently_playing);
   useEffect(() => {
     const timer = setInterval(() => {
       if (playback === 'PLAYING') {
         setProgress((oldProgress) => {
-          if (oldProgress === 100) {
+          if (oldProgress === currently_playing.duration) {
             dispatch({ type: 'SET_PLAYBACK', playback: 'COMPLETE' });
             return 0;
           }
 
-          return Math.min(oldProgress + 1, 100);
+          return Math.min(oldProgress + 1000, 10000);
         });
       }
     }, 1000);
@@ -45,7 +46,7 @@ const Controls = () => {
     return () => {
       clearInterval(timer);
     };
-  }, [playback, dispatch]);
+  }, [playback, currently_playing, dispatch]);
 
   return (
     <div className="footer">
@@ -65,7 +66,7 @@ const Controls = () => {
         )}
       </div>
       <div className="footer__center">
-        <div>
+        <div className="footer__controls">
           <Shuffle className="footer__green" />
           <SkipPrevious className="footer__icon" />
           {playback !== 'PLAYING' ? (
@@ -88,9 +89,17 @@ const Controls = () => {
           <SkipNext className="footer__icon" />
           <Repeat className="footer__green" />
         </div>
-        <div className={classes.root}>
-          <LinearProgress variant="determinate" value={progress} />
-          <p>{progress}</p>
+        <div className="footer__progress">
+          <div className="footer__progress-position">
+            {' '}
+            {millisToMinutesAndSeconds(progress)}
+          </div>
+          <div className={classes.root}>
+            <LinearProgress variant="determinate" value={progress} />
+          </div>
+          <div className="footer__progress-duration">
+            {currently_playing && currently_playing.duration}
+          </div>
         </div>
       </div>
       <div className="footer__right">
