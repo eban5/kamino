@@ -45,7 +45,7 @@ const Controls = () => {
     return () => {
       clearInterval(timer);
     };
-  }, [playback]);
+  }, [playback, dispatch]);
 
   return (
     <div className="footer">

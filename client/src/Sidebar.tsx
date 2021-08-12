@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './Sidebar.css';
 import './SidebarItem.css';
 import HomeIcon from '@material-ui/icons/Home';
