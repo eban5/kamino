@@ -34,7 +34,7 @@ const QuickPlaylists = (props: QuickPlaylistsProps) => {
     <>
       {playlists?.items &&
         playlists?.items
-          .slice(0, 8)
+          .slice(0, 6)
           .map((playlist: SpotifyApi.PlaylistBaseObject, index: number) => {
             return (
               <Link to={`/playlist/${playlist.id}`} key={index}>
@@ -46,7 +46,8 @@ const QuickPlaylists = (props: QuickPlaylistsProps) => {
                   id={playlist.id}
                 />
               </Link>
-            );
+
+);
           })}
     </>
   );

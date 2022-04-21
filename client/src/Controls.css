@@ -3,10 +3,11 @@
   display: flex;
   justify-content: space-between;
   bottom: 0;
-  height: 65px;
+  height: 55px;
   width: 100%;
   background-color: #282828;
   color: white;
+  font-size: 0.75em;
   padding: 20px;
 }
 .controls > div > svg {

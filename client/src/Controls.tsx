@@ -32,14 +32,18 @@ const Controls = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       if (playback === 'PLAYING') {
-        setProgress((oldProgress) => {
-          if (oldProgress === currently_playing.duration) {
-            dispatch({ type: 'SET_PLAYBACK', playback: 'COMPLETE' });
-            return 0;
-          }
+        if (currently_playing) {
+          setProgress((oldProgress) => {
+            if (oldProgress === currently_playing.duration) {
+              dispatch({ type: 'SET_PLAYBACK', playback: 'COMPLETE' });
+              return 0;
+            }
 
-          return Math.min(oldProgress + 1000, 10000);
-        });
+            return Math.min(oldProgress + 1000, 10000);
+          });
+        } else {
+          return 0;
+        }
       }
     }, 1000);
 
