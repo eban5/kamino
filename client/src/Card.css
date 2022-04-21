@@ -3,18 +3,15 @@
   display: flex;
   margin: 10px;
   padding: 0;
-  font-size: 14px;
+  font-size: 1.1em;
   background-color: var(--color-dark-gray);
   flex-direction: row;
   cursor: pointer;
 }
 
 .card__horizontal-item {
-  background: linear-gradient(
-    var(--color-medium-gray) 0%,
-    var(--color-dark-gray) 50%,
-    var(--color-dark-gray) 100%
-  );
+  background: radial-gradient(farthest-corner at 40px 40px, var(--color-medium-gray) 0%, var(--color-dark-gray) 100%);
+
   border-radius: 3px;
   width: 400px;
 }

@@ -4,7 +4,7 @@ import { prominent } from 'color.js';
  * Build a linear gradient black 0% | black 70% | color 100%
  */
 export const buildGradient = (color: string) => {
-  return `linear-gradient(0deg, var(--color-dark-gray) 0%, var(--color-dark-gray) 70%, ${color} 100%)`;
+  return `linear-gradient(0deg, black 0%, var(--color-dark-gray) 85%, ${color} 100%)`;
 };
 
 /**
