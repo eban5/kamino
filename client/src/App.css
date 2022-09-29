@@ -30,7 +30,7 @@ a:hover {
   height: 100vh;
   display: grid;
   grid-template-columns: 275px auto;
-  grid-template-rows: 90% 10%;
+  grid-template-rows: 100%;
 }
 
 main,
@@ -43,7 +43,7 @@ footer {
 }
 
 main {
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   padding: 0;
 }
 

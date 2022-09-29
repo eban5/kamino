@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useDataLayerValue } from './DataLayer';
 import { CurrentlyPlaying } from './reducer';
 import './SongRow.css';
-import { millisToMinutesAndSeconds } from './utils/utils';
+import { millisToMinutesAndSeconds, numberWithCommas } from './utils/utils';
 
 //@ts-ignore
 function SongRow({ track, trackNumber }) {
@@ -58,19 +58,14 @@ function SongRow({ track, trackNumber }) {
       className="song-row"
     >
       <div className="song-row-index">{trackNumber}</div>
-      <Link to={`/album/${_track?.album.id}`}>
-        <img
-          className="detail-view-tracklist-art"
-          src={`${albumArt}`}
-          alt={`Album art ${_track?.name}`}
-        />
-      </Link>
       <div className="song-row-info">
         <h1>{_track.name}</h1>
-        <p>
-          {artists}
-          {_track.album.name}
-        </p>
+        <p>{artists}</p>
+      </div>
+      <div className="spacer"></div>
+      <div className="song-row-popularity">{_track.popularity}</div>
+      <div className="song-row-duration">
+        {millisToMinutesAndSeconds(_track.duration_ms)}
       </div>
     </div>
   );

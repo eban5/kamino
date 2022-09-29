@@ -244,7 +244,7 @@ const ArtistDetail = (props: DetailProps) => {
                 inventore consectetur, neque doloribus, cupiditate numquam
                 dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
               </p>
-              <p>
+              <div>
                 <div className="">
                   {utils.numberWithCommas(followers)} followers.
                 </div>
@@ -257,7 +257,7 @@ const ArtistDetail = (props: DetailProps) => {
                     )
                     .join(', ')}
                 </div>
-              </p>
+              </div>
             </div>
           </div>
           <div className="on-tour">

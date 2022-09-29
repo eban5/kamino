@@ -1,9 +1,16 @@
 .song-row {
-  margin-left: 20px;
-  padding: 10px;
   display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-left: 1em;
+  padding: 0.5em;
   align-items: center;
+  justify-content: center;
   color: white;
+}
+
+.spacer {
+  flex-grow: 1;
 }
 
 .song-row:hover {
@@ -13,23 +20,26 @@
 }
 
 .song-row-info {
-  margin-left: 20px;
+  margin-left: 1em;
 }
 
 .song-row-info > h1 {
-  font-size: 16px;
+  font-size: 1.2em;
 }
 .song-row-info > p {
-  font-size: 14px;
+  font-size: 1em;
   margin-top: 2px;
   color: var(--color-text-gray);
 }
-.song-row-info > img {
-  width: 40px;
-  height: 40px;
-}
 
 .song-row-index {
-  margin-right: 20px;
+  margin-right: 1em;
   color: var(--color-text-gray);
+}
+
+.song-row-duration {
+  padding-right: 1em;
+}
+.song-row-popularity {
+  padding-right: 1em;
 }

@@ -46,8 +46,7 @@ const QuickPlaylists = (props: QuickPlaylistsProps) => {
                   id={playlist.id}
                 />
               </Link>
-
-);
+            );
           })}
     </>
   );
@@ -127,9 +126,8 @@ const Top = (props: TopProps) => {
 //@ts-ignore
 export const Home = ({ spotify }) => {
   //@ts-ignore
-  const [
-    { playlists, recently_played, top_artists, top_tracks, albums },
-  ] = useDataLayerValue();
+  const [{ playlists, recently_played, top_artists, top_tracks, albums }] =
+    useDataLayerValue();
 
   return (
     <>
@@ -139,6 +137,7 @@ export const Home = ({ spotify }) => {
       </div>
 
       <div className="home-header-container">
+        {/* ------------- */}
         <h2 className="home-header">Recently played</h2>
         <h6 className="home-header-see-all">See All</h6>
       </div>
@@ -146,17 +145,20 @@ export const Home = ({ spotify }) => {
         <RecentlyPlayed items={recently_played} />
       </div>
 
+      {/* ------------- */}
       <h2 className="home-header">Top Artists</h2>
-
       <div className="card-grid">
         <Top items={top_artists} />
       </div>
-      <h2 className="home-header">Top Tracks</h2>
 
+      {/* ------------- */}
+      <h2 className="home-header">Top Tracks</h2>
       <div className="card-grid">
         <Top items={top_tracks} />
       </div>
 
+      {/* ------------- */}
+      {/* TODO Spotify API is throwing 502s on getting a user's saved albums endpoint. They don't look like they're ever going to fix or respond to community filed tickets. */}
       <h2 className="home-header">Saved Albums</h2>
       <div className="card-grid">
         <Top items={albums} />
@@ -250,9 +252,9 @@ const Player = ({ spotify }) => {
           </Container>
         </div>
       </main>
-      <footer>
+      {/* <footer>
         <Controls />
-      </footer>
+      </footer> */}
     </div>
   );
 };

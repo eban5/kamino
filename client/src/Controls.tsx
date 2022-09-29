@@ -28,7 +28,7 @@ const Controls = () => {
 
   const classes = useStyles();
   const [progress, setProgress] = useState<number>(0);
-  console.log(currently_playing);
+
   useEffect(() => {
     const timer = setInterval(() => {
       if (playback === 'PLAYING') {
