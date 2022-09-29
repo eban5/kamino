@@ -3,14 +3,18 @@
   display: flex;
   margin: 10px;
   padding: 0;
-  font-size: 1.1em;
+  font-size: 0.9em;
   background-color: var(--color-dark-gray);
   flex-direction: row;
   cursor: pointer;
 }
 
 .card__horizontal-item {
-  background: radial-gradient(farthest-corner at 40px 40px, var(--color-medium-gray) 0%, var(--color-dark-gray) 100%);
+  background: radial-gradient(
+    farthest-corner at 40px 40px,
+    var(--color-medium-gray) 0%,
+    var(--color-dark-gray) 100%
+  );
 
   border-radius: 3px;
   width: 400px;
@@ -69,13 +73,13 @@
 
 .card__vertical-item__title,
 .card__horizontal-item__title {
-  padding-bottom: 5px;
+  margin-bottom: 0.5em;
 }
 
 .card__vertical-item__title {
-  font-size: 16px;
+  font-size: 1.2em;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

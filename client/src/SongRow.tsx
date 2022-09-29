@@ -45,6 +45,25 @@ function SongRow({ track, trackNumber }) {
 
   const albumArt: string = _track?.album.images[0].url;
 
+  const PopularityDots = (popularityScore: number) => {
+    const numFilledDots =
+      popularityScore < 33 ? 1 : popularityScore > 66 ? 3 : 2;
+    const numEmptyDots = 3 - numFilledDots;
+
+    console.log({ popularityScore, numFilledDots, numEmptyDots });
+
+    return [
+      ...[...Array(numFilledDots)].map((e, i) => (
+        <span className="popularity-dot" key={i}></span>
+      )),
+      [
+        ...[...Array(numEmptyDots)].map((e, i) => (
+          <span className="popularity-dot empty-dot" key={i}></span>
+        )),
+      ],
+    ];
+  };
+
   return (
     <div
       onClick={(e) =>
@@ -63,7 +82,9 @@ function SongRow({ track, trackNumber }) {
         <p>{artists}</p>
       </div>
       <div className="spacer"></div>
-      <div className="song-row-popularity">{_track.popularity}</div>
+      <div className="song-row-popularity">
+        {PopularityDots(_track.popularity)}
+      </div>
       <div className="song-row-duration">
         {millisToMinutesAndSeconds(_track.duration_ms)}
       </div>
